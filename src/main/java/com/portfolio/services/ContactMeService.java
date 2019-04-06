@@ -1,4 +1,4 @@
 package com.portfolio.services;
 
-public class ContactMeService {
+public interface ContactMeService {
 }
