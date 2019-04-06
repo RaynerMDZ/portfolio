@@ -1,15 +1,16 @@
 package com.portfolio.services;
 
+import com.portfolio.entities.PortfolioPostEntity;
 import com.portfolio.models.PortfolioPost;
 
-import java.util.Optional;
+import java.util.Set;
 
 public interface PortfolioPostService {
 
-  Iterable<PortfolioPost> getAllPosts();
-  Optional<PortfolioPost> getPostById(Long id);
-  Optional<PortfolioPost> createPost(PortfolioPost post);
-  Optional<PortfolioPost> updatePost(PortfolioPost post);
+  Set<PortfolioPostEntity> getAllPosts();
+  PortfolioPost getPostById(Long id);
+  PortfolioPost createPost(PortfolioPost post);
+  PortfolioPost updatePost(PortfolioPost post);
   boolean deletePostById(Long id);
   boolean hidePost(Long id);
 }

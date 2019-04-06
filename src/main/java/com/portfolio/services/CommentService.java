@@ -2,12 +2,12 @@ package com.portfolio.services;
 
 import com.portfolio.models.Comment;
 
-import java.util.Optional;
+import java.util.Set;
 
 public interface CommentService {
 
-  Iterable<Comment> getAllComments();
-  Optional<Comment> createComment(Comment comment);
-  Optional<Comment> getCommentById(Long id);
+  Set<Comment> getAllComments();
+  Comment createComment(Comment comment);
+  Comment getCommentById(Long id);
   boolean deleteCommentById(Long id);
 }
