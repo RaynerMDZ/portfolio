@@ -97,6 +97,12 @@
             <version>5.7.2</version>
         </dependency>
 
+<!--        Jersey security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
