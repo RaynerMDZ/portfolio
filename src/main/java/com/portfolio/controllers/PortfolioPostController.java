@@ -1,5 +1,6 @@
 package com.portfolio.controllers;
 
+import com.portfolio.services.PictureService;
 import com.portfolio.services.PortfolioPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,23 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PortfolioPostController {
 
-  private final PortfolioPostService service;
+  private final PortfolioPostService portfolioPostService;
+  private final PictureService pictureService;
 
-  public PortfolioPostController(PortfolioPostService service) {
-    this.service = service;
+  public PortfolioPostController(PortfolioPostService portfolioPostService, PictureService pictureService) {
+    this.portfolioPostService = portfolioPostService;
+    this.pictureService = pictureService;
   }
 
   @GetMapping
-  @RequestMapping({"portfolio/portfolio"})
+  @RequestMapping({"portfolio"})
   public String getAllPost(Model model) {
-    model.addAttribute("posts", service.getAllPosts());
-
-    return "portfolio/portfolio";
+    model.addAttribute("posts", portfolioPostService.getAllPosts());
+    model.addAttribute("picture", pictureService.findFirstPicture());
+    return "fragments/portfolio/portfolio";
   }
 
 
   @GetMapping
-  @RequestMapping("/")
+  @RequestMapping("/post")
   public String getPostById(@PathVariable Long Id) {
 
     return null;

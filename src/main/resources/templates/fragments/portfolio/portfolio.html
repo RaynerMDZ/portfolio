@@ -19,16 +19,18 @@
                 </p>
             </div>
         </div>
-        <div class="row mb-5 text-center">
+
+        <div class="row mb-5 text-center" th:each="post : ${posts}">
 
             <div class="col-md-6 col-lg-3">
-                <img src="portfolio.png" alt="" class="img-thumbnail">
-                <h5 class="my-3 font-weight-light">The Squeeze</h5>
-                <p class="lead text-muted" th:text="">
+                <img src="portfolio.png" alt="" class="img-thumbnail" th:text="${post.getPictureEntities()}">
+                <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}">The Squeeze</h5>
+                <p class="lead text-muted" th:text="${post.getDescription()}">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
                 </p>
             </div>
+
             <div class="col-md-6 col-lg-3" th:remove="all">
                 <img src="portfolio.png" alt="" class="img-thumbnail">
                 <h5 class="my-3 font-weight-light">Landing Page</h5>
@@ -37,22 +39,25 @@
                     Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
                 </p>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <img src="portfolio.png" alt="" class="img-thumbnail" th:remove="all">
+
+            <div class="col-md-6 col-lg-3" th:remove="all">
+                <img src="portfolio.png" alt="" class="img-thumbnail">
                 <h5 class="my-3 font-weight-light">Animations</h5>
                 <p class="lead text-muted">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
                 </p>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <img src="portfolio.png" alt="" class="img-thumbnail" th:remove="all">
+
+            <div class="col-md-6 col-lg-3" th:remove="all">
+                <img src="portfolio.png" alt="" class="img-thumbnail" >
                 <h5 class="my-3 font-weight-light">The Squeeze</h5>
                 <p class="lead text-muted">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
                 </p>
             </div>
+
         </div>
     </div>
 </section>

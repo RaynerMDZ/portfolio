@@ -9,7 +9,6 @@
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
     <script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
-
 </head>
 <body>
     <header th:insert="fragments/navbar.html :: navbar"></header>
@@ -18,7 +17,7 @@
 
     <section th:insert="fragments/about.html :: about"></section>
 
-    <section th:insert="fragments/portfolio.html :: portfolio"></section>
+    <section th:insert="fragments/portfolio/portfolio.html :: portfolio"></section>
 
     <section th:insert="fragments/services.html :: services"></section>
 
