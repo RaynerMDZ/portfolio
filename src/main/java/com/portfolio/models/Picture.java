@@ -2,8 +2,17 @@ package com.portfolio.models;
 
 public class Picture {
 
+  private Long id;
   private Byte[] picture;
-  private PortfolioPost post;
+  private Long postId;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public Byte[] getPicture() {
     return picture;
@@ -13,11 +22,11 @@ public class Picture {
     this.picture = picture;
   }
 
-  public PortfolioPost getPost() {
-    return post;
+  public Long getPostId() {
+    return postId;
   }
 
-  public void setPost(PortfolioPost post) {
-    this.post = post;
+  public void setPostId(Long postId) {
+    this.postId = postId;
   }
 }

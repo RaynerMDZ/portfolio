@@ -16,6 +16,15 @@ public class PortfolioPostToPortfolioPostEntity implements Converter<PortfolioPo
   @Nullable
   @Override
   public PortfolioPostEntity convert(PortfolioPost post) {
-    return null;
+    if (post == null) return null;
+
+    final PortfolioPostEntity entity = new PortfolioPostEntity();
+    entity.setId(post.getId());
+    entity.setTitle(post.getTitle());
+    entity.setDescription(post.getDescription());
+    entity.setCreatedDate(post.getCreatedDate());
+    entity.setModifiedDate(post.getModifiedDate());
+
+    return entity;
   }
 }

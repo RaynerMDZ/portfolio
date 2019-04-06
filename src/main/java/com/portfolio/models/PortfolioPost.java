@@ -6,12 +6,21 @@ import java.util.Set;
 
 public class PortfolioPost {
 
+  private Long id;
   private String Title;
   private String description;
   private LocalDate createdDate;
   private LocalDate modifiedDate;
   private Set<Picture> pictureEntities = new HashSet<>();
   private Set<Comment> commentEntities = new HashSet<>();
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public String getTitle() {
     return Title;

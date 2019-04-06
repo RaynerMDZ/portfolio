@@ -4,10 +4,19 @@ import java.time.LocalDate;
 
 public class Comment {
 
+  private Long id;
   private String name;
   private String body;
   private LocalDate creationDate;
-  private PortfolioPost post;
+  private Long postId;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -33,11 +42,11 @@ public class Comment {
     this.creationDate = creationDate;
   }
 
-  public PortfolioPost getPost() {
-    return post;
+  public Long getPostId() {
+    return postId;
   }
 
-  public void setPost(PortfolioPost post) {
-    this.post = post;
+  public void setPostId(Long postId) {
+    this.postId = postId;
   }
 }
