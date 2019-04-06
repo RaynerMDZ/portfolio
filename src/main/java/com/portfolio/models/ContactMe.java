@@ -1,4 +1,8 @@
 package com.portfolio.models;
 
-public class ContactMe {
+import java.io.Serializable;
+
+public class ContactMe implements Serializable {
+
+
 }
