@@ -4,11 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "ID")})
-public class PortfolioPostEntity implements Serializable {
+@Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+public class PortfolioPostEntity extends BaseEntity implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, nullable = false)
-  private Long id;
 }
