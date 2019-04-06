@@ -1,6 +1,5 @@
 package com.portfolio.converters.picture;
 
-import com.portfolio.entities.PictureEntity;
 import com.portfolio.models.Picture;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PictureToPictureEntity implements Converter<Picture, PictureEntity> {
+public class PictureToPictureEntity implements Converter<Picture, com.portfolio.entities.PictureEntity> {
 
   @Synchronized
   @Nullable
   @Override
-  public PictureEntity convert(Picture picture) {
+  public com.portfolio.entities.PictureEntity convert(Picture picture) {
     return null;
   }
 }

@@ -1,6 +1,5 @@
 package com.portfolio.converters.comment;
 
-import com.portfolio.entities.CommentEntity;
 import com.portfolio.models.Comment;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CommentEntityToComment implements Converter<CommentEntity, Comment> {
+public class CommentEntityToComment implements Converter<com.portfolio.entities.CommentEntity, Comment> {
 
   @Synchronized
   @Nullable
   @Override
-  public Comment convert(CommentEntity commentEntity) {
+  public Comment convert(com.portfolio.entities.CommentEntity commentEntity) {
     return null;
   }
 }
