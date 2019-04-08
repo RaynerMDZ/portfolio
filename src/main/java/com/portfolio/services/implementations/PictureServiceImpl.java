@@ -29,25 +29,14 @@ public class PictureServiceImpl implements PictureService {
 
   private final PictureRepository repository;
   private final PortfolioPostRepository portfolioPostRepository;
-  private final PortfolioPostEntityToPortfolioPost toPortfolioPost;
-  private final PortfolioPostToPortfolioPostEntity toPortfolioPostEntity;
-  private final PictureToPictureEntity toPictureEntity;
-  private final PictureEntityToPicture toPicture;
   private final PortfolioPostService portfolioPostService;
+
 
   public PictureServiceImpl(PictureRepository repository,
                             PortfolioPostRepository portfolioPostRepository,
-                            PortfolioPostEntityToPortfolioPost toPortfolioPost,
-                            PortfolioPostToPortfolioPostEntity toPortfolioPostEntity,
-                            PictureToPictureEntity toPictureEntity,
-                            PictureEntityToPicture toPicture,
                             PortfolioPostService portfolioPostService) {
     this.repository = repository;
     this.portfolioPostRepository = portfolioPostRepository;
-    this.toPortfolioPost = toPortfolioPost;
-    this.toPortfolioPostEntity = toPortfolioPostEntity;
-    this.toPictureEntity = toPictureEntity;
-    this.toPicture = toPicture;
     this.portfolioPostService = portfolioPostService;
   }
 

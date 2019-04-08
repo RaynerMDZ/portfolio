@@ -1,31 +1,21 @@
 package com.portfolio.services.implementations;
 
-import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
-import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
 import com.portfolio.entities.Post;
-import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PortfolioPostRepository;
 import com.portfolio.services.PortfolioPostService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class PortfolioPostServiceImpl implements PortfolioPostService {
 
   private final PortfolioPostRepository portfolioPostRepository;
-  private final PortfolioPostToPortfolioPostEntity toPortfolioPostEntity;
-  private final PortfolioPostEntityToPortfolioPost toPortfolioPost;
 
-  public PortfolioPostServiceImpl(PortfolioPostRepository portfolioPostRepository,
-                                  PortfolioPostToPortfolioPostEntity toPortfolioPostEntity,
-                                  PortfolioPostEntityToPortfolioPost toPortfolioPost) {
+  public PortfolioPostServiceImpl(PortfolioPostRepository portfolioPostRepository) {
     this.portfolioPostRepository = portfolioPostRepository;
-    this.toPortfolioPostEntity = toPortfolioPostEntity;
-    this.toPortfolioPost = toPortfolioPost;
   }
 
   @Override

@@ -1,6 +1,7 @@
 package com.portfolio.services;
 
-import com.portfolio.models.Comment;
+
+import com.portfolio.entities.Comment;
 
 import java.util.Set;
 

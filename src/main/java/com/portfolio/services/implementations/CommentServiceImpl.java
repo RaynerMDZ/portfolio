@@ -1,6 +1,6 @@
 package com.portfolio.services.implementations;
 
-import com.portfolio.models.Comment;
+import com.portfolio.entities.Comment;
 import com.portfolio.repositories.CommentRepository;
 import com.portfolio.services.CommentService;
 import org.springframework.stereotype.Service;

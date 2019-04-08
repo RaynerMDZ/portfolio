@@ -1,7 +1,6 @@
 package com.portfolio.services;
 
 import com.portfolio.entities.Picture;
-import com.portfolio.models.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
