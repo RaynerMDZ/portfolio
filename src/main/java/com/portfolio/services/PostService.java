@@ -4,7 +4,7 @@ import com.portfolio.entities.Post;
 
 import java.util.Set;
 
-public interface PortfolioPostService {
+public interface PostService {
 
   Set<Post> getAllPosts();
   Post getPostById(Long id);

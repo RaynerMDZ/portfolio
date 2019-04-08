@@ -9,9 +9,9 @@ import com.portfolio.entities.Post;
 import com.portfolio.models.Picture;
 import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PictureRepository;
-import com.portfolio.repositories.PortfolioPostRepository;
+import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
-import com.portfolio.services.PortfolioPostService;
+import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,15 +28,15 @@ import java.util.Set;
 public class PictureServiceImpl implements PictureService {
 
   private final PictureRepository repository;
-  private final PortfolioPostRepository portfolioPostRepository;
-  private final PortfolioPostService portfolioPostService;
+  private final PostRepository postRepository;
+  private final PostService portfolioPostService;
 
 
   public PictureServiceImpl(PictureRepository repository,
-                            PortfolioPostRepository portfolioPostRepository,
-                            PortfolioPostService portfolioPostService) {
+                            PostRepository postRepository,
+                            PostService portfolioPostService) {
     this.repository = repository;
-    this.portfolioPostRepository = portfolioPostRepository;
+    this.postRepository = postRepository;
     this.portfolioPostService = portfolioPostService;
   }
 
@@ -61,7 +61,7 @@ public class PictureServiceImpl implements PictureService {
   public Picture addPicture(Long postId, MultipartFile file) {
 
     try {
-      Post post = portfolioPostRepository.findById(postId).get();
+      Post post = postRepository.findById(postId).get();
 
       Byte[] byteObjects = new Byte[file.getBytes().length];
 
@@ -75,7 +75,7 @@ public class PictureServiceImpl implements PictureService {
 
       post.getPictures().add(picture);
 
-      portfolioPostRepository.save(post);
+      postRepository.save(post);
 
       return toPicture.convert(picture);
 
@@ -108,7 +108,7 @@ public class PictureServiceImpl implements PictureService {
   @Transactional
   public Picture findFirstPicture(Long id) {
 
-    Optional<Post> post = portfolioPostRepository.findById(id);
+    Optional<Post> post = postRepository.findById(id);
 
     PortfolioPost portfolioPost = toPortfolioPost.convert(post.orElse(null));
 

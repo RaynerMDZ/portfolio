@@ -21,6 +21,9 @@ public class Post extends BaseEntity {
   @Column(name = "modified_date", unique = false, nullable = true)
   private LocalDate modifiedDate;
 
+  @Column(name = "hide", unique = false, nullable = true)
+  private boolean hide;
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
   private Set<Picture> pictures = new HashSet<>();
 
@@ -57,6 +60,14 @@ public class Post extends BaseEntity {
 
   public void setModifiedDate(LocalDate modifiedDate) {
     this.modifiedDate = modifiedDate;
+  }
+
+  public boolean isHide() {
+    return hide;
+  }
+
+  public void setHide(boolean hide) {
+    this.hide = hide;
   }
 
   public Set<Picture> getPictures() {

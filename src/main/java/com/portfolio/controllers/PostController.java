@@ -1,7 +1,7 @@
 package com.portfolio.controllers;
 
 import com.portfolio.services.PictureService;
-import com.portfolio.services.PortfolioPostService;
+import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-public class PortfolioPostController {
+public class PostController {
 
-  private final PortfolioPostService portfolioPostService;
+  private final PostService portfolioPostService;
   private final PictureService pictureService;
 
-  public PortfolioPostController(PortfolioPostService portfolioPostService, PictureService pictureService) {
+  public PostController(PostService portfolioPostService, PictureService pictureService) {
     this.portfolioPostService = portfolioPostService;
     this.pictureService = pictureService;
   }
