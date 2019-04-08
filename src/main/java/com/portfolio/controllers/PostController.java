@@ -26,10 +26,9 @@ public class PostController {
   }
 
   @GetMapping
-  @RequestMapping({"portfolio/{id}"})
-  public String getAllPost(@PathVariable Long id, Model model) {
+  @RequestMapping({"/portfolio"})
+  public String getAllPost(Model model) {
     model.addAttribute("posts", portfolioPostService.getAllPosts());
-    model.addAttribute("picture", pictureService.findFirstPicture(id));
     return "fragments/portfolio/portfolio";
   }
 
