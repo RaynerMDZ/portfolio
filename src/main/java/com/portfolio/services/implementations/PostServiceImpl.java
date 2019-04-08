@@ -22,8 +22,16 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public Set<Post> getAllPosts() {
+
     Set<Post> posts = new HashSet<>();
-    postRepository.findAll().iterator().forEachRemaining(posts::add);
+
+    try {
+      postRepository.findAll().iterator().forEachRemaining(posts::add);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
 
     if (!posts.isEmpty()) {
       return posts;

@@ -1,13 +1,13 @@
 package com.portfolio.controllers;
 
+import com.portfolio.entities.Picture;
+import com.portfolio.entities.Post;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @Controller
 @RequestMapping("/cms")
 public class CMSController {
@@ -20,45 +20,59 @@ public class CMSController {
     this.pictureService = pictureService;
   }
 
-  @GetMapping
-  @RequestMapping
-  public String createPost() {
+  @PostMapping
+  @RequestMapping("/create-post")
+  public String createPost(@RequestBody Post post, Model model) {
 
     return "fragments/portfolio/{id}/post";
   }
 
-  public String updatePost() {
+  @PutMapping
+  @RequestMapping("/update-post")
+  public String updatePost(@RequestBody Post post, Model model) {
 
     return "fragments/portfolio/{id}/post";
   }
 
-  public String deletePost() {
+  @DeleteMapping
+  @RequestMapping("/delete-post/{id}")
+  public String deletePost(@PathVariable Long id, Model model) {
+
+    return "redirects:/fragments/portfolio";
+  }
+
+  @PutMapping
+  @RequestMapping("/hide-post/{id}")
+  public String hidePost(@PathVariable Long id, Model model) {
+
+    return "redirects:/fragments/portfolio";
+  }
+
+  @PostMapping
+  @RequestMapping("/add-picture/{id}")
+  public String addPicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
 
     return "fragments/portfolio/{id}/post";
   }
 
-  public String hidePost() {
+  @PutMapping
+  @RequestMapping("/update-picture/{id}")
+  public String updatePicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
 
     return "fragments/portfolio/{id}/post";
   }
 
-  public String addPicture() {
+  @DeleteMapping
+  @RequestMapping("/delete-picture/{id}")
+  public String deletePicture(@PathVariable Long id, Model model) {
 
-    return "fragments/portfolio/{id}/post";
+    return "redirects:/fragments/portfolio/{id}/post";
   }
 
-  public String updatePicture() {
+  @PutMapping
+  @RequestMapping("/hide-picture/{id}")
+  public String hidePicture(@PathVariable Long id, Model model) {
 
-    return "fragments/portfolio/{id}/post";
-  }
-
-  public String deletePicture() {
-
-    return "fragments/portfolio/{id}/post";
-  }
-
-  public String hidePicture() {
-
-    return "fragments/portfolio/{id}/post";
+    return "redirects:/fragments/portfolio/{id}/post";
   }
 }
