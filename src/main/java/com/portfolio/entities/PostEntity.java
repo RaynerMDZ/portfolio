@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
-public class PortfolioPostEntity extends BaseEntity {
+public class PostEntity extends BaseEntity {
 
   @Column(name = "title", unique = false, nullable = true)
   private String Title;

@@ -2,11 +2,12 @@ package com.portfolio.services.implementations;
 
 import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
 import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
-import com.portfolio.entities.PortfolioPostEntity;
+import com.portfolio.entities.PostEntity;
 import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PortfolioPostRepository;
 import com.portfolio.services.PortfolioPostService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -28,13 +29,14 @@ public class PortfolioPostServiceImpl implements PortfolioPostService {
   }
 
   @Override
-  public Set<PortfolioPostEntity> getAllPosts() {
-    Set<PortfolioPostEntity> posts = new HashSet<>();
+  public Set<PostEntity> getAllPosts() {
+    Set<PostEntity> posts = new HashSet<>();
     portfolioPostRepository.findAll().iterator().forEachRemaining(posts::add);
     return posts;
   }
 
   @Override
+  @Transactional
   public PortfolioPost getPostById(Long id) {
     Optional<PortfolioPost> post = portfolioPostRepository.findAll()
             .stream().filter(p -> p.getId().equals(id))
@@ -44,13 +46,19 @@ public class PortfolioPostServiceImpl implements PortfolioPostService {
   }
 
   @Override
+  @Transactional
   public PortfolioPost createPost(PortfolioPost post) {
 
-    PortfolioPostEntity entity = toPortfolioPostEntity.convert(post);
+    PortfolioPost portfolioPost = getPostById(post.getId());
 
-    PortfolioPostEntity savedEntity = portfolioPostRepository.save(entity);
+    if (portfolioPost != null) {
+      PostEntity entity = toPortfolioPostEntity.convert(post);
 
-    return toPortfolioPost.convert(savedEntity);
+      PostEntity savedEntity = portfolioPostRepository.save(entity);
+
+      return toPortfolioPost.convert(savedEntity);
+    }
+    return null;
   }
 
   @Override

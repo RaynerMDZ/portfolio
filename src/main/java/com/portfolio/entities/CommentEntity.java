@@ -17,7 +17,7 @@ public class CommentEntity extends BaseEntity {
   private LocalDate creationDate;
 
   @ManyToOne
-  private PortfolioPostEntity post;
+  private PostEntity post;
 
   public String getName() {
     return name;
@@ -43,11 +43,11 @@ public class CommentEntity extends BaseEntity {
     this.creationDate = creationDate;
   }
 
-  public PortfolioPostEntity getPost() {
+  public PostEntity getPost() {
     return post;
   }
 
-  public void setPost(PortfolioPostEntity post) {
+  public void setPost(PostEntity post) {
     this.post = post;
   }
 }

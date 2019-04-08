@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class PortfolioPostToPortfolioPostEntityTest {
+public class PortfolioPostToPostEntityTest {
 
   @Before
   public void setUp() throws Exception {

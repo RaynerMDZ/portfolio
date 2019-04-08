@@ -1,6 +1,6 @@
 package com.portfolio.converters.portfolio_post;
 
-import com.portfolio.entities.PortfolioPostEntity;
+import com.portfolio.entities.PostEntity;
 import com.portfolio.models.PortfolioPost;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PortfolioPostEntityToPortfolioPost implements Converter<PortfolioPostEntity, PortfolioPost> {
+public class PortfolioPostEntityToPortfolioPost implements Converter<PostEntity, PortfolioPost> {
 
   @Synchronized
   @Nullable
   @Override
-  public PortfolioPost convert(PortfolioPostEntity entity) {
+  public PortfolioPost convert(PostEntity entity) {
     if (entity == null) return null;
 
     final PortfolioPost post = new PortfolioPost();

@@ -5,7 +5,7 @@ import com.portfolio.repositories.CommentRepository;
 import com.portfolio.services.CommentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -17,18 +17,18 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public Iterable<Comment> getAllComments() {
+  public Set<Comment> getAllComments() {
     return null;
   }
 
   @Override
-  public Optional<Comment> createComment(Comment comment) {
-    return Optional.empty();
+  public Comment createComment(Comment comment) {
+    return null;
   }
 
   @Override
-  public Optional<Comment> getCommentById(Long id) {
-    return Optional.empty();
+  public Comment getCommentById(Long id) {
+    return null;
   }
 
   @Override

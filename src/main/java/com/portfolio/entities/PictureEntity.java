@@ -11,7 +11,7 @@ public class PictureEntity extends BaseEntity {
   private Byte[] picture;
 
   @ManyToOne
-  private PortfolioPostEntity post;
+  private PostEntity post;
 
   public Byte[] getPicture() {
     return picture;
@@ -21,11 +21,11 @@ public class PictureEntity extends BaseEntity {
     this.picture = picture;
   }
 
-  public PortfolioPostEntity getPost() {
+  public PostEntity getPost() {
     return post;
   }
 
-  public void setPost(PortfolioPostEntity post) {
+  public void setPost(PostEntity post) {
     this.post = post;
   }
 }

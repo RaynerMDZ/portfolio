@@ -5,18 +5,25 @@ import com.portfolio.converters.picture.PictureToPictureEntity;
 import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
 import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
 import com.portfolio.entities.PictureEntity;
+import com.portfolio.entities.PostEntity;
 import com.portfolio.models.Picture;
 import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PictureRepository;
 import com.portfolio.repositories.PortfolioPostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PortfolioPostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class PictureServiceImpl implements PictureService {
 
@@ -28,7 +35,13 @@ public class PictureServiceImpl implements PictureService {
   private final PictureEntityToPicture toPicture;
   private final PortfolioPostService portfolioPostService;
 
-  public PictureServiceImpl(PictureRepository repository, PortfolioPostRepository portfolioPostRepository, PortfolioPostEntityToPortfolioPost toPortfolioPost, PortfolioPostToPortfolioPostEntity toPortfolioPostEntity, PictureToPictureEntity toPictureEntity, PictureEntityToPicture toPicture, PortfolioPostService portfolioPostService) {
+  public PictureServiceImpl(PictureRepository repository,
+                            PortfolioPostRepository portfolioPostRepository,
+                            PortfolioPostEntityToPortfolioPost toPortfolioPost,
+                            PortfolioPostToPortfolioPostEntity toPortfolioPostEntity,
+                            PictureToPictureEntity toPictureEntity,
+                            PictureEntityToPicture toPicture,
+                            PortfolioPostService portfolioPostService) {
     this.repository = repository;
     this.portfolioPostRepository = portfolioPostRepository;
     this.toPortfolioPost = toPortfolioPost;
@@ -48,28 +61,48 @@ public class PictureServiceImpl implements PictureService {
   }
 
   @Override
+  @Transactional
   public Picture getPictureById(Long id) {
     Optional<PictureEntity> entity = repository.findById(id);
     return toPicture.convert(entity.orElse(null));
   }
 
   @Override
-  public Picture addPicture(Long postId, Byte[] picture) {
+  @Transactional
+  public Picture addPicture(Long postId, MultipartFile file) {
 
-    PortfolioPost post = portfolioPostService.getPostById(postId);
+    try {
+      PostEntity post = portfolioPostRepository.findById(postId).get();
 
-    Picture pictureToSave = new Picture();
-    pictureToSave.setPicture(picture);
-    pictureToSave.setPostId(post.getId());
+      Byte[] byteObjects = new Byte[file.getBytes().length];
 
-    post.getPictureEntities().add(pictureToSave);
+      int i = 0;
+      for (byte b : file.getBytes()){
+        byteObjects[i++] = b;
+      }
 
-    PictureEntity pictureSaved = repository.save(pictureToSave);
+      PictureEntity pictureEntity = new PictureEntity();
+      pictureEntity.setPicture(byteObjects);
+
+      post.getPictures().add(pictureEntity);
+
+      portfolioPostRepository.save(post);
+
+      return toPicture.convert(pictureEntity);
+
+    } catch (IOException e) {
+      //todo handle better
+      log.error("Error occurred", e);
+
+      e.printStackTrace();
+      return null;
+    }
+
   }
 
   @Override
-  public Optional<Picture> updatePicture(Picture picture) {
-    return Optional.empty();
+  public Picture updatePicture(Picture picture) {
+    return null;
   }
 
   @Override
@@ -83,8 +116,16 @@ public class PictureServiceImpl implements PictureService {
   }
 
   @Override
-  public Optional<Picture> findFirstPicture(Long id) {
-    Optional<PortfolioPost> post = portfolioPos;
+  @Transactional
+  public Picture findFirstPicture(Long id) {
 
+    Optional<PostEntity> post = portfolioPostRepository.findById(id);
+
+    PortfolioPost portfolioPost = toPortfolioPost.convert(post.orElse(null));
+
+    Optional<Picture> savedPicture = Objects.requireNonNull(portfolioPost).getPictureEntities()
+            .stream().filter(picture -> picture.getId().equals(1L)).findFirst();
+
+    return savedPicture.orElse(null);
   }
 }
