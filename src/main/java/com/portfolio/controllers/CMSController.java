@@ -20,6 +20,13 @@ public class CMSController {
     this.pictureService = pictureService;
   }
 
+  @GetMapping
+  @RequestBody("/admin")
+  public String getAdmin(Model model) {
+
+    return "cms/admin";
+  }
+
   @PostMapping
   @RequestMapping("/create-post")
   public String createPost(@RequestBody Post post, Model model) {
