@@ -1,11 +1,11 @@
-package com.portfolio.converters.picture;
+package com.portfolio.converters.portfolio_post;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class PictureToPictureEntityTest {
+public class PortfolioPostToPostTest {
 
   @Before
   public void setUp() throws Exception {

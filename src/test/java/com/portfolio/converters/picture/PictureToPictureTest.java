@@ -1,11 +1,11 @@
-package com.portfolio.converters.comment;
+package com.portfolio.converters.picture;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CommentToCommentEntityTest {
+public class PictureToPictureTest {
 
   @Before
   public void setUp() throws Exception {

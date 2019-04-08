@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
-public class PostEntity extends BaseEntity {
+public class Post extends BaseEntity {
 
   @Column(name = "title", unique = false, nullable = true)
   private String Title;
@@ -22,10 +22,10 @@ public class PostEntity extends BaseEntity {
   private LocalDate modifiedDate;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-  private Set<PictureEntity> pictures = new HashSet<>();
+  private Set<Picture> pictures = new HashSet<>();
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-  private Set<CommentEntity> comments = new HashSet<>();
+  private Set<Comment> comments = new HashSet<>();
 
   public String getTitle() {
     return Title;
@@ -59,19 +59,19 @@ public class PostEntity extends BaseEntity {
     this.modifiedDate = modifiedDate;
   }
 
-  public Set<PictureEntity> getPictures() {
+  public Set<Picture> getPictures() {
     return pictures;
   }
 
-  public void setPictures(Set<PictureEntity> pictures) {
+  public void setPictures(Set<Picture> pictures) {
     this.pictures = pictures;
   }
 
-  public Set<CommentEntity> getComments() {
+  public Set<Comment> getComments() {
     return comments;
   }
 
-  public void setComments(Set<CommentEntity> comments) {
+  public void setComments(Set<Comment> comments) {
     this.comments = comments;
   }
 }

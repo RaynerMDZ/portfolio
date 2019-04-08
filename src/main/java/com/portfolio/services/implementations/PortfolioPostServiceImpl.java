@@ -2,7 +2,7 @@ package com.portfolio.services.implementations;
 
 import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
 import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
-import com.portfolio.entities.PostEntity;
+import com.portfolio.entities.Post;
 import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PortfolioPostRepository;
 import com.portfolio.services.PortfolioPostService;
@@ -29,8 +29,8 @@ public class PortfolioPostServiceImpl implements PortfolioPostService {
   }
 
   @Override
-  public Set<PostEntity> getAllPosts() {
-    Set<PostEntity> posts = new HashSet<>();
+  public Set<Post> getAllPosts() {
+    Set<Post> posts = new HashSet<>();
     portfolioPostRepository.findAll().iterator().forEachRemaining(posts::add);
     return posts;
   }
@@ -52,9 +52,9 @@ public class PortfolioPostServiceImpl implements PortfolioPostService {
     PortfolioPost portfolioPost = getPostById(post.getId());
 
     if (portfolioPost != null) {
-      PostEntity entity = toPortfolioPostEntity.convert(post);
+      Post entity = toPortfolioPostEntity.convert(post);
 
-      PostEntity savedEntity = portfolioPostRepository.save(entity);
+      Post savedEntity = portfolioPostRepository.save(entity);
 
       return toPortfolioPost.convert(savedEntity);
     }

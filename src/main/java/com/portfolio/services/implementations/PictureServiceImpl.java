@@ -4,8 +4,8 @@ import com.portfolio.converters.picture.PictureEntityToPicture;
 import com.portfolio.converters.picture.PictureToPictureEntity;
 import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
 import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
-import com.portfolio.entities.PictureEntity;
-import com.portfolio.entities.PostEntity;
+import com.portfolio.entities.Picture;
+import com.portfolio.entities.Post;
 import com.portfolio.models.Picture;
 import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PictureRepository;
@@ -52,8 +52,8 @@ public class PictureServiceImpl implements PictureService {
   }
 
   @Override
-  public Set<PictureEntity> getAllPictures() {
-    Set<PictureEntity> pictures = new HashSet<>();
+  public Set<Picture> getAllPictures() {
+    Set<Picture> pictures = new HashSet<>();
 
     repository.findAll().iterator().forEachRemaining(pictures::add);
 
@@ -63,7 +63,7 @@ public class PictureServiceImpl implements PictureService {
   @Override
   @Transactional
   public Picture getPictureById(Long id) {
-    Optional<PictureEntity> entity = repository.findById(id);
+    Optional<Picture> entity = repository.findById(id);
     return toPicture.convert(entity.orElse(null));
   }
 
@@ -72,7 +72,7 @@ public class PictureServiceImpl implements PictureService {
   public Picture addPicture(Long postId, MultipartFile file) {
 
     try {
-      PostEntity post = portfolioPostRepository.findById(postId).get();
+      Post post = portfolioPostRepository.findById(postId).get();
 
       Byte[] byteObjects = new Byte[file.getBytes().length];
 
@@ -81,14 +81,14 @@ public class PictureServiceImpl implements PictureService {
         byteObjects[i++] = b;
       }
 
-      PictureEntity pictureEntity = new PictureEntity();
-      pictureEntity.setPicture(byteObjects);
+      Picture picture = new Picture();
+      picture.setPicture(byteObjects);
 
-      post.getPictures().add(pictureEntity);
+      post.getPictures().add(picture);
 
       portfolioPostRepository.save(post);
 
-      return toPicture.convert(pictureEntity);
+      return toPicture.convert(picture);
 
     } catch (IOException e) {
       //todo handle better
@@ -119,7 +119,7 @@ public class PictureServiceImpl implements PictureService {
   @Transactional
   public Picture findFirstPicture(Long id) {
 
-    Optional<PostEntity> post = portfolioPostRepository.findById(id);
+    Optional<Post> post = portfolioPostRepository.findById(id);
 
     PortfolioPost portfolioPost = toPortfolioPost.convert(post.orElse(null));
 
