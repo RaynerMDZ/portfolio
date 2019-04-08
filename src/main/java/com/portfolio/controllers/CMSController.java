@@ -21,7 +21,7 @@ public class CMSController {
   }
 
   @GetMapping
-  @RequestBody("/admin")
+  @RequestMapping("/admin")
   public String getAdmin(Model model) {
 
     return "cms/admin";
