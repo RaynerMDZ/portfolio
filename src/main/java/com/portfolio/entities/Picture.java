@@ -10,6 +10,9 @@ public class Picture extends BaseEntity {
   @Column(name = "picture", unique = false, nullable = true)
   private Byte[] picture;
 
+  @Column(name = "hidden", unique = false, nullable = true)
+  private boolean hidden;
+
   @ManyToOne
   private Post post;
 
@@ -19,6 +22,14 @@ public class Picture extends BaseEntity {
 
   public void setPicture(Byte[] picture) {
     this.picture = picture;
+  }
+
+  public boolean isHidden() {
+    return hidden;
+  }
+
+  public void setHidden(boolean hidden) {
+    this.hidden = hidden;
   }
 
   public Post getPost() {

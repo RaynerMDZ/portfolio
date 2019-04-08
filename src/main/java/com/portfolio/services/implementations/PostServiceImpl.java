@@ -101,11 +101,11 @@ public class PostServiceImpl implements PostService {
 
     Post post = getPostById(id);
 
-    if (!post.isHide()) {
-      post.setHide(true);
+    if (!post.isHidden()) {
+      post.setHidden(true);
       return true;
     } else {
-      post.setHide(false);
+      post.setHidden(false);
       return false;
     }
   }

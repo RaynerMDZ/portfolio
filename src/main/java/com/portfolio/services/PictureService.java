@@ -13,5 +13,5 @@ public interface PictureService {
   Picture updatePicture(Picture picture);
   boolean deletePictureById(Long id);
   boolean hidePicture(Long id);
-  Picture findFirstPicture(Long id);
+  Picture findFirstPicture(Long postId);
 }

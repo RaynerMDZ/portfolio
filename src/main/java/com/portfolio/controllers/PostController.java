@@ -15,10 +15,14 @@ public class PostController {
 
   private final PostService portfolioPostService;
   private final PictureService pictureService;
+  private final CommentController commentController;
 
-  public PostController(PostService portfolioPostService, PictureService pictureService) {
+  public PostController(PostService portfolioPostService,
+                        PictureService pictureService,
+                        CommentController commentController) {
     this.portfolioPostService = portfolioPostService;
     this.pictureService = pictureService;
+    this.commentController = commentController;
   }
 
   @GetMapping

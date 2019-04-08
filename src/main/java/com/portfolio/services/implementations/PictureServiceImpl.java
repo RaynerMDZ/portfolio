@@ -1,20 +1,13 @@
 package com.portfolio.services.implementations;
 
-import com.portfolio.converters.picture.PictureEntityToPicture;
-import com.portfolio.converters.picture.PictureToPictureEntity;
-import com.portfolio.converters.portfolio_post.PortfolioPostEntityToPortfolioPost;
-import com.portfolio.converters.portfolio_post.PortfolioPostToPortfolioPostEntity;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
-import com.portfolio.models.Picture;
-import com.portfolio.models.PortfolioPost;
 import com.portfolio.repositories.PictureRepository;
 import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,41 +20,62 @@ import java.util.Set;
 @Service
 public class PictureServiceImpl implements PictureService {
 
-  private final PictureRepository repository;
+  private final PictureRepository pictureRepository;
   private final PostRepository postRepository;
-  private final PostService portfolioPostService;
+  private final PostService postService;
 
 
-  public PictureServiceImpl(PictureRepository repository,
+  public PictureServiceImpl(PictureRepository pictureRepository,
                             PostRepository postRepository,
-                            PostService portfolioPostService) {
-    this.repository = repository;
+                            PostService postService) {
+    this.pictureRepository = pictureRepository;
     this.postRepository = postRepository;
-    this.portfolioPostService = portfolioPostService;
+    this.postService = postService;
   }
 
   @Override
   public Set<Picture> getAllPictures() {
+
     Set<Picture> pictures = new HashSet<>();
 
-    repository.findAll().iterator().forEachRemaining(pictures::add);
+    try {
+      pictureRepository.findAll().iterator().forEachRemaining(pictures::add);
 
-    return pictures;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+
+    if (!pictures.isEmpty()) {
+      return pictures;
+    }
+    return null;
   }
 
   @Override
-  @Transactional
   public Picture getPictureById(Long id) {
-    Optional<Picture> entity = repository.findById(id);
-    return toPicture.convert(entity.orElse(null));
+
+    if (id != null) {
+      try {
+        Optional<Picture> picture = pictureRepository.findById(id);
+
+        if (picture.isPresent()) {
+          return picture.get();
+        }
+
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+    return null;
   }
 
   @Override
-  @Transactional
   public Picture addPicture(Long postId, MultipartFile file) {
 
     try {
-      Post post = postRepository.findById(postId).get();
+      Post post = postRepository.findById(postId).orElse(null);
 
       Byte[] byteObjects = new Byte[file.getBytes().length];
 
@@ -77,7 +91,6 @@ public class PictureServiceImpl implements PictureService {
 
       postRepository.save(post);
 
-      return toPicture.convert(picture);
 
     } catch (IOException e) {
       //todo handle better
@@ -86,6 +99,8 @@ public class PictureServiceImpl implements PictureService {
       e.printStackTrace();
       return null;
     }
+
+    return null;
 
   }
 
@@ -105,16 +120,25 @@ public class PictureServiceImpl implements PictureService {
   }
 
   @Override
-  @Transactional
-  public Picture findFirstPicture(Long id) {
+  public Picture findFirstPicture(Long postId) {
 
-    Optional<Post> post = postRepository.findById(id);
+    Post post = null;
+    if (postId != null) {
+      post = postService.getPostById(postId);
+    }
 
-    PortfolioPost portfolioPost = toPortfolioPost.convert(post.orElse(null));
+    Optional<Picture> fistPicture = null;
+    try {
+      fistPicture = Objects.requireNonNull(post).getPictures().stream()
+              .filter(picture -> picture.getId().equals(1L)).findFirst();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
 
-    Optional<Picture> savedPicture = Objects.requireNonNull(portfolioPost).getPictureEntities()
-            .stream().filter(picture -> picture.getId().equals(1L)).findFirst();
-
-    return savedPicture.orElse(null);
+    if (fistPicture.isPresent()) {
+      return fistPicture.orElse(null);
+    }
+    return null;
   }
 }
