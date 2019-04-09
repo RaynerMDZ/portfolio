@@ -39,6 +39,21 @@ public class CMSController {
 
   /**
    *
+   * @param id
+   * @param model
+   * @return String
+   */
+  @GetMapping
+  @RequestMapping("/{id}/edit-post")
+  public String goToPost(@PathVariable Long id, Model model) {
+
+    model.addAttribute("post", postService.getPostById(id));
+
+    return "cms/edit-post";
+  }
+
+  /**
+   *
    * @param post
    * @param model
    * @return String
@@ -60,7 +75,7 @@ public class CMSController {
   @RequestMapping("/update-post")
   public String updatePost(@RequestBody Post post, Model model) {
 
-    return "fragments/portfolio/{id}/post";
+    return "redirect:/cms/" + post.getId() + "/edit-post";
   }
 
   /**
@@ -73,7 +88,7 @@ public class CMSController {
   @RequestMapping("/delete-post/{id}")
   public String deletePost(@PathVariable Long id, Model model) {
 
-    return "redirects:/fragments/portfolio";
+    return "redirect:/cms/admin";
   }
 
   /**
@@ -86,7 +101,7 @@ public class CMSController {
   @RequestMapping("/hide-post/{id}")
   public String hidePost(@PathVariable Long id, Model model) {
 
-    return "redirects:/fragments/portfolio";
+    return "redirect:/cms/admin";
   }
 
   /**
