@@ -32,6 +32,8 @@ public class CMSController {
   @RequestMapping("/admin")
   public String getAdmin(Model model) {
 
+    model.addAttribute("posts", postService.getAllPosts());
+
     return "cms/admin";
   }
 
