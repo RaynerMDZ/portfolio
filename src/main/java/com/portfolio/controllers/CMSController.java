@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
  *
  */
@@ -45,7 +47,7 @@ public class CMSController {
    */
   @GetMapping
   @RequestMapping("/{id}/edit-post")
-  public String goToPost(@PathVariable Long id, Model model) {
+  public String editPostForm(@PathVariable Long id, Model model) {
 
     model.addAttribute("post", postService.getPostById(id));
 
@@ -54,28 +56,50 @@ public class CMSController {
 
   /**
    *
-   * @param post
-   * @param model
    * @return String
    */
-  @PostMapping
-  @RequestMapping("/create-post")
-  public String createPost(@RequestBody Post post, Model model) {
+  @GetMapping
+  @RequestMapping("/new-post")
+  public String newPostForm(Model model) {
 
-    return "fragments/portfolio/{id}/post";
+    // Sends a new empty Post object to the view.
+    model.addAttribute("post", new Post());
+
+    return "cms/new-post";
   }
 
   /**
    *
    * @param post
-   * @param model
+   *
+   * @return String
+   */
+  @PostMapping
+  @RequestMapping("/create-post")
+  public String createPost(@RequestBody Post post) {
+    Post savedPost = postService.createPost(post);
+
+    if (savedPost != null) {
+      return "cms/admin";
+    }
+    return "error/generic-error";
+  }
+
+  /**
+   *
+   * @param post
    * @return String
    */
   @PutMapping
   @RequestMapping("/update-post")
-  public String updatePost(@RequestBody Post post, Model model) {
+  public String updatePost(@RequestBody Post post) {
 
-    return "redirect:/cms/" + post.getId() + "/edit-post";
+    Post savedPost = postService.updatePost(post);
+
+    if (savedPost != null) {
+      return "redirect:/cms/" + post.getId() + "/edit-post";
+    }
+    return "error/generic-error";
   }
 
   /**

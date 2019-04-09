@@ -1,9 +1,13 @@
 package com.portfolio.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static javax.persistence.TemporalType.DATE;
 
 /**
  *
@@ -18,14 +22,18 @@ public class Post extends BaseEntity {
   @Column(name = "description", unique = false, nullable = true)
   private String description;
 
+  @Temporal(DATE)
+  @DateTimeFormat(pattern="dd-MMM-YYYY")
   @Column(name = "created_date", unique = false, nullable = true)
-  private LocalDate createdDate;
+  private Date createdDate;
 
+  @Temporal(DATE)
+  @DateTimeFormat (pattern="dd-MMM-YYYY")
   @Column(name = "modified_date", unique = false, nullable = true)
-  private LocalDate modifiedDate;
+  private Date modifiedDate;
 
   @Column(name = "hidden", unique = false, nullable = true)
-  private boolean hidden;
+  private Boolean hidden;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
   private Set<Picture> pictures = new HashSet<>();
@@ -49,27 +57,27 @@ public class Post extends BaseEntity {
     this.description = description;
   }
 
-  public LocalDate getCreatedDate() {
+  public Date getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(LocalDate createdDate) {
+  public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
-  public LocalDate getModifiedDate() {
+  public Date getModifiedDate() {
     return modifiedDate;
   }
 
-  public void setModifiedDate(LocalDate modifiedDate) {
+  public void setModifiedDate(Date modifiedDate) {
     this.modifiedDate = modifiedDate;
   }
 
-  public boolean isHidden() {
+  public Boolean isHidden() {
     return hidden;
   }
 
-  public void setHidden(boolean hidden) {
+  public void setHidden(Boolean hidden) {
     this.hidden = hidden;
   }
 

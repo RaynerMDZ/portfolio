@@ -7,6 +7,7 @@ import javassist.bytecode.annotation.NoSuchClassError;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -52,7 +53,6 @@ public class PostServiceImpl implements PostService {
    * @return Post
    */
   @Override
-  @Transactional
   public Post getPostById(Long id) {
 
     if (id != null) {
@@ -70,13 +70,17 @@ public class PostServiceImpl implements PostService {
    * @return Post
    */
   @Override
-  @Transactional
   public Post createPost(Post post) {
 
     Set<Post> posts = getAllPosts();
 
     if (post != null) {
+
+      post.setCreatedDate(new Date());
+      post.setModifiedDate(new Date());
+
       if (!posts.contains(post)) {
+
         try {
           return postRepository.save(post);
         } catch (NoSuchClassError e) {
@@ -101,6 +105,8 @@ public class PostServiceImpl implements PostService {
             .filter(p -> p.getId().equals(post.getId())).findFirst();
 
     if (exist.isPresent()) {
+      post.setModifiedDate(new Date());
+
       try {
         return postRepository.save(post);
       } catch (RuntimeException e) {
