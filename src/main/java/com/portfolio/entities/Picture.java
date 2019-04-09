@@ -2,6 +2,9 @@ package com.portfolio.entities;
 
 import javax.persistence.*;
 
+/**
+ *
+ */
 @Entity
 @Table(name = "pictures", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Picture extends BaseEntity {

@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ */
 @Entity
 @Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Post extends BaseEntity {

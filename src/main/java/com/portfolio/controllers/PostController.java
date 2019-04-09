@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ *
+ */
 @Slf4j
 @Controller
 public class PostController {
@@ -25,6 +28,11 @@ public class PostController {
     this.commentController = commentController;
   }
 
+  /**
+   *
+   * @param model
+   * @return String
+   */
   @GetMapping
   @RequestMapping({"/portfolio"})
   public String getAllPost(Model model) {
@@ -32,7 +40,11 @@ public class PostController {
     return "fragments/portfolio/portfolio";
   }
 
-
+  /**
+   *
+   * @param Id
+   * @return String
+   */
   @GetMapping
   @RequestMapping("/post")
   public String getPostById(@PathVariable Long Id) {

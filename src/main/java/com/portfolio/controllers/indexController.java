@@ -6,6 +6,9 @@ import com.portfolio.services.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ *
+ */
 @Controller
 public class indexController {
 
@@ -19,6 +22,10 @@ public class indexController {
     this.commentService = commentService;
   }
 
+  /**
+   *
+   * @return String
+   */
   @RequestMapping({"", "/", "/index", "/index.html"})
   public String getIndex() {
 

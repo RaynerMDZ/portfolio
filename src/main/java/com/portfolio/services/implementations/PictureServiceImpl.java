@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ *
+ */
 @Slf4j
 @Service
 public class PictureServiceImpl implements PictureService {
@@ -33,6 +36,10 @@ public class PictureServiceImpl implements PictureService {
     this.postService = postService;
   }
 
+  /**
+   *
+   * @return Set<Pictures>
+   */
   @Override
   public Set<Picture> getAllPictures() {
 
@@ -52,6 +59,11 @@ public class PictureServiceImpl implements PictureService {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return Picture
+   */
   @Override
   public Picture getPictureById(Long id) {
 
@@ -71,6 +83,12 @@ public class PictureServiceImpl implements PictureService {
     return null;
   }
 
+  /**
+   *
+   * @param postId
+   * @param file
+   * @return Picture
+   */
   @Override
   public Picture addPicture(Long postId, MultipartFile file) {
 
@@ -86,11 +104,8 @@ public class PictureServiceImpl implements PictureService {
 
       Picture picture = new Picture();
       picture.setPicture(byteObjects);
-
       post.getPictures().add(picture);
-
       postRepository.save(post);
-
 
     } catch (IOException e) {
       //todo handle better
@@ -99,26 +114,63 @@ public class PictureServiceImpl implements PictureService {
       e.printStackTrace();
       return null;
     }
-
     return null;
-
   }
 
+  /**
+   *
+   * @param picture
+   * @return Picture
+   */
   @Override
   public Picture updatePicture(Picture picture) {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return boolean
+   */
   @Override
   public boolean deletePictureById(Long id) {
     return false;
   }
 
+  /**
+   *
+   * @param id
+   * @return boolean
+   */
   @Override
   public boolean hidePicture(Long id) {
+
+    Picture picture = null;
+    if (id != null) {
+      picture = getPictureById(id);
+    }
+
+    // If picture is not null.
+    if (picture != null) {
+      // If isHidden is true then switch it to false.
+      if (picture.isHidden()) {
+        picture.setHidden(false);
+        return false;
+
+      } else {
+        // If isHidden is false then switch it to true.
+        picture.setHidden(true);
+        return true;
+      }
+    }
     return false;
   }
 
+  /**
+   *
+   * @param postId
+   * @return Picture
+   */
   @Override
   public Picture findFirstPicture(Long postId) {
 

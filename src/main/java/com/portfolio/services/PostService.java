@@ -4,6 +4,9 @@ import com.portfolio.entities.Post;
 
 import java.util.Set;
 
+/**
+ *
+ */
 public interface PostService {
 
   Set<Post> getAllPosts();

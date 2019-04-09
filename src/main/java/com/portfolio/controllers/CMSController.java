@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ *
+ */
 @Controller
 @RequestMapping("/cms")
 public class CMSController {
@@ -20,6 +23,11 @@ public class CMSController {
     this.pictureService = pictureService;
   }
 
+  /**
+   *
+   * @param model
+   * @return String
+   */
   @GetMapping
   @RequestMapping("/admin")
   public String getAdmin(Model model) {
@@ -27,6 +35,12 @@ public class CMSController {
     return "cms/admin";
   }
 
+  /**
+   *
+   * @param post
+   * @param model
+   * @return String
+   */
   @PostMapping
   @RequestMapping("/create-post")
   public String createPost(@RequestBody Post post, Model model) {
@@ -34,6 +48,12 @@ public class CMSController {
     return "fragments/portfolio/{id}/post";
   }
 
+  /**
+   *
+   * @param post
+   * @param model
+   * @return String
+   */
   @PutMapping
   @RequestMapping("/update-post")
   public String updatePost(@RequestBody Post post, Model model) {
@@ -41,6 +61,12 @@ public class CMSController {
     return "fragments/portfolio/{id}/post";
   }
 
+  /**
+   *
+   * @param id
+   * @param model
+   * @return String
+   */
   @DeleteMapping
   @RequestMapping("/delete-post/{id}")
   public String deletePost(@PathVariable Long id, Model model) {
@@ -48,6 +74,12 @@ public class CMSController {
     return "redirects:/fragments/portfolio";
   }
 
+  /**
+   *
+   * @param id
+   * @param model
+   * @return String
+   */
   @PutMapping
   @RequestMapping("/hide-post/{id}")
   public String hidePost(@PathVariable Long id, Model model) {
@@ -55,6 +87,13 @@ public class CMSController {
     return "redirects:/fragments/portfolio";
   }
 
+  /**
+   *
+   * @param id
+   * @param picture
+   * @param model
+   * @return String
+   */
   @PostMapping
   @RequestMapping("/add-picture/{id}")
   public String addPicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
@@ -62,6 +101,13 @@ public class CMSController {
     return "fragments/portfolio/{id}/post";
   }
 
+  /**
+   *
+   * @param id
+   * @param picture
+   * @param model
+   * @return String
+   */
   @PutMapping
   @RequestMapping("/update-picture/{id}")
   public String updatePicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
@@ -69,6 +115,12 @@ public class CMSController {
     return "fragments/portfolio/{id}/post";
   }
 
+  /**
+   *
+   * @param id
+   * @param model
+   * @return String
+   */
   @DeleteMapping
   @RequestMapping("/delete-picture/{id}")
   public String deletePicture(@PathVariable Long id, Model model) {
@@ -76,6 +128,12 @@ public class CMSController {
     return "redirects:/fragments/portfolio/{id}/post";
   }
 
+  /**
+   *
+   * @param id
+   * @param model
+   * @return String
+   */
   @PutMapping
   @RequestMapping("/hide-picture/{id}")
   public String hidePicture(@PathVariable Long id, Model model) {

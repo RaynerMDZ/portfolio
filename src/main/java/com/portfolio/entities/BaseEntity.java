@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ *
+ */
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 

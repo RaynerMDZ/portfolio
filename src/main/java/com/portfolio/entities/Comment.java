@@ -3,6 +3,9 @@ package com.portfolio.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ *
+ */
 @Entity
 @Table(name = "comments", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Comment extends BaseEntity {

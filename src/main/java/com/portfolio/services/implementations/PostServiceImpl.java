@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ *
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -20,6 +23,10 @@ public class PostServiceImpl implements PostService {
     this.postRepository = postRepository;
   }
 
+  /**
+   *
+   * @return Set<Post>
+   */
   @Override
   public Set<Post> getAllPosts() {
 
@@ -39,6 +46,11 @@ public class PostServiceImpl implements PostService {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return Post
+   */
   @Override
   @Transactional
   public Post getPostById(Long id) {
@@ -52,6 +64,11 @@ public class PostServiceImpl implements PostService {
     return null;
   }
 
+  /**
+   *
+   * @param post
+   * @return Post
+   */
   @Override
   @Transactional
   public Post createPost(Post post) {
@@ -72,6 +89,11 @@ public class PostServiceImpl implements PostService {
     return null;
   }
 
+  /**
+   *
+   * @param post
+   * @return Post
+   */
   @Override
   public Post updatePost(Post post) {
 
@@ -89,6 +111,11 @@ public class PostServiceImpl implements PostService {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return booelan
+   */
   @Override
   public boolean deletePostById(Long id) {
 
@@ -104,6 +131,11 @@ public class PostServiceImpl implements PostService {
     return false;
   }
 
+  /**
+   *
+   * @param id
+   * @return boolean
+   */
   @Override
   public boolean hidePost(Long id) {
 

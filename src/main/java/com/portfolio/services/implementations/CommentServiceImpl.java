@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ *
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -16,21 +19,40 @@ public class CommentServiceImpl implements CommentService {
     this.repository = repository;
   }
 
+  /**
+   *
+   * @return Set<Comment>
+   */
   @Override
   public Set<Comment> getAllComments() {
     return null;
   }
 
+  /**
+   *
+   * @param comment
+   * @return Comment
+   */
   @Override
   public Comment createComment(Comment comment) {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return Comment
+   */
   @Override
   public Comment getCommentById(Long id) {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return boolean
+   */
   @Override
   public boolean deleteCommentById(Long id) {
     return false;
