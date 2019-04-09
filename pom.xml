@@ -96,8 +96,14 @@
             <artifactId>font-awesome</artifactId>
             <version>5.7.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.1.5.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
-<!--        Jersey security-->
+        <!--        Jersey security-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-jersey</artifactId>-->

@@ -7,6 +7,8 @@ import com.portfolio.services.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Date;
 
@@ -137,7 +139,7 @@ public class CMSController {
    */
   @PostMapping
   @RequestMapping("/add-picture/{id}")
-  public String addPicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
+  public String addPicture(@PathVariable Long id, @RequestParam("file") MultipartFile file, Model model) {
 
     return "fragments/portfolio/{id}/post";
   }

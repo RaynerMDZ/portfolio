@@ -7,7 +7,9 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,14 +28,16 @@ public class PictureServiceImpl implements PictureService {
   private final PictureRepository pictureRepository;
   private final PostRepository postRepository;
   private final PostService postService;
-
+  private final ResourceLoader resourceLoader;
 
   public PictureServiceImpl(PictureRepository pictureRepository,
                             PostRepository postRepository,
-                            PostService postService) {
+                            PostService postService,
+                            ResourceLoader resourceLoader) {
     this.pictureRepository = pictureRepository;
     this.postRepository = postRepository;
     this.postService = postService;
+    this.resourceLoader = resourceLoader;
   }
 
   /**
@@ -90,10 +94,11 @@ public class PictureServiceImpl implements PictureService {
    * @return Picture
    */
   @Override
-  public Picture addPicture(Long postId, MultipartFile file) {
+  @Transactional
+  public void uploadPicture(Long postId, MultipartFile file) {
 
     try {
-      Post post = postRepository.findById(postId).orElse(null);
+      Post post = postService.getPostById(postId);
 
       Byte[] byteObjects = new Byte[file.getBytes().length];
 
@@ -104,17 +109,13 @@ public class PictureServiceImpl implements PictureService {
 
       Picture picture = new Picture();
       picture.setPicture(byteObjects);
+
       post.getPictures().add(picture);
-      postRepository.save(post);
 
+      postService.updatePost(post);
     } catch (IOException e) {
-      //todo handle better
-      log.error("Error occurred", e);
-
       e.printStackTrace();
-      return null;
     }
-    return null;
   }
 
   /**
@@ -153,7 +154,7 @@ public class PictureServiceImpl implements PictureService {
     // If picture is not null.
     if (picture != null) {
       // If isHidden is true then switch it to false.
-      if (picture.isHidden()) {
+      if (picture.getHidden()) {
         picture.setHidden(false);
         return false;
 
@@ -193,4 +194,16 @@ public class PictureServiceImpl implements PictureService {
     }
     return null;
   }
+
+
 }
+
+
+
+
+
+
+
+
+
+
