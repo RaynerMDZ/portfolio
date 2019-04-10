@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio</title>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 
@@ -23,7 +26,7 @@
         <div class="row mb-5 text-center" th:each="post : ${posts}">
 
             <div class="col-md-6 col-lg-3">
-                <img src="portfolio.png" alt="" class="img-thumbnail">
+                <img src="" th:src="@{'/images/' + ${picture.getPicture()}}" alt="" class="img-thumbnail">
                 <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}">The Squeeze</h5>
                 <p class="lead text-muted" th:text="${post.getDescription()}">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -62,5 +65,8 @@
     </div>
 </section>
 
+
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

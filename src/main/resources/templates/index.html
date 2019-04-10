@@ -6,8 +6,7 @@
 
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
 
 </head>
 <body>
@@ -22,5 +21,8 @@
     <section th:insert="fragments/services.html :: services"></section>
 
     <footer th:insert="fragments/footer.html :: footer"></footer>
+
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
