@@ -13,7 +13,7 @@ import static javax.persistence.TemporalType.DATE;
  *
  */
 @Entity
-@Table(name = "portfolio_post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@Table(name = "post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Post extends BaseEntity {
 
   @Column(name = "title", unique = false, nullable = true)

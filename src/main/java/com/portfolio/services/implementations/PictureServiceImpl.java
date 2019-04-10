@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +27,8 @@ import java.util.Set;
 @Slf4j
 @Service
 public class PictureServiceImpl implements PictureService {
+
+  public static String UPLOAD_DIRECTORY =  System.getProperty("user.dir") + "/images";
 
   private final PictureRepository pictureRepository;
   private final PostRepository postRepository;
@@ -95,26 +100,31 @@ public class PictureServiceImpl implements PictureService {
    */
   @Override
   @Transactional
-  public void uploadPicture(Long postId, MultipartFile file) {
+  public void uploadPicture(Long postId, MultipartFile[] files) {
 
-    try {
-      Post post = postService.getPostById(postId);
+    // Mock
+    postId = 1L;
 
-      Byte[] byteObjects = new Byte[file.getBytes().length];
+    Post post = postService.getPostById(postId);
 
-      int i = 0;
-      for (byte b : file.getBytes()){
-        byteObjects[i++] = b;
-      }
-
+    if (post != null) {
       Picture picture = new Picture();
-      picture.setPicture(byteObjects);
 
-      post.getPictures().add(picture);
+      StringBuilder fileNames = new StringBuilder();
 
-      postService.updatePost(post);
-    } catch (IOException e) {
-      e.printStackTrace();
+      for (MultipartFile file : files) {
+        Path fileNameAndPAth = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(file.getOriginalFilename());
+
+        try {
+          Files.write(fileNameAndPAth, file.getBytes());
+          picture.setPicture(fileNames.toString());
+          post.getPictures().add(picture);
+          postService.updatePost(post);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
 
@@ -194,6 +204,7 @@ public class PictureServiceImpl implements PictureService {
     }
     return null;
   }
+
 
 
 }

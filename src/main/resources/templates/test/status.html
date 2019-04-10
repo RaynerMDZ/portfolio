@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="message" type="com.portfolio.controllers.PictureController"*/-->
+<div th:if="${message}">
+    <span th:text="${message}"></span>
+</div>
+
+<img alt="image" th:src="@{'/images/' + ${picture.getPicture()}}" src=""/>
+
+</body>
+</html>

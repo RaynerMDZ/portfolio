@@ -9,15 +9,9 @@ import javax.persistence.*;
 @Table(name = "pictures", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Picture extends BaseEntity {
 
-  @Column(name = "file_name", unique = false, nullable = true)
-  private String fileName;
-
-  @Column(name = "file_type", unique = false, nullable = true)
-  private String fileType;
-
   @Lob
   @Column(name = "picture", unique = false, nullable = true)
-  private Byte[] picture;
+  private String picture;
 
   @Column(name = "hidden", unique = false, nullable = true)
   private Boolean hidden;
@@ -25,27 +19,11 @@ public class Picture extends BaseEntity {
   @ManyToOne
   private Post post;
 
-  public String getFileName() {
-    return fileName;
-  }
-
-  public void setFileName(String fileName) {
-    this.fileName = fileName;
-  }
-
-  public String getFileType() {
-    return fileType;
-  }
-
-  public void setFileType(String fileType) {
-    this.fileType = fileType;
-  }
-
-  public Byte[] getPicture() {
+  public String getPicture() {
     return picture;
   }
 
-  public void setPicture(Byte[] picture) {
+  public void setPicture(String picture) {
     this.picture = picture;
   }
 
