@@ -32,46 +32,64 @@
                 <div class="col text-center">
                     <h1 class="display-4">About Me</h1>
                     <p class="lead text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Aliquam asperiores beatae debitis delectus doloribus eligendi in itaque
-                        iusto libero magni mollitia numquam, odio, quas quisquam quos repellat suscipit
-                        velit voluptates.
+                        Full Stack Web Developer. Self-taught. Quickly learn and master new technologies;
+                        successful working as part of a team and independently.
+                        Passionate about Web development and Mobile development.
                     </p>
                 </div>
             </div>
             <div class="row text-muted">
+<!--                <div class="col-lg-6">-->
+<!--                    <p class="lead">-->
+<!--                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
+<!--                        Ad aliquam cum eius expedita illo impedit ipsam molestias officia,-->
+<!--                        quibusdam quidem saepe sit totam voluptatum! Delectus deserunt distinctio-->
+<!--                        doloremque ea modi!-->
+<!--                    </p>-->
+<!--                </div>-->
                 <div class="col-lg-6">
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Ad aliquam cum eius expedita illo impedit ipsam molestias officia,
-                        quibusdam quidem saepe sit totam voluptatum! Delectus deserunt distinctio
-                        doloremque ea modi!
-                    </p>
+
+                    <h5 class="text-center text-dark">Java</h5>
+                    <div class="progress mb-4">
+                        <div class="progress-label bg-dark" style="width: 50%;"></div>
+                    </div>
+
+                    <h5 class="text-center text-dark">Spring Framework | Spring Boot</h5>
+                    <div class="progress mb-4">
+                        <div class="progress-label bg-secondary" style="width: 50%;"></div>
+                    </div>
+
+                    <h5 class="text-center text-dark">SQL</h5>
+                    <div class="progress mb-4">
+                        <div class="progress-label bg-dark" style="width: 50%;"></div>
+                    </div>
+
+                    <h5 class="text-center text-dark">TypeScript</h5>
+                    <div class="progress mb-4">
+                        <div class="progress-label bg-secondary" style="width: 50%;"></div>
+                    </div>
                 </div>
+
                 <div class="col-lg-6">
-                    <h5>HTML</h5>
+
+                    <h5 class="text-center text-dark">HTML</h5>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-info" style="width: 95%;">
-                            95%
-                        </div>
+                        <div class="progress-label bg-dark" style="width: 50%;"></div>
                     </div>
-                    <h5>CSS</h5>
+
+                    <h5 class="text-center text-dark">CSS</h5>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-info" style="width: 80%;">
-                            80%
-                        </div>
+                        <div class="progress-label bg-secondary" style="width: 50%;"></div>
                     </div>
-                    <h5>JavaScript</h5>
+
+                    <h5 class="text-center text-dark">JavaScript</h5>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-info" style="width: 80%;">
-                            80%
-                        </div>
+                        <div class="progress-label bg-dark" style="width: 50%;"></div>
                     </div>
-                    <h5>Java</h5>
+
+                    <h5 class="text-center text-dark">Thymeleaf</h5>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-info" style="width: 70%;">
-                            70%
-                        </div>
+                        <div class="progress-label bg-secondary" style="width: 50%;"></div>
                     </div>
                 </div>
             </div>
@@ -94,7 +112,7 @@
 
                 <div class="col-md-6 col-lg-3" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
                     <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
-                    <a href="#" th:href="@{'post/' + ${post.getId()}}"><img src="" th:src="@{'/images/' + ${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
+                    <a href="#" th:href="@{'post/' + ${post.getId()}}"><img src="" th:src="@{${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
                     <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}"></h5>
                     <p class="lead text-muted" th:text="${post.getDescription()}"></p>
                 </div>
@@ -119,8 +137,8 @@
             <div class="row text-center">
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-5 m-md-0">
-                        <i class="fas fa-cogs fa-5x text-info mb-3"></i>
-                        <h5 class="font-weight-light">Web Development</h5>
+                        <i class="fas fa-cogs fa-5x text-dark mb-3"></i>
+                        <h5 class="font-weight-light">Back-end Development</h5>
                         <p class="my3 text-muted lead">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                             Architecto distinctio dolor eos exercitationem maiores modi placeat
@@ -130,8 +148,8 @@
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-5 m-md-0">
-                        <i class="fas fa-pencil-ruler fa-5x text-info mb-3"></i>
-                        <h5 class="font-weight-light">Web Design</h5>
+                        <i class="fas fa-pencil-ruler fa-5x text-dark mb-3"></i>
+                        <h5 class="font-weight-light">Front-end Development</h5>
                         <p class="my3 text-muted lead">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                             Architecto distinctio dolor eos exercitationem maiores modi placeat
@@ -141,8 +159,8 @@
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-5 m-md-0">
-                        <i class="fab fa-sketch fa-5x text-info mb-3"></i>
-                        <h5 class="font-weight-light">Graphic Design</h5>
+                        <i class="fab fa-sketch fa-5x text-dark mb-3"></i>
+                        <h5 class="font-weight-light">UI/UX Design</h5>
                         <p class="my3 text-muted lead">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                             Architecto distinctio dolor eos exercitationem maiores modi placeat
@@ -152,8 +170,8 @@
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-5 m-md-0">
-                        <i class="fas fa-camera fa-5x text-info mb-3"></i>
-                        <h5 class="font-weight-light">Photography</h5>
+                        <i class="fa fa-mobile fa-5x text-darkr mb-3"></i>
+                        <h5 class="font-weight-light">Mobile Development</h5>
                         <p class="my3 text-muted lead">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                             Architecto distinctio dolor eos exercitationem maiores modi placeat

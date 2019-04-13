@@ -1,5 +1,6 @@
 package com.portfolio.controllers;
 
+import com.portfolio.Util.Util;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,8 @@ public class PostController {
   @GetMapping
   @RequestMapping({"post/{id}", "/index.html/post/{id}", "/index/post/{id}"})
   public String getDetails(@PathVariable Long id, Model model) {
-
+    model.addAttribute("URL", Util.IMAGE_URL);
     model.addAttribute("post", this.postService.getPostById(id));
-
     return "post";
   }
 }

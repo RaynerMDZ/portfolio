@@ -1,5 +1,6 @@
 package com.portfolio.services.implementations;
 
+import com.portfolio.Util.Util;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PictureRepository;
@@ -16,7 +17,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  *
@@ -24,8 +28,6 @@ import java.util.*;
 @Slf4j
 @Service
 public class PictureServiceImpl implements PictureService {
-
-  public static String UPLOAD_DIRECTORY =  System.getProperty("user.dir") + "/images";
 
   private final PictureRepository pictureRepository;
   private final PostRepository postRepository;
@@ -43,7 +45,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @return Set<Pictures>
    */
   @Override
@@ -66,7 +67,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @param id
    * @return Picture
    */
@@ -90,7 +90,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @param postId
    * @param files
    * @return Picture
@@ -100,7 +99,7 @@ public class PictureServiceImpl implements PictureService {
   public void uploadPictures(Long postId, MultipartFile[] files) {
 
     // Mock
-    postId = 1L;
+    //postId = 1L;
 
     Post post = postService.getPostById(postId);
 
@@ -110,8 +109,8 @@ public class PictureServiceImpl implements PictureService {
       StringBuilder fileNames = new StringBuilder();
 
       for (MultipartFile file : files) {
-        Path fileNameAndPAth = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
+        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(Util.IMAGE_URL + Util.generateString());
 
         try {
           Files.write(fileNameAndPAth, file.getBytes());
@@ -128,10 +127,29 @@ public class PictureServiceImpl implements PictureService {
   @Override
   public void uploadPicture(Long postId, MultipartFile file) {
 
+    Post post = postService.getPostById(postId);
+
+    if (post != null) {
+      Picture picture = new Picture();
+
+      StringBuilder fileNames = new StringBuilder();
+
+      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
+      fileNames.append(file.getOriginalFilename());
+
+      try {
+        Files.write(fileNameAndPAth, file.getBytes());
+        picture.setPicture(fileNames.toString());
+        post.getPictures().add(picture);
+        postService.updatePost(post);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
-   *
    * @param picture
    * @return Picture
    */
@@ -141,7 +159,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @param id
    * @return boolean
    */
@@ -151,7 +168,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @param id
    * @return boolean
    */
@@ -180,7 +196,6 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   *
    * @param postId
    * @return Picture
    */
@@ -206,7 +221,6 @@ public class PictureServiceImpl implements PictureService {
     }
     return null;
   }
-
 
 
 }
