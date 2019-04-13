@@ -6,13 +6,11 @@
 
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
-
-
 </head>
 <body>
     <header th:insert="fragments/navbar.html :: navbar"></header>
 
-    <section class="bg-light pt-5" id="home" th:fragment="home">
+    <section class="bg-light pt-5" id="home">
         <div class="container pt-5">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-7 order-2 order-md-1">
@@ -28,7 +26,7 @@
         </div>
     </section>
 
-    <section class="py-5" id="about" th:fragment="about">
+    <section class="py-5" id="about">
         <div class="container py-5">
             <div class="row mb-5">
                 <div class="col text-center">
@@ -80,7 +78,7 @@
         </div>
     </section>
 
-    <section class="py-5 bg-light" id="portfolio" th:fragment="portfolio">
+    <section class="py-5 bg-light" id="portfolio">
         <div class="container py-5">
             <div class="row mb-5">
                 <div class="col text-center">
@@ -94,45 +92,18 @@
 
             <div class="row mb-5 text-center" >
 
-                <div class="col-md-6 col-lg-3" th:each="post : ${posts}">
+                <div class="col-md-6 col-lg-3" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
                     <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
-                    <a href=""><img src="" th:src="@{'/images/' + ${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
+                    <a href="#" th:href="@{'post/' + ${post.getId()}}"><img src="" th:src="@{'/images/' + ${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
                     <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}"></h5>
                     <p class="lead text-muted" th:text="${post.getDescription()}"></p>
-                </div>
-
-                <div class="col-md-6 col-lg-3" th:remove="all">
-                    <img src="portfolio.png" alt="" class="img-thumbnail" >
-                    <h5 class="my-3 font-weight-light">Landing Page</h5>
-                    <p class="lead text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
-                    </p>
-                </div>
-
-                <div class="col-md-6 col-lg-3" th:remove="all">
-                    <img src="portfolio.png" alt="" class="img-thumbnail" >
-                    <h5 class="my-3 font-weight-light">Animations</h5>
-                    <p class="lead text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
-                    </p>
-                </div>
-
-                <div class="col-md-6 col-lg-3" th:remove="all">
-                    <img src="portfolio.png" alt="" class="img-thumbnail" >
-                    <h5 class="my-3 font-weight-light">The Squeeze</h5>
-                    <p class="lead text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Alias aperiam iure laudantium mollitia nisi odio sint velit vitae.
-                    </p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <section class="py-5" id="services" th:fragment="services">
+    <section class="py-5" id="services">
         <div class="container py-5">
             <div class="row mb-5">
                 <div class="col text-center">

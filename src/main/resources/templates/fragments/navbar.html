@@ -9,7 +9,7 @@
 <header>
     <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top" th:fragment="navbar">
         <div class="container">
-            <a href="index.html" class="navbar-brand">
+            <a href="/" th:href="@{/}" class="navbar-brand">
                 <h1 class="font-weight-bold m-0">Rayner Méndez</h1>
             </a>
             <button class="navbar-toggler bg-light" data-toggle="collapse" data-target="#navbar">
@@ -18,16 +18,16 @@
             <div class="collapse navbar-collapse justify-content-md-end" id="navbar">
                 <ul class="navbar-nav text-uppercase">
                     <li class="nav-item px-2">
-                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#home" th:href="@{../#home}" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="#about" class="nav-link">About</a>
+                        <a href="#about" th:href="@{../#about}" class="nav-link">About</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="#portfolio" class="nav-link">Portfolio</a>
+                        <a href="#portfolio" th:href="@{../#portfolio}" class="nav-link">Portfolio</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="#services" class="nav-link">Services</a>
+                        <a href="#services" th:href="@{../#services}" class="nav-link">Services</a>
                     </li>
 <!--                    <li class="nav-item px-2">-->
 <!--                        <a href="#blog" class="nav-link">Blog</a>-->

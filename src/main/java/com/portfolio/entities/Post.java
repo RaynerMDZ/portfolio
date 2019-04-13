@@ -20,6 +20,12 @@ public class Post extends BaseEntity {
   @Column(name = "description", unique = false, nullable = true)
   private String description;
 
+  @Column(name = "github", unique = false, nullable = true)
+  private String gitHub;
+
+  @Column(name = "link", unique = false, nullable = true)
+  private String link;
+
   @Temporal(DATE)
   @DateTimeFormat(pattern="dd-MMM-YYYY")
   @Column(name = "created_date", unique = false, nullable = true)
@@ -58,9 +64,27 @@ public class Post extends BaseEntity {
     return description;
   }
 
+  public String getGitHub() {
+    return gitHub;
+  }
+
+  public void setGitHub(String gitHub) {
+    this.gitHub = gitHub;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
   public void setDescription(String description) {
     this.description = description;
   }
+
+
 
   public Date getCreatedDate() {
     return createdDate;
@@ -94,11 +118,13 @@ public class Post extends BaseEntity {
     this.pictures = pictures;
   }
 
-  public List getComments() {
+  public List<Comment> getComments() {
     return comments;
   }
 
-  public void setComments(List comments) {
+  public void setComments(List<Comment> comments) {
     this.comments = comments;
   }
+
+
 }

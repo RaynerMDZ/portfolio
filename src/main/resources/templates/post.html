@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${post.getTitle()}">Title</title>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 
+    <header th:insert="fragments/navbar.html :: navbar"></header>
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row mb-5">
+                <div class="col text-center">
+                    <h1 class="display-3" th:text="${post.getTitle()}">Title</h1>
+                    <a href="" th:href="@{${post.getGitHub()}}" target="_blank"><h5 class="text-black-50">Github</h5></a>
+                    <a href="" th:href="@{${post.getLink()}}" target="_blank"><h5 class="text-black-50">Website</h5></a>
+                    <p class="lead text-body" th:text="${post.getDescription()}"></p>
+                </div>
+            </div>
+
+            <div class="row mb-5 text-center" >
+
+                <div class="col-md-6 col-lg-3" th:each="picture : ${post.getPictures()}">
+                    <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
+                    <img src="" th:src="@{'/images/' + ${picture.getPicture()}}" alt="" class="img-thumbnail">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:insert="fragments/footer.html :: footer"></footer>
+
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
