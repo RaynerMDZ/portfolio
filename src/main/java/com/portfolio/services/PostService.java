@@ -2,14 +2,14 @@ package com.portfolio.services;
 
 import com.portfolio.entities.Post;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
  */
 public interface PostService {
 
-  Set<Post> getAllPosts();
+  List<Post> getAllPosts();
   Post getPostById(Long id);
   Post createPost(Post post);
   Post updatePost(Post post);

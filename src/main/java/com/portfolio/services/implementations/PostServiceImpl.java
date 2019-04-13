@@ -5,12 +5,8 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PostService;
 import javassist.bytecode.annotation.NoSuchClassError;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -29,9 +25,9 @@ public class PostServiceImpl implements PostService {
    * @return Set<Post>
    */
   @Override
-  public Set<Post> getAllPosts() {
+  public List<Post> getAllPosts() {
 
-    Set<Post> posts = new HashSet<>();
+    List<Post> posts = new ArrayList<>();
 
     try {
       postRepository.findAll().iterator().forEachRemaining(posts::add);
@@ -72,7 +68,7 @@ public class PostServiceImpl implements PostService {
   @Override
   public Post createPost(Post post) {
 
-    Set<Post> posts = getAllPosts();
+    List<Post> posts = getAllPosts();
 
     if (post != null) {
 

@@ -30,14 +30,14 @@ public class DataLoader implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
 
-    Post post = new Post();
-    post.setTitle("Testtttt");
-    post.setDescription("testttttttttttttttttttttttt");
+//    Post post = new Post();
+//    post.setTitle("Testtttt");
+//    post.setDescription("testttttttttttttttttttttttt");
 
     //Picture picture = pictureService.uploadPicture(post.getId(), saveImageToDb());
     //post.getPictures().add(picture);
 
-    postService.createPost(post);
+//    postService.createPost(post);
 
   }
 

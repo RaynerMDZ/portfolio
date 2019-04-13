@@ -3,9 +3,7 @@ package com.portfolio.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.TemporalType.DATE;
 
@@ -36,10 +34,17 @@ public class Post extends BaseEntity {
   private Boolean hidden;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-  private Set<Picture> pictures = new HashSet<>();
+  private List<Picture> pictures = new ArrayList<>();
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-  private Set<Comment> comments = new HashSet<>();
+  private List<Comment> comments = new ArrayList<>();
+
+  public String getFirstPicture() {
+    if (pictures.size() > 0) {
+      return pictures.get(0).getPicture();
+    }
+    return null;
+  }
 
   public String getTitle() {
     return Title;
@@ -81,19 +86,19 @@ public class Post extends BaseEntity {
     this.hidden = hidden;
   }
 
-  public Set<Picture> getPictures() {
+  public List<Picture> getPictures() {
     return pictures;
   }
 
-  public void setPictures(Set<Picture> pictures) {
+  public void setPictures(List<Picture> pictures) {
     this.pictures = pictures;
   }
 
-  public Set<Comment> getComments() {
+  public List getComments() {
     return comments;
   }
 
-  public void setComments(Set<Comment> comments) {
+  public void setComments(List comments) {
     this.comments = comments;
   }
 }

@@ -5,6 +5,7 @@ import com.portfolio.repositories.CommentRepository;
 import com.portfolio.services.CommentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,8 +25,8 @@ public class CommentServiceImpl implements CommentService {
    * @return Set<Comment>
    */
   @Override
-  public Set<Comment> getAllComments() {
-    return null;
+  public List<Comment> getAllComments() {
+    return repository.findAll();
   }
 
   /**

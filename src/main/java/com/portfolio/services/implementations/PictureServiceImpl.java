@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -50,9 +47,9 @@ public class PictureServiceImpl implements PictureService {
    * @return Set<Pictures>
    */
   @Override
-  public Set<Picture> getAllPictures() {
+  public List<Picture> getAllPictures() {
 
-    Set<Picture> pictures = new HashSet<>();
+    List<Picture> pictures = new ArrayList<>();
 
     try {
       pictureRepository.findAll().iterator().forEachRemaining(pictures::add);
@@ -95,12 +92,12 @@ public class PictureServiceImpl implements PictureService {
   /**
    *
    * @param postId
-   * @param file
+   * @param files
    * @return Picture
    */
   @Override
   @Transactional
-  public void uploadPicture(Long postId, MultipartFile[] files) {
+  public void uploadPictures(Long postId, MultipartFile[] files) {
 
     // Mock
     postId = 1L;
@@ -126,6 +123,11 @@ public class PictureServiceImpl implements PictureService {
         }
       }
     }
+  }
+
+  @Override
+  public void uploadPicture(Long postId, MultipartFile file) {
+
   }
 
   /**

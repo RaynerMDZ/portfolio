@@ -3,16 +3,17 @@ package com.portfolio.services;
 import com.portfolio.entities.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
  */
 public interface PictureService {
 
-  Set<Picture> getAllPictures();
+  List<Picture> getAllPictures();
   Picture getPictureById(Long id);
-  void uploadPicture(Long postId, MultipartFile[] file);
+  void uploadPictures(Long postId, MultipartFile[] file);
+  void uploadPicture(Long postId, MultipartFile file);
   Picture updatePicture(Picture picture);
   boolean deletePictureById(Long id);
   boolean hidePicture(Long id);

@@ -38,8 +38,6 @@ public class PostController {
   public String getAllPost(Model model) {
 
     model.addAttribute("posts", portfolioPostService.getAllPosts());
-    model.addAttribute("service", pictureService);
-    model.addAttribute("picture", pictureService.getPictureById(1L));
     return "fragments/portfolio/portfolio";
   }
 
