@@ -86,10 +86,8 @@
                 <div class="col text-center">
                     <h1 class="display-4">My Portfolio</h1>
                     <p class="lead text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Aliquam asperiores beatae debitis delectus doloribus eligendi in itaque
-                        iusto libero magni mollitia numquam, odio, quas quisquam quos repellat suscipit
-                        velit voluptates.
+                        Here are some of the projects that I have worked with. Click on any image to get to its
+                        description.
                     </p>
                 </div>
             </div>
@@ -98,7 +96,7 @@
 
                 <div class="col-md-6 col-lg-3" th:each="post : ${posts}">
                     <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
-                    <img src="" th:src="@{'/images/' + ${post.getFirstPicture()}}" alt="" class="img-thumbnail">
+                    <a href=""><img src="" th:src="@{'/images/' + ${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
                     <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}"></h5>
                     <p class="lead text-muted" th:text="${post.getDescription()}"></p>
                 </div>
