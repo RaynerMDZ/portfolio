@@ -45,9 +45,18 @@ public class Post extends BaseEntity {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
   private List<Comment> comments = new ArrayList<>();
 
+  // Helper method to get the first picture.
   public String getFirstPicture() {
     if (pictures.size() > 0) {
       return pictures.get(0).getPicture();
+    }
+    return null;
+  }
+
+  // Helper method to get pictures.
+  public String getPictureByIndex(int index) {
+    if (pictures.size() > 0) {
+      return pictures.get(index).getPicture();
     }
     return null;
   }

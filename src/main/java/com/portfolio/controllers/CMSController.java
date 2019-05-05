@@ -76,6 +76,7 @@ public class CMSController {
   @PostMapping
   @RequestMapping("/create-post")
   public String createPost(@RequestBody Post post) {
+
     Post savedPost = postService.createPost(post);
 
     if (savedPost != null) {
