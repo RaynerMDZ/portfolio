@@ -47,6 +47,7 @@ public class PictureController {
     Post post = postService.getPostById(2L);
     Picture picture = new Picture();
 
+
     for (MultipartFile file : files) {
       Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
       fileNames.append(file.getOriginalFilename());
@@ -55,11 +56,6 @@ public class PictureController {
 
       try {
         Files.write(fileNameAndPAth, file.getBytes());
-
-        File oldFile = new File(fileNameAndPAth.toUri());
-        boolean result = rename(oldFile);
-        System.out.println(result);
-
       } catch (IOException e) {
         e.printStackTrace();
       }

@@ -138,6 +138,8 @@ public class CMSController {
   @RequestMapping("/add-picture/{id}")
   public String addPicture(@PathVariable Long id, @RequestParam("file") MultipartFile file, Model model) {
 
+    String name = file.getOriginalFilename();
+
     return "fragments/portfolio/{id}/post";
   }
 
