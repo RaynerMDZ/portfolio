@@ -25,7 +25,7 @@ public class CMSController {
   }
 
   /**
-   *
+   * Shows the admin page with all the posts.
    * @param model
    * @return String
    */
@@ -39,7 +39,7 @@ public class CMSController {
   }
 
   /**
-   *
+   * When a post is clicked, the server shows a page to edit it.
    * @param id
    * @param model
    * @return String
@@ -54,7 +54,7 @@ public class CMSController {
   }
 
   /**
-   *
+   * Opens a new page with empty inputs to create a new post.
    * @return String
    */
   @GetMapping
@@ -70,12 +70,11 @@ public class CMSController {
   /**
    *
    * @param post
-   *
    * @return String
    */
   @PostMapping
   @RequestMapping("/create-post")
-  public String createPost(@RequestBody Post post) {
+  public String createPost(@ModelAttribute("post") Post post) {
 
     Post savedPost = postService.createPost(post);
 
