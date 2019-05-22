@@ -75,11 +75,12 @@ public class CMSController {
   @PostMapping
   @RequestMapping("/create-post")
   public String createPost(@ModelAttribute("post") Post post) {
+      // ModelAttribute takes the object from the view.
 
     Post savedPost = postService.createPost(post);
 
     if (savedPost != null) {
-      return "cms/admin";
+      return "redirect:admin";
     }
     return "error/generic-error";
   }
