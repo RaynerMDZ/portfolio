@@ -6,12 +6,10 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="message" type="com.portfolio.controllers.PictureController"*/-->
-<div th:if="${message}">
-    <span th:text="${message}"></span>
+<div th:each="picture : ${pictures}">
+    <img alt="image" th:src="@{${picture.getPicture()}}" src=""/>
 </div>
 
-<img alt="image" th:src="@{'/images/' + ${picture.getPicture()}}" src=""/>
 
 </body>
 </html>

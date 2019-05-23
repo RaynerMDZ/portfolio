@@ -32,7 +32,6 @@ public class indexController {
   @GetMapping
   @RequestMapping({"", "/", "/index", "/index.html"})
   public String getIndex(Model model) {
-    model.addAttribute("URL", Util.IMAGE_URL);
     model.addAttribute("posts", portfolioPostService.getAllPosts());
     return "index";
   }

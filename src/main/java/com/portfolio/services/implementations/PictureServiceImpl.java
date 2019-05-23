@@ -98,40 +98,32 @@ public class PictureServiceImpl implements PictureService {
   @Transactional
   public void uploadPictures(Long postId, MultipartFile[] files) {
 
-    // Mock
-    //postId = 1L;
-
-    Post post = postService.getPostById(postId);
-
-    if (post != null) {
-      Picture picture = new Picture();
-
-      StringBuilder fileNames = new StringBuilder();
-
-      for (MultipartFile file : files) {
-        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(Util.IMAGE_URL + Util.generateString());
-
-        try {
-          Files.write(fileNameAndPAth, file.getBytes());
-          picture.setPicture(fileNames.toString());
-          post.getPictures().add(picture);
-          postService.updatePost(post);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
+//    Post post = postService.getPostById(postId);
+//
+//    if (post != null) {
+//      Picture picture = new Picture();
+//
+//      StringBuilder fileNames = new StringBuilder();
+//      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, files.getOriginalFilename());
+//      fileNames.append(Util.IMAGE_URL + Util.generateString());
+//
+//      try {
+//        Files.write(fileNameAndPAth, files.getBytes());
+//        picture.setPicture(fileNames.toString());
+//        post.getPictures().add(picture);
+//        pictureRepository.save(picture);
+//        postService.updatePost(post);
+//      } catch (IOException e) {
+//        e.printStackTrace();
+//      }
   }
 
   @Override
-  public void uploadPicture(Long postId, MultipartFile file) {
-
+  public Boolean uploadPicture(Long postId, MultipartFile file) {
+    // Gets the post that belongs to'postId'
     Post post = postService.getPostById(postId);
 
     if (post != null) {
-      Picture picture = new Picture();
-
       StringBuilder fileNames = new StringBuilder();
 
       Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
@@ -139,14 +131,21 @@ public class PictureServiceImpl implements PictureService {
 
       try {
         Files.write(fileNameAndPAth, file.getBytes());
-        picture.setPicture(fileNames.toString());
-        post.getPictures().add(picture);
-        postService.updatePost(post);
+
+        Picture picture = new Picture();
+        picture.setPicture(Util.IMAGE_URL + fileNames.toString());
+
+        picture.setPost(post);
+        pictureRepository.save(picture);
+        return true;
 
       } catch (IOException e) {
         e.printStackTrace();
+        return false;
       }
     }
+
+    return false;
   }
 
   /**
