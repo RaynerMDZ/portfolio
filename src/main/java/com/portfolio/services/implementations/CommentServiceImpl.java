@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- *
+ * This class refers to the business logic related to comments.
  */
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
   }
 
   /**
-   *
+   * Returns a List of comments if the list created is not null.
    * @return List<Comment>
    */
   @Override
@@ -47,9 +47,13 @@ public class CommentServiceImpl implements CommentService {
   }
 
   /**
-   *
+   * First: finds the post where the comment is going to be created.
+   * Second: If the Post exist, a new creation date is going to be assigned to the comment.
+   * Then, the Post is assigned to the comment in order to take its id.
+   * Third: Attempts to save the Comment object with the fetched data. If the save method returns
+   * a value not null, the Comment object is returned.
    * @param comment
-   * @return Comment
+   * @return the created Comment object.
    */
   @Override
   public Comment createComment(Comment comment, Long postID) {
@@ -80,9 +84,9 @@ public class CommentServiceImpl implements CommentService {
   }
 
   /**
-   *
+   * Simply looks for a Comment object inside the List of objects. If it is found, it returns it.
    * @param id
-   * @return Comment
+   * @return found Comment object.
    */
   @Override
   public Comment getCommentById(Long id) {
@@ -101,7 +105,9 @@ public class CommentServiceImpl implements CommentService {
   }
 
   /**
-   *
+   * Uses the method getCommentById() to search for the Comment object related to the id provided.
+   * Then, it tries to delete the Comment object. If so, the method returns true, otherwise throws a
+   * exception and returns false.
    * @param id
    * @return boolean
    */
@@ -121,6 +127,11 @@ public class CommentServiceImpl implements CommentService {
     return false;
   }
 
+  /**
+   * Helper method to check if a Comment exist.
+   * @param id
+   * @return true or false.
+   */
   private boolean exist(Long id) {
     Comment existing = this.getCommentById(id);
     return existing != null;
