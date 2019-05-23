@@ -171,8 +171,7 @@ public class PostServiceImpl implements PostService {
    * @param id
    * @return a boolean
    */
-  @Override
-  public boolean exist(Long id) {
+  private boolean exist(Long id) {
     Post existing = this.getPostById(id);
     return existing != null;
   }

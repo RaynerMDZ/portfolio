@@ -1,7 +1,7 @@
 package com.portfolio.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Comment extends BaseEntity {
   private String body;
 
   @Column(name = "creation_date", unique = false, nullable = true)
-  private LocalDate creationDate;
+  private Date creationDate;
 
   @ManyToOne
   private Post post;
@@ -38,11 +38,11 @@ public class Comment extends BaseEntity {
     this.body = body;
   }
 
-  public LocalDate getCreationDate() {
+  public Date getCreationDate() {
     return creationDate;
   }
 
-  public void setCreationDate(LocalDate creationDate) {
+  public void setCreationDate(Date creationDate) {
     this.creationDate = creationDate;
   }
 
