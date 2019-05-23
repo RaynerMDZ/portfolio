@@ -84,6 +84,7 @@
                     <td>PICTURES</td>
                     <td>CREATED DATE</td>
                     <td>MODIFIED DATE</td>
+                    <td>DELETE POST</td>
                 </tr>
                 </thead>
                 <tbody th:each="post : ${posts}">
@@ -92,6 +93,7 @@
                     <td th:text="${post.getPictures().size()}"></td>
                     <td th:text="${post.getCreatedDate()}"></td>
                     <td th:text="${post.getModifiedDate()}"></td>
+                    <td><a href="#" th:href="@{'/cms/' + ${post.getId()} + '/delete-post'}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
