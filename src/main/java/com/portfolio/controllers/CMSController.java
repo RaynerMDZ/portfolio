@@ -74,12 +74,17 @@ public class CMSController {
    */
   @PostMapping
   @RequestMapping("/create-post")
-  public String createPost(@ModelAttribute("post") Post post) {
+  public String createPost(@ModelAttribute("post") Post post, @RequestParam("files") MultipartFile[] files) {
       // ModelAttribute takes the object from the view.
 
     Post savedPost = postService.createPost(post);
+    boolean success = false;
 
     if (savedPost != null) {
+      success = pictureService.uploadPictures(savedPost.getId(), files);
+    }
+
+    if (success) {
       return "redirect:admin";
     }
     return "error/generic-error";

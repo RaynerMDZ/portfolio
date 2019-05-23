@@ -96,30 +96,36 @@ public class PictureServiceImpl implements PictureService {
    */
   @Override
   @Transactional
-  public void uploadPictures(Long postId, MultipartFile[] files) {
+  public boolean uploadPictures(Long postId, MultipartFile[] files) {
 
-//    Post post = postService.getPostById(postId);
-//
-//    if (post != null) {
-//      Picture picture = new Picture();
-//
-//      StringBuilder fileNames = new StringBuilder();
-//      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, files.getOriginalFilename());
-//      fileNames.append(Util.IMAGE_URL + Util.generateString());
-//
-//      try {
-//        Files.write(fileNameAndPAth, files.getBytes());
-//        picture.setPicture(fileNames.toString());
-//        post.getPictures().add(picture);
-//        pictureRepository.save(picture);
-//        postService.updatePost(post);
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
+    Post post = postService.getPostById(postId);
+
+    if (post != null) {
+      for (MultipartFile file : files) {
+        StringBuilder fileNames = new StringBuilder();
+
+        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(file.getOriginalFilename());
+
+        try {
+          Files.write(fileNameAndPAth, file.getBytes());
+
+          Picture picture = new Picture();
+          picture.setPicture(Util.IMAGE_URL + fileNames.toString());
+          picture.setPost(post);
+          pictureRepository.save(picture);
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
-  public Boolean uploadPicture(Long postId, MultipartFile file) {
+  public boolean uploadPicture(Long postId, MultipartFile file) {
     // Gets the post that belongs to'postId'
     Post post = postService.getPostById(postId);
 

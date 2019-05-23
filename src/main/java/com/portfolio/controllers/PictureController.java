@@ -38,7 +38,21 @@ public class PictureController {
   @RequestMapping("/upload")
   public String imageUpload(Model model, @RequestParam("files") MultipartFile file, Long postId) {
 
-    Boolean success = pictureService.uploadPicture(2L, file);
+    boolean success = pictureService.uploadPicture(2L, file);
+
+    if (success) {
+      Post post = postService.getPostById(2L);
+      model.addAttribute("pictures", post.getPictures());
+    }
+
+    return "test/status";
+  }
+
+  @PostMapping
+  @RequestMapping("/uploads")
+  public String imagesUpload(Model model, @RequestParam("files") MultipartFile[] file, Long postId) {
+
+    boolean success = pictureService.uploadPictures(2L, file);
 
     if (success) {
       Post post = postService.getPostById(2L);

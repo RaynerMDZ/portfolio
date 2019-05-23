@@ -16,8 +16,8 @@
             <div class="row mb-5">
                 <div class="col text-center">
                     <h1 class="display-3" th:text="${post.getTitle()}">Title</h1>
-                    <a href="" th:href="@{${post.getGitHub()}}" target="_blank"><h5 class="text-black-50">Github</h5></a>
-                    <a href="" th:href="@{${post.getLink()}}" target="_blank"><h5 class="text-black-50">Website</h5></a>
+                    <a href="" th:href="@{${post.getGitHub().toString()}}" target="_blank"><h5 class="text-black-50">Github</h5></a>
+                    <a href="" th:href="@{${post.getLink().toString()}}" target="_blank"><h5 class="text-black-50">Website</h5></a>
                     <p class="lead text-body" th:text="${post.getDescription()}"></p>
                 </div>
             </div>
