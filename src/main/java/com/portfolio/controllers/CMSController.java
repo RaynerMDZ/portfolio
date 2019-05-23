@@ -87,7 +87,7 @@ public class CMSController {
     if (success) {
       return "redirect:admin";
     }
-    return "error/generic-error";
+    return "error";
   }
 
   /**
@@ -97,14 +97,14 @@ public class CMSController {
    */
   @PutMapping
   @RequestMapping("/update-post")
-  public String updatePost(@RequestBody Post post) {
+  public String updatePost(@ModelAttribute("post") Post post, @RequestParam("files") MultipartFile[] files) {
 
     Post savedPost = postService.updatePost(post);
 
     if (savedPost != null) {
       return "redirect:/cms/" + post.getId() + "/edit-post";
     }
-    return "error/generic-error";
+    return "error";
   }
 
   /**
