@@ -15,4 +15,5 @@ public interface PostService {
   Post updatePost(Post post);
   boolean deletePostById(Long id);
   boolean hidePost(Long id);
+  boolean exist(Long id);
 }

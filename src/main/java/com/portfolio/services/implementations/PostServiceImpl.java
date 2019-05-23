@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- *
+ * This class implements methods from the Post Service.
+ * It has all business logic for Post objects.
  */
 @Service
 public class PostServiceImpl implements PostService {
@@ -21,8 +22,8 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
-   *
-   * @return Set<Post>
+   * Fetch all posts inside the database and return them as a list.
+   * @return List<Post> with all post in the database.
    */
   @Override
   public List<Post> getAllPosts() {
@@ -32,21 +33,21 @@ public class PostServiceImpl implements PostService {
     try {
       postRepository.findAll().iterator().forEachRemaining(posts::add);
 
+      if (!posts.isEmpty()) {
+        return posts;
+      }
     } catch (Exception e) {
       e.printStackTrace();
       return null;
-    }
-
-    if (!posts.isEmpty()) {
-      return posts;
     }
     return null;
   }
 
   /**
-   *
+   * Takes an id and search through the posts list. If a post if the same id is found, then it's returned.
+   * Otherwise a null is returned.
    * @param id
-   * @return Post
+   * @return the found post.
    */
   @Override
   public Post getPostById(Long id) {
@@ -61,9 +62,9 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
-   *
+   * Creates a post from an object passed to the method.
    * @param post
-   * @return Post
+   * @return the created post object.
    */
   @Override
   public Post createPost(Post post) {
@@ -90,17 +91,23 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
-   *
+   * Takes an existing post and sets a new modified date. Then, it is saved.
    * @param post
-   * @return Post
+   * @return saved post object.
    */
   @Override
   public Post updatePost(Post post) {
 
-    Optional<Post> exist = getAllPosts().stream()
-            .filter(p -> p.getId().equals(post.getId())).findFirst();
+    Optional<Post> exist = Optional.empty();
+
+    if (this.exist(post.getId())) {
+
+      exist = getAllPosts().stream()
+              .filter(p -> p.getId().equals(post.getId())).findFirst();
+    }
 
     if (exist.isPresent()) {
+
       post.setModifiedDate(new Date());
 
       try {
@@ -114,14 +121,14 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
-   *
+   * Takes the id of a post. if the id exist, then the post is deleted.
    * @param id
    * @return booelan
    */
   @Override
   public boolean deletePostById(Long id) {
 
-    if (id != null) {
+    if (exist(id)) {
       try {
         postRepository.deleteById(id);
         return true;
@@ -134,23 +141,39 @@ public class PostServiceImpl implements PostService {
   }
 
   /**
-   *
+   * Takes an id of a post. Then, it check whether isHidden() is true or false.
+   * If true then it changes to false. If false then it changes to true.
    * @param id
    * @return boolean
    */
   @Override
   public boolean hidePost(Long id) {
 
-    Post post = getPostById(id);
+    if (exist(id)) {
+      Post post = getPostById(id);
 
-    if (!post.isHidden()) {
-      post.setHidden(true);
-      this.updatePost(post);
-      return true;
-    } else {
-      post.setHidden(false);
-      this.updatePost(post);
-      return false;
+      if (!post.isHidden()) {
+        post.setHidden(true);
+        this.updatePost(post);
+        return true;
+
+      } else {
+        post.setHidden(false);
+        this.updatePost(post);
+        return false;
+      }
     }
+    return false;
+  }
+
+  /**
+   *  Check if a post exists.
+   * @param id
+   * @return a boolean
+   */
+  @Override
+  public boolean exist(Long id) {
+    Post existing = this.getPostById(id);
+    return existing != null;
   }
 }
