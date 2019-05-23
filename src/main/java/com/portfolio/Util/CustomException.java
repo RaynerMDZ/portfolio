@@ -4,7 +4,7 @@ public class CustomException extends Exception {
 
   private String message;
 
-  CustomException(String message) {
+  public CustomException(String message) {
     this.message = message;
   }
 

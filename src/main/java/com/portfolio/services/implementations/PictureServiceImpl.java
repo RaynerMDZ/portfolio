@@ -19,7 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -45,7 +44,7 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   * @return Set<Pictures>
+   * @return list<Pictures>
    */
   @Override
   public List<Picture> getAllPictures() {
@@ -125,9 +124,63 @@ public class PictureServiceImpl implements PictureService {
   }
 
   @Override
+  public boolean uploadPictures(Post post, MultipartFile[] files) {
+    if (post != null) {
+      for (MultipartFile file : files) {
+        StringBuilder fileNames = new StringBuilder();
+
+        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(file.getOriginalFilename());
+
+        try {
+          Files.write(fileNameAndPAth, file.getBytes());
+
+          Picture picture = new Picture();
+          picture.setPicture(Util.IMAGE_URL + fileNames.toString());
+          picture.setPost(post);
+          pictureRepository.save(picture);
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @Override
   public boolean uploadPicture(Long postId, MultipartFile file) {
     // Gets the post that belongs to'postId'
     Post post = postService.getPostById(postId);
+
+    if (post != null) {
+      StringBuilder fileNames = new StringBuilder();
+
+      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
+      fileNames.append(file.getOriginalFilename());
+
+      try {
+        Files.write(fileNameAndPAth, file.getBytes());
+
+        Picture picture = new Picture();
+        picture.setPicture(Util.IMAGE_URL + fileNames.toString());
+
+        picture.setPost(post);
+        pictureRepository.save(picture);
+        return true;
+
+      } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  @Override
+  public boolean uploadPicture(Post post, MultipartFile file) {
 
     if (post != null) {
       StringBuilder fileNames = new StringBuilder();
@@ -198,33 +251,6 @@ public class PictureServiceImpl implements PictureService {
       }
     }
     return false;
-  }
-
-  /**
-   * @param postId
-   * @return Picture
-   */
-  @Override
-  public Picture findFirstPicture(Long postId) {
-
-    Post post = null;
-    if (postId != null) {
-      post = postService.getPostById(postId);
-    }
-
-    Optional<Picture> fistPicture = null;
-    try {
-      fistPicture = Objects.requireNonNull(post).getPictures().stream()
-              .filter(picture -> picture.getId().equals(1L)).findFirst();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    }
-
-    if (fistPicture.isPresent()) {
-      return fistPicture.orElse(null);
-    }
-    return null;
   }
 
 

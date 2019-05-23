@@ -1,5 +1,6 @@
 package com.portfolio.controllers;
 
+import com.portfolio.Util.CustomException;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.services.PictureService;
@@ -81,13 +82,13 @@ public class CMSController {
     boolean success = false;
 
     if (savedPost != null) {
-      success = pictureService.uploadPictures(savedPost.getId(), files);
+      success = pictureService.uploadPictures(savedPost, files);
     }
 
     if (success) {
       return "redirect:admin";
     }
-    return "error";
+    return "error/error";
   }
 
   /**
@@ -114,10 +115,19 @@ public class CMSController {
    * @return String
    */
   @DeleteMapping
-  @RequestMapping("/delete-post/{id}")
+  @RequestMapping("/{id}/delete-post")
   public String deletePost(@PathVariable Long id, Model model) {
 
-    return "redirect:/cms/admin";
+    try {
+      boolean success = postService.deletePostById(id);
+      if (!success) throw new CustomException("Could not delete the post.");
+      return "redirect:/cms/admin";
+
+    } catch (CustomException e) {
+      System.out.println(e.getMessage());
+      model.addAttribute("errorMessage", e.getMessage());
+      return "error/error-500";
+    }
   }
 
   /**
