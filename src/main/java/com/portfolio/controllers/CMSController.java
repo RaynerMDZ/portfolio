@@ -137,9 +137,10 @@ public class CMSController {
    * @return String
    */
   @PutMapping
-  @RequestMapping("/hide-post/{id}")
-  public String hidePost(@PathVariable Long id, Model model) {
+  @RequestMapping("/{id}/hide-post")
+  public String hidePost(@PathVariable Long id) {
 
+    postService.hidePost(id);
     return "redirect:/cms/admin";
   }
 
@@ -193,7 +194,7 @@ public class CMSController {
    * @return String
    */
   @PutMapping
-  @RequestMapping("/hide-picture/{id}")
+  @RequestMapping("/{id}/hide-picture")
   public String hidePicture(@PathVariable Long id, Model model) {
 
     return "redirects:/fragments/portfolio/{id}/post";

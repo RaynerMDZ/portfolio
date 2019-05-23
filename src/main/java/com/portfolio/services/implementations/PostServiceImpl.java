@@ -145,9 +145,11 @@ public class PostServiceImpl implements PostService {
 
     if (!post.isHidden()) {
       post.setHidden(true);
+      this.updatePost(post);
       return true;
     } else {
       post.setHidden(false);
+      this.updatePost(post);
       return false;
     }
   }

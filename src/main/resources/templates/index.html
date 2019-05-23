@@ -111,10 +111,12 @@
             <div class="row mb-5 text-center">
 
                 <div class="col-md-6 col-lg-3" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
-                    <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
-                    <a href="#" th:href="@{'post/' + ${post.getId()}}"><img src="" th:src="@{${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
-                    <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}"></h5>
-                    <p class="lead text-muted" th:text="${post.getDescription()}"></p>
+                    <div th:if="${!post.isHidden()}">
+                        <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
+                        <a href="#" th:href="@{'post/' + ${post.getId()}}"><img src="" th:src="@{${post.getFirstPicture()}}" alt="" class="img-thumbnail"></a>
+                        <h5 class="my-3 font-weight-light" th:text="${post.getTitle()}"></h5>
+                        <p class="lead text-muted" th:text="${post.getDescription()}"></p>
+                    </div>
                 </div>
 
             </div>

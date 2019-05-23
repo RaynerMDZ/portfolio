@@ -8,7 +8,7 @@ INSERT Into post (title, description, github, link, created_date, modified_date,
 VALUES ('Heyy', 'Ecommerce', 'https://github.com/RaynerMDZ/CodingAllDay', 'www.codingallday.com', DATE '2015-12-17', DATE '2015-12-17', FALSE);
 
 INSERT Into post (title, description, github, link, created_date, modified_date, hidden)
-VALUES ('Bodyyyyyy', 'Ecommerce', 'https://github.com/RaynerMDZ/CodingAllDay', 'www.codingallday.com', DATE '2015-12-17', DATE '2015-12-17', FALSE);
+VALUES ('Bodyyyyyy', 'Ecommerce', 'https://github.com/RaynerMDZ/CodingAllDay', 'www.codingallday.com', DATE '2015-12-17', DATE '2015-12-17', TRUE);
 
 INSERT INTO pictures (picture, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
 INSERT INTO pictures (picture, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
