@@ -18,7 +18,8 @@
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home
@@ -113,35 +114,26 @@
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
-            <div class="col-lg-4">
-                <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-                    ultricies vehicula ut
-                    id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-                    magna.</p>
-                <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-                </p>
+            <div class="col-lg-4" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
+                <div th:if="${!post.isHidden()}">
+                    <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle"
+                         alt="Generic placeholder image" width="150" height="150" src="#">
+                    <h2 th:text="${post.getTitle()}" >Heading</h2>
+                    <p th:text="${post.getDescription()}" class="text-muted">Description.</p>
+                    <p><a class="btn btn-outline-secondary" th:href="@{'post/' + ${post.getId()}}"
+                          href="#" role="button">View details &raquo;</a></p>
+                </div>
             </div>
         </div>
 
-        <!-- /.row -->
+        <hr class="feature-divider">
 
-
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
+        <div class="row feature">
             <div class="col-md-8">
-                <h2 class="featurette-heading">And lastly, this one.</h2>
-                <h1 class="text-muted">Checkmate.</h1>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo
-                    cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h4 class="feature-heading">Back-end Development</h4>
+                <h2 class="text-muted">The brain of a website</h2>
+                <p class="lead">I use Java/Spring and JavaScript/Express for backend development.
+                    I work with Restful APIs and Server Side applications.</p>
             </div>
 
             <div class="col-md-4 d-flex justify-content-end align-items-center">
@@ -149,58 +141,53 @@
             </div>
         </div>
 
-        <hr class="featurette-divider">
+        <hr class="feature-divider">
 
-        <div class="row featurette">
+        <div class="row feature">
             <div class="col-md-4 d-flex justify-content-start align-items-center">
                 <i class="far fa-file-code fa-8x center"></i>
             </div>
 
             <div class="col-md-8">
-                <h2 class="featurette-heading">And lastly, this one.</h2>
-                <h1 class="text-muted">Checkmate.</h1>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo
-                    cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h4 class="feature-heading">Front-end Development</h4>
+                <h2 class="text-muted">The body of a website</h2>
+                <p class="lead">I work with Angular 2+ to create Single Page Applications.
+                    Also I work with thymeleaf.</p>
             </div>
         </div>
 
-        <hr class="featurette-divider">
+        <hr class="feature-divider">
 
-        <div class="row featurette">
+        <div class="row feature">
             <div class="col-md-8">
-                <h2 class="featurette-heading">And lastly, this one.</h2>
-                <h1 class="text-muted">Checkmate.</h1>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo
-                    cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h4 class="feature-heading">UI/UX Design</h4>
+                <h2 class="text-muted">Awesome Designs</h2>
+                <p class="lead">I design beautiful and responsive websites using "mobile first approach".
+                    I work with Bootstrap and Material Design.</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end align-items-center">
                 <i class="fas fa-ruler-combined fa-8x center"></i>
             </div>
         </div>
 
-        <hr class="featurette-divider">
+        <hr class="feature-divider">
 
-        <div class="row featurette">
+        <div class="row feature">
             <div class="col-md-4 d-flex justify-content-start align-items-center">
                 <i class="fas fa-mobile fa-8x center"></i>
             </div>
 
             <div class="col-md-8">
-                <h2 class="featurette-heading">And lastly, this one.</h2>
-                <h1 class="text-muted">Checkmate.</h1>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo
-                    cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h4 class="feature-heading">Mobile Development</h4>
+                <h2 class="text-muted">Android | IOS</h2>
+                <p class="lead">I can create your mobile application using the latest technologies
+                    available in the market.</p>
             </div>
         </div>
 
-        <!-- /END THE FEATURETTES -->
+        <hr class="feature-divider">
 
     </div>
-    <!-- /.container -->
-
 
     <!-- FOOTER -->
     <footer class="container">
