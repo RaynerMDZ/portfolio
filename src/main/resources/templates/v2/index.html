@@ -10,32 +10,33 @@
 </head>
 <body>
 
-<!-- NavBar -->
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Rayner Méndez</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!-- NavBar-->
+<header >
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top shadow bg-dark">
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
+        <div class="container">
+            <a class="navbar-brand " href="#">Rayner Méndez</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse align-content-end justify-content-end" id="navbarCollapse">
+                <ul class="navbar-nav ">
+
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{https://github.com/RaynerMDZ}" target="_blank">Github</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{https://www.linkedin.com/in/raynermendez/}" target="_blank">LinkedIn</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
+
+
 
 <main role="main">
 
@@ -48,7 +49,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="first-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src=""
                      alt="First slide">
                 <div class="container">
                     <div class="carousel-caption text-left">
@@ -56,15 +57,12 @@
                         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
                             gravida at eget metus.
                             Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>
-                        </p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <img class="second-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src=""
                      alt="Second slide">
                 <div class="container">
                     <div class="carousel-caption">
@@ -72,15 +70,12 @@
                         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
                             gravida at eget metus.
                             Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a>
-                        </p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <img class="third-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src=""
                      alt="Third slide">
                 <div class="container">
                     <div class="carousel-caption text-right">
@@ -88,9 +83,6 @@
                         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
                             gravida at eget metus.
                             Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -129,29 +121,29 @@
         <hr class="feature-divider">
 
         <div class="row feature">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <h4 class="feature-heading">Back-end Development</h4>
                 <h2 class="text-muted">The brain of a website</h2>
                 <p class="lead">I use Java/Spring and JavaScript/Express for backend development.
                     I work with Restful APIs and Server Side applications.</p>
             </div>
 
-            <div class="col-md-4 d-flex justify-content-end align-items-center">
-                <i class="fas fa-terminal fa-8x center"></i>
+            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                <i class="fas fa-terminal fa-8x"></i>
             </div>
         </div>
 
         <hr class="feature-divider">
 
         <div class="row feature">
-            <div class="col-md-4 d-flex justify-content-start align-items-center">
-                <i class="far fa-file-code fa-8x center"></i>
+            <div class="col-md-5 d-flex justify-content-start align-items-center">
+                <i class="far fa-file-code fa-8x"></i>
             </div>
 
-            <div class="col-md-8">
-                <h4 class="feature-heading">Front-end Development</h4>
-                <h2 class="text-muted">The body of a website</h2>
-                <p class="lead">I work with Angular 2+ to create Single Page Applications.
+            <div class="col-md-7">
+                <h4 class="feature-heading text-right">Front-end Development</h4>
+                <h2 class="text-muted text-right">The body of a website</h2>
+                <p class="lead text-right">I work with Angular 2+ to create Single Page Applications.
                     Also I work with thymeleaf.</p>
             </div>
         </div>
@@ -159,28 +151,27 @@
         <hr class="feature-divider">
 
         <div class="row feature">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <h4 class="feature-heading">UI/UX Design</h4>
                 <h2 class="text-muted">Awesome Designs</h2>
                 <p class="lead">I design beautiful and responsive websites using "mobile first approach".
                     I work with Bootstrap and Material Design.</p>
             </div>
-            <div class="col-md-4 d-flex justify-content-end align-items-center">
-                <i class="fas fa-ruler-combined fa-8x center"></i>
+            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                <i class="fas fa-ruler-combined fa-8x"></i>
             </div>
         </div>
 
         <hr class="feature-divider">
 
         <div class="row feature">
-            <div class="col-md-4 d-flex justify-content-start align-items-center">
-                <i class="fas fa-mobile fa-8x center"></i>
+            <div class="col-md-5 d-flex justify-content-start align-items-center">
+                <i class="fas fa-mobile fa-8x"></i>
             </div>
-
-            <div class="col-md-8">
-                <h4 class="feature-heading">Mobile Development</h4>
-                <h2 class="text-muted">Android | IOS</h2>
-                <p class="lead">I can create your mobile application using the latest technologies
+            <div class="col-md-7">
+                <h4 class="feature-heading text-right">Mobile Development</h4>
+                <h2 class="text-muted text-right">Android | IOS</h2>
+                <p class="lead text-right">I can create your mobile application using the latest technologies
                     available in the market.</p>
             </div>
         </div>
