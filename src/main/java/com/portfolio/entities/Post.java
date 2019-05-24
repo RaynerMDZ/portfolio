@@ -8,7 +8,7 @@ import java.util.*;
 import static javax.persistence.TemporalType.DATE;
 
 /**
- *
+ * Post Entity that holds all database information.
  */
 @Entity
 @Table(name = "post", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})

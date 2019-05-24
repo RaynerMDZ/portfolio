@@ -3,7 +3,7 @@ package com.portfolio.entities;
 import javax.persistence.*;
 
 /**
- *
+ * Picture Entity that holds all database information.
  */
 @Entity
 @Table(name = "pictures", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})

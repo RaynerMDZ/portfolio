@@ -35,4 +35,11 @@ public class indexController {
     model.addAttribute("posts", portfolioPostService.getAllPosts());
     return "index";
   }
+
+  @GetMapping
+  @RequestMapping({"V2", "/V2", "/V2/index", "/V2/index.html"})
+  public String getIndexV2(Model model) {
+    model.addAttribute("posts", portfolioPostService.getAllPosts());
+    return "v2/index";
+  }
 }

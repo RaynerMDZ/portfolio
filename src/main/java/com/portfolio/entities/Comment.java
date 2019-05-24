@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- *
+ * Comment Entity that holds all database information.
  */
 @Entity
 @Table(name = "comments", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
