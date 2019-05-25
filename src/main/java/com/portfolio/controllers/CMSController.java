@@ -96,16 +96,18 @@ public class CMSController {
    * @param post
    * @return String
    */
-  @PutMapping
+  @PostMapping
   @RequestMapping("/update-post")
   public String updatePost(@ModelAttribute("post") Post post, @RequestParam("files") MultipartFile[] files) {
+
+    System.out.println(post.getTitle());
 
     Post savedPost = postService.updatePost(post);
 
     if (savedPost != null) {
-      return "redirect:/cms/" + post.getId() + "/edit-post";
+      return "redirect:/cms/admin";
     }
-    return "error";
+    return "error/error-500";
   }
 
   /**

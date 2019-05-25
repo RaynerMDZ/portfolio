@@ -101,13 +101,13 @@ public class PostServiceImpl implements PostService {
     Optional<Post> exist = Optional.empty();
 
     if (this.exist(post.getId())) {
-
       exist = getAllPosts().stream()
               .filter(p -> p.getId().equals(post.getId())).findFirst();
     }
 
     if (exist.isPresent()) {
-
+      post.setHidden(exist.get().isHidden());
+      post.setCreatedDate(exist.get().getCreatedDate());
       post.setModifiedDate(new Date());
 
       try {
