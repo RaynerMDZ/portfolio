@@ -82,12 +82,12 @@
         <div class="row">
             <div class="col-lg-4" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
                 <div th:if="${!post.isHidden()}">
-                    <img th:src="@{${'data:image/jpeg;base64,' + post.getFirstPicture()}}" class="rounded-circle shadow"
+                    <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle shadow"
                          alt="Generic placeholder image" width="170" height="170" src="#">
                     <h2 th:text="${post.getTitle()}" >Heading</h2>
                     <p th:text="${post.getDescription()}" class="text-muted">Description.</p>
-                    <p><a class="btn btn-outline-secondary shadow" th:href="@{'post/' + ${post.getId()}}"
-                          href="#" role="button">View details &raquo;</a></p>
+                    <p><a class="btn btn-outline-secondary shadow" th:href="@{${'post/' + post.getId()}}"
+                          role="button">View details &raquo;</a></p>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
 
         <div class="row">
             <div class="card" style="width: 14.8rem; margin: 1.5rem;" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
-                <img class="card-img-top" alt="Card image cap" th:src="@{${'data:image/jpeg;base64,' + post.getFirstPicture()}}">
+                <img class="card-img-top" alt="Card image cap" th:src="@{${post.getFirstPicture()}}">
                 <div class="card-body">
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>

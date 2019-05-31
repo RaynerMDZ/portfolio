@@ -58,11 +58,15 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public Comment createComment(Comment comment, Long postID) {
 
+    if (comment == null) return null;
+
+    if (comment.getBody().equals("")) return null;
+
+    if (comment.getName().equals("")) return null;
+
     Post post = postService.getPostById(postID);
 
     if (post != null) {
-      if (!exist(comment.getId())) {
-
         try {
           comment.setCreationDate(new Date());
           comment.setPost(post);
@@ -78,7 +82,6 @@ public class CommentServiceImpl implements CommentService {
           e.printStackTrace();
           return null;
         }
-      }
     }
     return null;
   }

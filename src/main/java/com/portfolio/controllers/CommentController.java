@@ -1,11 +1,11 @@
 package com.portfolio.controllers;
 
 import com.portfolio.entities.Comment;
+import com.portfolio.services.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -15,17 +15,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CommentController {
 
-  @GetMapping("/show-comment")
-  public String showComment(Model model) {
+  private final CommentService commentService;
 
-    return "comment/create-comment";
+  public CommentController(CommentService commentService) {
+    this.commentService = commentService;
   }
 
-  @PostMapping("/create-comment")
-  public String createComment(@ModelAttribute("comment") Comment comment) {
+  @PostMapping("post/{id}/create-comment")
+  public String createComment(@ModelAttribute("comment") Comment comment, @PathVariable String id) {
 
+    if (comment != null) {
+      commentService.createComment(comment, Long.valueOf(id));
+    }
 
-    return "comment/create-comment";
+    return "redirect:/post/" + id;
   }
 
   @PostMapping("/delete-comment")

@@ -31,25 +31,23 @@
 
             <div class="card">
 
-               <!--Comment Form-->
+                <!--Comment Form-->
                 <div class="card-body">
-                    <!--/*@thymesVar id="comment" type="com.portfolio.entities.Comment"*/-->
-                    <form class="form" role="form" th:object="${comment}" th:action="@{/create-comment}" method="post">
+                    <form class="form" role="form" th:object="${comment}" th:action="@{${post.getId()} + '/create-comment'}" method="POST">
                         <div class="form-group">
                             <label class="form-control-label">Name:</label>
-                            <input type="text" class="form-control" placeholder="Insert your name here.">
+                            <input type="text" class="form-control" th:field="*{name}" placeholder="Insert your name here.">
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label">Comment:</label>
-                            <textarea class="form-control" placeholder="Type Something." rows="3"></textarea>
+                            <textarea class="form-control" type="text" th:field="*{body}" placeholder="Type Something." rows="3"></textarea>
                         </div>
 
-                        <p>
-                            <a class="float-right btn btn-outline-primary ml-2">
-                                <i class="far fa-comment-dots"></i> Comment
+                            <a class="float-right ml-2">
+                                <!--                                <i class="far fa-comment-dots"></i> Comment-->
+                                <input type="submit" value="submit" class="btn btn-secondary">
                             </a>
-                        </p>
 
                     </form>
                 </div>
@@ -57,28 +55,22 @@
                 <!--Comment Section-->
                 <div class="card-body">
 
-                    <h5 class="float-left"><strong>Maniruzzaman Akash</strong></h5>
-                    <p class="text-secondary text-center float-right">15 Minutes Ago</p>
-                    <div class="clearfix"></div>
+                    <div th:if="${post.getComments() != null}" th:each="comment : ${post.getComments()}">
+                        <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
+                        <p class="text-secondary text-center float-right" th:text="${comment.getCreationDate()}">15 Minutes Ago</p>
+                        <div class="clearfix"></div>
 
-                    <div class="container">
                         <div class="container">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic
-                                typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the
-                                release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker
-                                including versions of Lorem Ipsum.
-                            </p>
+                            <div class="container">
+                                <p th:text="${comment.getBody()}">
+                                </p>
+                            </div>
                         </div>
                     </div>
-
-                    <p>
-                        <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-                    </p>
                 </div>
+
             </div>
+
         </div>
     </section>
 
