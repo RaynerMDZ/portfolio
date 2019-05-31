@@ -1,6 +1,7 @@
 package com.portfolio.controllers;
 
 import com.portfolio.entities.Comment;
+import com.portfolio.entities.Post;
 import com.portfolio.services.CommentService;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
@@ -8,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -31,8 +35,13 @@ public class PostController {
   @RequestMapping({"/post/{id}"})
   public String getDetails(@PathVariable Long id, Model model) {
 
+    Post post = this.postService.getPostById(id);
+    List<Comment> commentList = post.getComments();
+    Collections.reverse(commentList);
+
     model.addAttribute("postID", id);
     model.addAttribute("comment", new Comment());
+    model.addAttribute("comments", commentList);
     model.addAttribute("post", this.postService.getPostById(id));
     return "post";
   }

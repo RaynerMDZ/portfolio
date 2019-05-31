@@ -55,7 +55,7 @@
                 <!--Comment Section-->
                 <div class="card-body">
 
-                    <div th:if="${post.getComments() != null}" th:each="comment : ${post.getComments()}">
+                    <div th:if="${post.getComments() != null}" th:each="comment : ${comments}">
                         <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
                         <p class="text-secondary text-center float-right" th:text="${comment.getCreationDate()}">15 Minutes Ago</p>
                         <div class="clearfix"></div>
