@@ -75,12 +75,12 @@
             <div>
                 <a th:href="@{'/cms/' + ${image.getId()} + '/delete-picture'}"><i class="far fa-trash-alt"></i></a>
             </div>
-            <img th:src="@{${image.getPictureString().toString()}}" src="" alt="" class="img-thumbnail">
+            <img th:src="@{${image.getPictureString()}}" src="" alt="" class="img-thumbnail">
         </div>
     </div>
 
     <div class="col-md-6 col-lg-3">
-        <img th:src="@{~/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg}" alt="" class="img-thumbnail">
+        <img th:src="@{/img/13dccf2dc9454ef5a4a7dfb98084384c.jpg}" alt="" class="img-thumbnail">
     </div>
 </div>
 
