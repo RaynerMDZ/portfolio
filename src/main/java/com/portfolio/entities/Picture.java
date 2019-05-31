@@ -11,7 +11,7 @@ public class Picture extends BaseEntity {
 
   @Lob
   @Column(name = "picture_bytes", unique = false, nullable = true)
-  @Basic(fetch = FetchType.LAZY)
+  @Basic(fetch = FetchType.EAGER)
   private byte[] pictureBytes;
 
   @Lob

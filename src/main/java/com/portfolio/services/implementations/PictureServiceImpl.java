@@ -120,6 +120,10 @@ public class PictureServiceImpl implements PictureService {
   @Transactional
   public void saveImage(Long id, MultipartFile file) {
 
+    if (file.isEmpty()) {
+      return;
+    }
+
     log.debug("Received a file");
 
     try {
