@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<div th:each="picture : ${pictures}">
-    <img alt="image" th:src="@{${picture.getPicture()}}" src=""/>
+<div th:each="pictureBytes : ${pictures}">
+    <img alt="image" th:src="@{${pictureBytes.getPicture()}}" src=""/>
 </div>
 
 </body>

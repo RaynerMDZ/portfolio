@@ -10,33 +10,7 @@
 </head>
 <body>
 
-<!-- NavBar-->
-<header >
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top shadow bg-dark">
-
-        <div class="container">
-            <a class="navbar-brand " href="#">Rayner Méndez</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse align-content-end justify-content-end" id="navbarCollapse">
-                <ul class="navbar-nav ">
-
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{https://github.com/RaynerMDZ}" target="_blank">Check my Github</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{https://www.linkedin.com/in/raynermendez/}" target="_blank">Connect on LinkedIn</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-
+<header th:insert="fragments/navbar.html :: navbar"></header>
 
 <main role="main">
 
@@ -99,22 +73,36 @@
     </div>
 
 
-    <!-- Marketing messaging and featurettes
-            ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
     <div class="container marketing">
 
-        <!-- Three columns of text below the carousel -->
+        <div class="justify-content-center align-content-center d-flex" style="margin-bottom: 2rem;">
+            <h1 class="display-4 lead">Projects</h1>
+        </div>
+
         <div class="row">
             <div class="col-lg-4" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
                 <div th:if="${!post.isHidden()}">
-                    <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle"
-                         alt="Generic placeholder image" width="150" height="150" src="#">
+                    <img th:src="@{${'data:image/jpeg;base64,' + post.getFirstPicture()}}" class="rounded-circle shadow"
+                         alt="Generic placeholder image" width="170" height="170" src="#">
                     <h2 th:text="${post.getTitle()}" >Heading</h2>
                     <p th:text="${post.getDescription()}" class="text-muted">Description.</p>
-                    <p><a class="btn btn-outline-secondary" th:href="@{'post/' + ${post.getId()}}"
+                    <p><a class="btn btn-outline-secondary shadow" th:href="@{'post/' + ${post.getId()}}"
                           href="#" role="button">View details &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="feature-divider">
+
+        <div class="justify-content-center align-content-center d-flex" style="margin-bottom: 2rem; margin-top: 2rem;">
+            <h1 class="display-4 lead">Publications</h1>
+        </div>
+
+        <div class="row">
+            <div class="card" style="width: 14.8rem; margin: 1.5rem;" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
+                <img class="card-img-top" alt="Card image cap" th:src="@{${'data:image/jpeg;base64,' + post.getFirstPicture()}}">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
             </div>
         </div>
@@ -178,19 +166,10 @@
         </div>
 
         <hr class="feature-divider">
-
     </div>
-
-    <!-- FOOTER -->
-    <footer class="container">
-        <p class="justify-content-center d-flex">
-            <a href="#"><i class="far fa-arrow-alt-circle-up fa-2x text-secondary" role="button"></i></a>
-        </p>
-
-        <p class="d-flex justify-content-center">&copy; 2019 Rayner Méndez</p>
-    </footer>
-
 </main>
+
+<footer th:insert="fragments/footer.html :: footer"></footer>
 
 <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
 <script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>

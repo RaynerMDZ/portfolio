@@ -21,54 +21,52 @@ import java.io.File;
 @Controller
 public class PictureController {
 
-  private final PostService postService;
-  private final PictureService pictureService;
-
-  public PictureController(PostService postService, PictureService pictureService) {
-    this.postService = postService;
-    this.pictureService = pictureService;
-  }
-
-  @RequestMapping("/image-test")
-  public String loadPage() {
-    return "test/image-uploader";
-  }
-
-  @PostMapping
-  @RequestMapping("/upload")
-  public String imageUpload(Model model, @RequestParam("files") MultipartFile file, Long postId) {
-
-    boolean success = pictureService.uploadPicture(2L, file);
-
-    if (success) {
-      Post post = postService.getPostById(2L);
-      model.addAttribute("pictures", post.getPictures());
-    }
-
-    return "test/status";
-  }
-
-  @PostMapping
-  @RequestMapping("/uploads")
-  public String imagesUpload(Model model, @RequestParam("files") MultipartFile[] file, Long postId) {
-
-    boolean success = pictureService.uploadPictures(2L, file);
-
-    if (success) {
-      Post post = postService.getPostById(2L);
-      model.addAttribute("pictures", post.getPictures());
-    }
-
-    return "test/status";
-  }
-
-  public boolean rename(File file) {
-
-    String URL = Util.IMAGE_URL + Util.generateString();
-    File newFile = new File(URL);
-    file.renameTo(newFile);
-    return true;
-  }
+//  private final PostService postService;
+//  private final PictureService pictureService;
+//
+//  public PictureController(PostService postService, PictureService pictureService) {
+//    this.postService = postService;
+//    this.pictureService = pictureService;
+//  }
+//
+//  @RequestMapping("/image-test")
+//  public String loadPage() {
+//    return "test/image-uploader";
+//  }
+//
+//  @PostMapping("/upload")
+//  public String imageUpload(Model model, @RequestParam("files") MultipartFile file, Long postId) {
+//
+//    boolean success = pictureService.uploadPicture(2L, file);
+//
+//    if (success) {
+//      Post post = postService.getPostById(2L);
+//      model.addAttribute("pictures", post.getPictures());
+//    }
+//
+//    return "test/status";
+//  }
+//
+//  @PostMapping("/uploads")
+//  public String imagesUpload(Model model, @RequestParam("files") MultipartFile[] file, Long postId) {
+//
+//    boolean success = pictureService.uploadPictures(2L, file);
+//
+//    if (success) {
+//      Post post = postService.getPostById(2L);
+//      model.addAttribute("pictures", post.getPictures());
+//    }
+//
+//    return "test/status";
+//  }
+//
+//  public boolean rename(File file) {
+//
+//    String URL = Util.IMAGE_URL + Util.generateString();
+//    File newFile = new File(URL);
+//    file.renameTo(newFile);
+//    return true;
+//  }
 }
 
 

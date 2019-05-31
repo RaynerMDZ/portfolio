@@ -27,12 +27,12 @@ public class Post extends BaseEntity {
   private String link;
 
   @Temporal(DATE)
-  @DateTimeFormat(pattern="dd-MMM-YYYY")
+  @DateTimeFormat(pattern = "dd-MMM-YYYY")
   @Column(name = "created_date", unique = false, nullable = true)
   private Date createdDate;
 
   @Temporal(DATE)
-  @DateTimeFormat (pattern="dd-MMM-YYYY")
+  @DateTimeFormat (pattern = "dd-MMM-YYYY")
   @Column(name = "modified_date", unique = false, nullable = true)
   private Date modifiedDate;
 
@@ -48,15 +48,7 @@ public class Post extends BaseEntity {
   // Helper method to get the first picture.
   public String getFirstPicture() {
     if (pictures.size() > 0) {
-      return pictures.get(0).getPicture();
-    }
-    return null;
-  }
-
-  // Helper method to get pictures.
-  public String getPictureByIndex(int index) {
-    if (pictures.size() > 0) {
-      return pictures.get(index).getPicture();
+      return pictures.get(0).getPictureString();
     }
     return null;
   }
@@ -92,8 +84,6 @@ public class Post extends BaseEntity {
   public void setDescription(String description) {
     this.description = description;
   }
-
-
 
   public Date getCreatedDate() {
     return createdDate;

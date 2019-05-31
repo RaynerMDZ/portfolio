@@ -3,30 +3,16 @@
 <head th:fragment="footer">
     <meta charset="UTF-8">
     <title>Footer</title>
-
-    <style>
-        #footer-modified {
-            padding-top: 3rem;
-        }
-    </style>
 </head>
 <body>
-<footer class="py-5 bg-dark" th:fragment="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6"></div>
 
-            <div class="col text-center">
-                <a href="https://www.linkedin.com/in/raynermendez/" target="_blank"><i class="fab fa-linkedin fa-1x text-primary mx-4"></i></a>
-                <a href="https://github.com/RaynerMDZ" target="_blank"><i class="fab fa-github fa-1x text-white mx-4"></i></a>
-                <a href="https://twitter.com/RaynerMDZ" target="_blank"><i class="fab fa-twitter fa-1x text-info mx-4"></i></a>
-                <p class="lead mt-3 mb-0 text-muted" id="footer-modified">
-                    Created By: Rayner Méndez
-                </p>
-            </div>
-        </div>
-    </div>
+<!-- FOOTER -->
+<footer class="container" th:fragment="footer">
+    <p class="justify-content-center d-flex">
+        <a href="#"><i class="far fa-arrow-alt-circle-up fa-2x text-secondary" role="button"></i></a>
+    </p>
+
+    <p class="d-flex justify-content-center">&copy; 2019 Rayner Méndez</p>
 </footer>
 
 </body>

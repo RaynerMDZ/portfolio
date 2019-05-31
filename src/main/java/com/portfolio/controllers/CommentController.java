@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -16,23 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CommentController {
 
-  @GetMapping
-  @RequestMapping("/show-comment")
+  @GetMapping("/show-comment")
   public String showComment(Model model) {
 
     return "comment/create-comment";
   }
 
-  @PostMapping
-  @RequestMapping("/create-comment")
+  @PostMapping("/create-comment")
   public String createComment(@ModelAttribute("comment") Comment comment) {
 
 
     return "comment/create-comment";
   }
 
-  @PostMapping
-  @RequestMapping("/delete-comment")
+  @PostMapping("/delete-comment")
   public String deleteComment() {
 
     return "comment/create-comment";

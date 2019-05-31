@@ -24,9 +24,8 @@
 
             <div class="row mb-5 text-center" >
 
-                <div class="col-md-6 col-lg-3" th:each="picture : ${post.getPictures()}">
-                    <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
-                    <img src="" th:src="@{${picture.getPicture()}}" alt="" class="img-thumbnail">
+                <div class="col-md-6 col-lg-3" th:each="image : ${images}">
+                    <img src="" th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="" class="img-thumbnail">
                 </div>
             </div>
 

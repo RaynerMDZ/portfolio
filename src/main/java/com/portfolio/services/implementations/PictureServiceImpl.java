@@ -1,6 +1,5 @@
 package com.portfolio.services.implementations;
 
-import com.portfolio.Util.Util;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PictureRepository;
@@ -8,18 +7,17 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -44,25 +42,18 @@ public class PictureServiceImpl implements PictureService {
   }
 
   /**
-   * @return list<Pictures>
+   * @return list<String>
    */
   @Override
-  public List<Picture> getAllPictures() {
+  public List<String> getAllPictures(Long id) {
 
-    List<Picture> pictures = new ArrayList<>();
+    List<String> images = postService.getPostById(id).getPictures()
+            .stream()
+            .map(picture -> picture.getPictureString())
+            .collect(Collectors.toList());
 
-    try {
-      pictureRepository.findAll().iterator().forEachRemaining(pictures::add);
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    }
-
-    if (!pictures.isEmpty()) {
-      return pictures;
-    }
-    return null;
+    return images;
   }
 
   /**
@@ -85,134 +76,6 @@ public class PictureServiceImpl implements PictureService {
         return null;
       }
     }
-    return null;
-  }
-
-  /**
-   * @param postId
-   * @param files
-   * @return Picture
-   */
-  @Override
-  @Transactional
-  public boolean uploadPictures(Long postId, MultipartFile[] files) {
-
-    Post post = postService.getPostById(postId);
-
-    if (post != null) {
-      for (MultipartFile file : files) {
-        StringBuilder fileNames = new StringBuilder();
-
-        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
-
-        try {
-          Files.write(fileNameAndPAth, file.getBytes());
-
-          Picture picture = new Picture();
-          picture.setPicture(Util.IMAGE_URL + fileNames.toString());
-          picture.setPost(post);
-          pictureRepository.save(picture);
-
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean uploadPictures(Post post, MultipartFile[] files) {
-    if (post != null) {
-      for (MultipartFile file : files) {
-        StringBuilder fileNames = new StringBuilder();
-
-        Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
-
-        try {
-          Files.write(fileNameAndPAth, file.getBytes());
-
-          Picture picture = new Picture();
-          picture.setPicture(Util.IMAGE_URL + fileNames.toString());
-          picture.setPost(post);
-          pictureRepository.save(picture);
-
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean uploadPicture(Long postId, MultipartFile file) {
-    // Gets the post that belongs to'postId'
-    Post post = postService.getPostById(postId);
-
-    if (post != null) {
-      StringBuilder fileNames = new StringBuilder();
-
-      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
-      fileNames.append(file.getOriginalFilename());
-
-      try {
-        Files.write(fileNameAndPAth, file.getBytes());
-
-        Picture picture = new Picture();
-        picture.setPicture(Util.IMAGE_URL + fileNames.toString());
-
-        picture.setPost(post);
-        pictureRepository.save(picture);
-        return true;
-
-      } catch (IOException e) {
-        e.printStackTrace();
-        return false;
-      }
-    }
-
-    return false;
-  }
-
-  @Override
-  public boolean uploadPicture(Post post, MultipartFile file) {
-
-    if (post != null) {
-      StringBuilder fileNames = new StringBuilder();
-
-      Path fileNameAndPAth = Paths.get(Util.UPLOAD_DIRECTORY, file.getOriginalFilename());
-      fileNames.append(file.getOriginalFilename());
-
-      try {
-        Files.write(fileNameAndPAth, file.getBytes());
-
-        Picture picture = new Picture();
-        picture.setPicture(Util.IMAGE_URL + fileNames.toString());
-
-        picture.setPost(post);
-        pictureRepository.save(picture);
-        return true;
-
-      } catch (IOException e) {
-        e.printStackTrace();
-        return false;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * @param picture
-   * @return Picture
-   */
-  @Override
-  public Picture updatePicture(Picture picture) {
     return null;
   }
 
@@ -253,6 +116,47 @@ public class PictureServiceImpl implements PictureService {
     return false;
   }
 
+  @Override
+  @Transactional
+  public void saveImage(Long id, MultipartFile file) {
+
+    log.debug("Received a file");
+
+    try {
+      Post post = postService.getPostById(id);
+      Picture picture = new Picture();
+
+      byte[] bytes = new byte[file.getBytes().length];
+
+      int i = 0;
+
+      for (byte b : file.getBytes()) {
+        bytes[i++] = b;
+      }
+      String encoded = Base64.encodeBase64String(bytes);
+
+      picture.setPictureBytes(bytes);
+      picture.setPost(post);
+      picture.setHidden(false);
+      picture.setPictureString(encoded);
+      post.getPictures().add(picture);
+      Post savedPost = postService.updatePost(post);
+
+      if (savedPost != null) {
+        log.debug("Saved to database.");
+        return;
+      }
+      throw new IOException("Post is null. Not saved.");
+
+    } catch (IOException e) {
+      log.error("Error occurred.", e);
+      e.printStackTrace();
+    }
+  }
+
+  public void renderImageFromDB(Long id) {
+
+  }
 
 }
 
