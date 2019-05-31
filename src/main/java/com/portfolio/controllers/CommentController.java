@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -21,7 +22,8 @@ public class CommentController {
     this.commentService = commentService;
   }
 
-  @PostMapping("post/{id}/create-comment")
+  @PostMapping
+  @RequestMapping("post/{id}/create-comment")
   public String createComment(@ModelAttribute("comment") Comment comment, @PathVariable String id) {
 
     if (comment != null) {
@@ -31,7 +33,8 @@ public class CommentController {
     return "redirect:/post/" + id;
   }
 
-  @PostMapping("/delete-comment")
+  @PostMapping
+  @RequestMapping("/delete-comment")
   public String deleteComment() {
 
     return "comment/create-comment";

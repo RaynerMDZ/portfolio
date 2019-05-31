@@ -32,7 +32,8 @@ public class CMSController {
    * @param model
    * @return String
    */
-  @GetMapping("/admin")
+  @GetMapping
+  @RequestMapping("/admin")
   public String getAdmin(Model model) {
 
     model.addAttribute("posts", postService.getAllPosts());
@@ -40,54 +41,14 @@ public class CMSController {
     return "cms/admin";
   }
 
-//  /**
-//   * When a post is clicked, the server shows a page to edit it.
-//   * @param id
-//   * @param model
-//   * @return String
-//   */
-//  @GetMapping("/{id}/edit-post")
-//  public String editPostForm(@PathVariable Long id, Model model) {
-//
-//    Post post = postService.getPostById(id);
-//    List<String> images = new ArrayList<>();
-//
-//    System.out.println(post.getPictures().size());
-//
-//    int index = 0;
-//    while (index < post.getPictures().size()) {
-//      log.debug("Entering while loop, index: " + index);
-//      byte[] bytes = new byte[post.getPictures().get(index).getPictureBytes().length];
-//      log.debug("byte array created.");
-//
-//      int i = 0;
-//      for (Byte wrappedByte : post.getPictures().get(index).getPictureBytes()) {
-//        bytes[i++] = wrappedByte;
-//      }
-//
-//      log.debug("byte array filled.");
-//
-//      String stringImage = Base64.encodeBase64String(bytes);
-//      images.add(stringImage);
-//      index++;
-//
-//      log.debug("converted to a string and saved.");
-//
-//    }
-//
-//    model.addAttribute("images", images);
-//    model.addAttribute("post", post);
-//
-//    return "cms/edit-post";
-//  }
-
   /**
    * When a post is clicked, the server shows a page to edit it.
    * @param id
    * @param model
    * @return String
    */
-  @GetMapping("/{id}/edit-post")
+  @GetMapping
+  @RequestMapping("/{id}/edit-post")
   public String editPostForm(@PathVariable Long id, Model model) {
 
     model.addAttribute("post", postService.getPostById(id));
@@ -98,7 +59,8 @@ public class CMSController {
    * Opens a new page with empty inputs to create a new post.
    * @return String
    */
-  @GetMapping("/new-post")
+  @GetMapping
+  @RequestMapping("/new-post")
   public String newPostForm(Model model) {
 
     // Sends a new empty Post object to the view.
@@ -112,7 +74,8 @@ public class CMSController {
    * @param post
    * @return String
    */
-  @PostMapping("/create-post")
+  @PostMapping
+  @RequestMapping("/create-post")
   public String createPost(@ModelAttribute("post") Post post) {
 
     Post savedPost = postService.createPost(post);
@@ -128,7 +91,8 @@ public class CMSController {
    * @param post
    * @return String
    */
-  @PostMapping("/update-post")
+  @PostMapping
+  @RequestMapping("/update-post")
   public String updatePost(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile file) {
 
     System.out.println(post.getTitle());
@@ -149,7 +113,8 @@ public class CMSController {
    * @param model
    * @return String
    */
-  @DeleteMapping("/{id}/delete-post")
+  @DeleteMapping
+  @RequestMapping("/{id}/delete-post")
   public String deletePost(@PathVariable Long id, Model model) {
 
     try {
@@ -169,7 +134,8 @@ public class CMSController {
    * @param id
    * @return String
    */
-  @PutMapping("/{id}/hide-post")
+  @PutMapping
+  @RequestMapping("/{id}/hide-post")
   public String hidePost(@PathVariable Long id) {
 
     postService.hidePost(id);
@@ -183,7 +149,8 @@ public class CMSController {
    * @param model
    * @return String
    */
-  @PutMapping("/{id}/update-picture")
+  @PutMapping
+  @RequestMapping("/{id}/update-picture")
   public String updatePicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
 
     return "fragments/portfolio/{id}/post";
@@ -194,7 +161,8 @@ public class CMSController {
    * @param id
    * @return String
    */
-  @DeleteMapping("/{id}/delete-picture")
+  @DeleteMapping
+  @RequestMapping("/{id}/delete-picture")
   public String deletePicture(@PathVariable Long id) {
 
     boolean success = pictureService.deletePictureById(id);
@@ -211,7 +179,8 @@ public class CMSController {
    * @param model
    * @return String
    */
-  @PutMapping("/{id}/hide-picture")
+  @RequestMapping("/{id}/hide-picture")
+  @PutMapping
   public String hidePicture(@PathVariable Long id, Model model) {
 
     return "redirects:/cms/edit-post";
