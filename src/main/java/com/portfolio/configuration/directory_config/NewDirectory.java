@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
-@Component
-public class NewDirectory implements CommandLineRunner {
-
-  @Override
-  public void run(String... args) throws Exception {
-    new File(Util.UPLOAD_DIRECTORY).mkdirs();
-  }
-}
+//@Component
+//public class NewDirectory implements CommandLineRunner {
+//
+////  @Override
+////  public void run(String... args) throws Exception {
+////    new File(Util.UPLOAD_DIRECTORY).mkdirs();
+////  }
+//}
