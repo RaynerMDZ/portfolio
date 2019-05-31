@@ -22,8 +22,7 @@ public class CommentController {
     this.commentService = commentService;
   }
 
-  @PostMapping
-  @RequestMapping("post/{id}/create-comment")
+  @PostMapping("post/{id}/create-comment")
   public String createComment(@ModelAttribute("comment") Comment comment, @PathVariable String id) {
 
     if (comment != null) {

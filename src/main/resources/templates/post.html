@@ -33,7 +33,7 @@
 
                 <!--Comment Form-->
                 <div class="card-body">
-                    <form class="form" role="form" th:object="${comment}" th:action="@{${post.getId()} + '/create-comment'}" method="POST">
+                    <form class="form" role="form" th:object="${comment}" th:action="@{${postID} + '/create-comment'}" method="POST">
                         <div class="form-group">
                             <label class="form-control-label">Name:</label>
                             <input type="text" class="form-control" th:field="*{name}" placeholder="Insert your name here.">

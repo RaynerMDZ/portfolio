@@ -68,6 +68,7 @@ public class CommentServiceImpl implements CommentService {
 
     if (post != null) {
         try {
+          comment.setId(null);
           comment.setCreationDate(new Date());
           comment.setPost(post);
           Comment savedComment = repository.save(comment);
