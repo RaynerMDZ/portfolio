@@ -1,4 +1,4 @@
-package com.portfolio.controllers;
+package com.portfolio.controllers.cms;
 
 import com.portfolio.Util.CustomException;
 import com.portfolio.entities.Picture;
@@ -90,10 +90,7 @@ public class CMSController {
   @GetMapping("/{id}/edit-post")
   public String editPostForm(@PathVariable Long id, Model model) {
 
-
-    model.addAttribute("images", pictureService.getAllPictures(id));
     model.addAttribute("post", postService.getPostById(id));
-
     return "cms/edit-post";
   }
 
@@ -138,7 +135,7 @@ public class CMSController {
 
     Post savedPost = postService.updatePost(post);
 
-    pictureService.saveImage(post.getId(), file);
+    pictureService.savePicture(post.getId(), file);
 
     if (savedPost != null) {
       return "redirect:/cms/admin";

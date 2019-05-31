@@ -11,9 +11,10 @@ import java.util.List;
  */
 public interface PictureService {
 
-  List<String> getAllPictures(Long id);
+  List<Picture> getAllPictures(Long id);
   Picture getPictureById(Long id);
-  void saveImage(Long recipeId, MultipartFile file);
+  boolean savePicture(Long postId, MultipartFile file);
+  //void saveImage(Long recipeId, MultipartFile file);
   boolean deletePictureById(Long id);
   boolean hidePicture(Long id);
 }

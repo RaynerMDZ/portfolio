@@ -5,8 +5,12 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PostService;
 import javassist.bytecode.annotation.NoSuchClassError;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class implements methods from the Post Service.
@@ -69,23 +73,18 @@ public class PostServiceImpl implements PostService {
   @Override
   public Post createPost(Post post) {
 
-    List<Post> posts = getAllPosts();
-
     if (post != null) {
 
       post.setCreatedDate(new Date());
       post.setModifiedDate(new Date());
+      post.setHidden(false);
 
-      if (!posts.contains(post)) {
-
-        try {
-          return postRepository.save(post);
-        } catch (NoSuchClassError e) {
-          e.printStackTrace();
-          return null;
-        }
+      try {
+        return postRepository.save(post);
+      } catch (NoSuchClassError e) {
+        e.printStackTrace();
+        return null;
       }
-      return null;
     }
     return null;
   }

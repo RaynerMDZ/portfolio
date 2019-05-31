@@ -70,19 +70,18 @@
         </div>
     </div>
     <div class="row mb-5 text-center" >
-        <div class="col-md-6 col-lg-3" th:each="image : ${images}">
-            <img src="" th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="" class="img-thumbnail">
+        <div class="col-md-6 col-lg-3" th:each="image : ${post.getPictures()}">
+            <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
+            <div>
+                <a th:href="@{'/cms/' + ${image.getId()} + '/delete-picture'}"><i class="far fa-trash-alt"></i></a>
+            </div>
+            <img th:src="@{${image.getPictureString().toString()}}" src="" alt="" class="img-thumbnail">
         </div>
     </div>
-<!--    <div class="row mb-5 text-center" >-->
-<!--        <div class="col-md-6 col-lg-3">-->
-<!--            &lt;!&ndash;/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/&ndash;&gt;-->
-<!--&lt;!&ndash;            <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <a thref="#" th:href="@{'/cms/' + ${image.getId()} + '/delete-picture'}"><i class="far fa-trash-alt"></i></a>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--            <img th:if="${post.getPictures().size() > 0}" th:src="@{'/show/' + ${post.getId()} + '/image'}" alt="" class="img-thumbnail">-->
-<!--        </div>-->
-<!--    </div>-->
+
+    <div class="col-md-6 col-lg-3">
+        <img th:src="@{~/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg}" alt="" class="img-thumbnail">
+    </div>
 </div>
 
 <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>

@@ -1,4 +1,4 @@
-package com.portfolio.controllers;
+package com.portfolio.controllers.error;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

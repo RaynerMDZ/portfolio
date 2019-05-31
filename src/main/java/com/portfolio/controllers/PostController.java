@@ -27,7 +27,6 @@ public class PostController {
   @GetMapping({"post/{id}", "/index.html/post/{id}", "/index/post/{id}"})
   public String getDetails(@PathVariable Long id, Model model) {
 
-    model.addAttribute("images", pictureService.getAllPictures(id));
     model.addAttribute("post", this.postService.getPostById(id));
     return "post";
   }

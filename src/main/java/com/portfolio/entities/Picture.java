@@ -9,22 +9,14 @@ import javax.persistence.*;
 @Table(name = "pictures", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Picture extends BaseEntity {
 
-  @Lob
-  @Column(name = "picture_bytes", unique = false, nullable = true)
-  @Basic(fetch = FetchType.EAGER)
-  private byte[] pictureBytes;
+//  @Lob
+//  @Column(name = "picture_bytes", unique = false, nullable = true)
+//  @Basic(fetch = FetchType.EAGER)
+//  private byte[] pictureBytes;
 
   @Lob
   @Column(name = "picture_string", unique = false, nullable = true)
   private String pictureString;
-
-  public String getPictureString() {
-    return pictureString;
-  }
-
-  public void setPictureString(String pictureString) {
-    this.pictureString = pictureString;
-  }
 
   @Column(name = "hidden", unique = false, nullable = true)
   private Boolean hidden;
@@ -32,13 +24,13 @@ public class Picture extends BaseEntity {
   @ManyToOne
   private Post post;
 
-  public byte[] getPictureBytes() {
-    return pictureBytes;
-  }
-
-  public void setPictureBytes(byte[] pictureBytes) {
-    this.pictureBytes = pictureBytes;
-  }
+//  public byte[] getPictureBytes() {
+//    return pictureBytes;
+//  }
+//
+//  public void setPictureBytes(byte[] pictureBytes) {
+//    this.pictureBytes = pictureBytes;
+//  }
 
   public Boolean getHidden() {
     return hidden;
@@ -54,5 +46,13 @@ public class Picture extends BaseEntity {
 
   public void setPost(Post post) {
     this.post = post;
+  }
+
+  public String getPictureString() {
+    return pictureString;
+  }
+
+  public void setPictureString(String pictureString) {
+    this.pictureString = pictureString;
   }
 }

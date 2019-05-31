@@ -1,5 +1,7 @@
 package com.portfolio.services.implementations;
 
+import com.portfolio.Util.FileUploader;
+import com.portfolio.Util.Util;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PictureRepository;
@@ -45,15 +47,9 @@ public class PictureServiceImpl implements PictureService {
    * @return list<String>
    */
   @Override
-  public List<String> getAllPictures(Long id) {
+  public List<Picture> getAllPictures(Long id) {
 
-    List<String> images = postService.getPostById(id).getPictures()
-            .stream()
-            .map(picture -> picture.getPictureString())
-            .collect(Collectors.toList());
-
-
-    return images;
+    return postService.getPostById(id).getPictures();
   }
 
   /**
@@ -77,6 +73,28 @@ public class PictureServiceImpl implements PictureService {
       }
     }
     return null;
+  }
+
+  @Override
+  public boolean savePicture(Long postId, MultipartFile file) {
+
+    String extension = FileUploader.getFileExtension(file.getOriginalFilename());
+
+    String name = FileUploader.generateString();
+    Post post = postService.getPostById(postId);
+    Picture picture = new Picture();
+    picture.setHidden(false);
+    picture.setPictureString(Util.IMAGE_URL + name + extension);
+    picture.setPost(post);
+
+    boolean success = FileUploader.pictureUploader(Util.UPLOAD_DIRECTORY, file, name);
+
+    if (success) {
+      pictureRepository.save(picture);
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -116,51 +134,48 @@ public class PictureServiceImpl implements PictureService {
     return false;
   }
 
-  @Override
-  @Transactional
-  public void saveImage(Long id, MultipartFile file) {
-
-    if (file.isEmpty()) {
-      return;
-    }
-
-    log.debug("Received a file");
-
-    try {
-      Post post = postService.getPostById(id);
-      Picture picture = new Picture();
-
-      byte[] bytes = new byte[file.getBytes().length];
-
-      int i = 0;
-
-      for (byte b : file.getBytes()) {
-        bytes[i++] = b;
-      }
-      String encoded = Base64.encodeBase64String(bytes);
-
-      picture.setPictureBytes(bytes);
-      picture.setPost(post);
-      picture.setHidden(false);
-      picture.setPictureString(encoded);
-      post.getPictures().add(picture);
-      Post savedPost = postService.updatePost(post);
-
-      if (savedPost != null) {
-        log.debug("Saved to database.");
-        return;
-      }
-      throw new IOException("Post is null. Not saved.");
-
-    } catch (IOException e) {
-      log.error("Error occurred.", e);
-      e.printStackTrace();
-    }
-  }
-
-  public void renderImageFromDB(Long id) {
-
-  }
+//  @Override
+//  @Transactional
+//  public void saveImage(Long id, MultipartFile file) {
+//
+//    if (file.isEmpty()) {
+//      return;
+//    }
+//
+//    log.debug("Received a file");
+//
+//    try {
+//      Post post = postService.getPostById(id);
+//      Picture picture = new Picture();
+//
+//      byte[] bytes = new byte[file.getBytes().length];
+//
+//      int i = 0;
+//
+//      for (byte b : file.getBytes()) {
+//        bytes[i++] = b;
+//      }
+//      String encoded = Base64.encodeBase64String(bytes);
+//
+//      picture.setPictureBytes(bytes);
+//      picture.setPost(post);
+//      picture.setHidden(false);
+//      picture.setPictureString(encoded);
+//      post.getPictures().add(picture);
+//      Post savedPost = postService.updatePost(post);
+//
+//      if (savedPost != null) {
+//        log.debug("Saved to database.");
+//        return;
+//      }
+//      throw new IOException("Post is null. Not saved.");
+//
+//    } catch (IOException e) {
+//      log.error("Error occurred.", e);
+//      e.printStackTrace();
+//    }
+//  }
+//
 
 }
 

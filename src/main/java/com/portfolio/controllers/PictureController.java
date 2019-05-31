@@ -1,18 +1,7 @@
 package com.portfolio.controllers;
 
-import com.portfolio.Util.Util;
-import com.portfolio.entities.Post;
-import com.portfolio.services.PictureService;
-import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 
 /**
  * Testing Purposes
@@ -21,52 +10,6 @@ import java.io.File;
 @Controller
 public class PictureController {
 
-//  private final PostService postService;
-//  private final PictureService pictureService;
-//
-//  public PictureController(PostService postService, PictureService pictureService) {
-//    this.postService = postService;
-//    this.pictureService = pictureService;
-//  }
-//
-//  @RequestMapping("/image-test")
-//  public String loadPage() {
-//    return "test/image-uploader";
-//  }
-//
-//  @PostMapping("/upload")
-//  public String imageUpload(Model model, @RequestParam("files") MultipartFile file, Long postId) {
-//
-//    boolean success = pictureService.uploadPicture(2L, file);
-//
-//    if (success) {
-//      Post post = postService.getPostById(2L);
-//      model.addAttribute("pictures", post.getPictures());
-//    }
-//
-//    return "test/status";
-//  }
-//
-//  @PostMapping("/uploads")
-//  public String imagesUpload(Model model, @RequestParam("files") MultipartFile[] file, Long postId) {
-//
-//    boolean success = pictureService.uploadPictures(2L, file);
-//
-//    if (success) {
-//      Post post = postService.getPostById(2L);
-//      model.addAttribute("pictures", post.getPictures());
-//    }
-//
-//    return "test/status";
-//  }
-//
-//  public boolean rename(File file) {
-//
-//    String URL = Util.IMAGE_URL + Util.generateString();
-//    File newFile = new File(URL);
-//    file.renameTo(newFile);
-//    return true;
-//  }
 }
 
 
