@@ -12,7 +12,7 @@ public class BaseEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", unique = true, nullable = false)
+  @Column(name = "id", unique = true, nullable = false, columnDefinition = "SMALLINT")
   private Long id;
 
   public Long getId() {

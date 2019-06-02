@@ -10,11 +10,11 @@ VALUES ('Heyy', 'Ecommerce', 'https://github.com/RaynerMDZ/CodingAllDay', 'www.c
 INSERT Into post (title, description, github, link, created_date, modified_date, hidden)
 VALUES ('Bodyyyyyy', 'Ecommerce', 'https://github.com/RaynerMDZ/CodingAllDay', 'www.codingallday.com', DATE '2015-12-17', DATE '2015-12-17', TRUE);
 
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 1);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13775619_1303810049629476_7334488499882055937_n.jpg', 2);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13575777_1289731891037292_8714502999353837639_o.jpg', 3);
--- INSERT INTO pictures (pictureBytes, post_id) VALUES ('../images/uploads/13775619_1303810049629476_7334488499882055937_n.jpg', 4);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg', FALSE, 1);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg', FALSE, 2);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg', FALSE, 3);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/13dccf2dc9454ef5a4a7dfb98084384c.jpg', FALSE, 4);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 1);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 2);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 3);
+INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 4);

@@ -69,6 +69,8 @@
             </div>
         </div>
     </div>
+
+    <br>
     <div class="row mb-5 text-center" >
         <div class="col-md-6 col-lg-3" th:each="image : ${post.getPictures()}">
             <!--/*@thymesVar id="getFirstPicture" type="com.portfolio.entities.Post"*/-->
@@ -79,8 +81,24 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-3">
-        <img th:src="@{/img/13dccf2dc9454ef5a4a7dfb98084384c.jpg}" alt="" class="img-thumbnail">
+    <div class="card-body">
+
+        <div th:if="${post.getComments() != null}" th:each="comment : ${comments}">
+            <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
+
+            <a th:href="@{'/cms/' + ${comment.getId()} + '/delete-comment'}"><i class="far fa-trash-alt float-right" style="padding-left: 1rem;"></i></a>
+            <p class="text-secondary text-center float-right" th:text="${#dates.format(comment.getCreationDate(), 'MM-dd-yyyy HH:mm')}">15 Minutes Ago</p>
+
+
+            <div class="clearfix"></div>
+            <div class="container">
+                <div class="container">
+                    <p th:text="${comment.getBody()}"></p>
+                </div>
+            </div>
+
+            <br>
+        </div>
     </div>
 </div>
 

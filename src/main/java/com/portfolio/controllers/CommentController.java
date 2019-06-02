@@ -33,9 +33,17 @@ public class CommentController {
   }
 
   @PostMapping
-  @RequestMapping("/delete-comment")
-  public String deleteComment() {
+  @RequestMapping("/cms/{id}/delete-comment")
+  public String deleteComment(@PathVariable String id) {
 
-    return "comment/create-comment";
+    Comment comment = commentService.getCommentById(Long.valueOf(id));
+
+    Long postId = comment.getPost().getId();
+
+    boolean success = commentService.deleteCommentById(comment.getId());
+
+    if (success) return "redirect:/cms/" + postId  + "/edit-post";
+
+    return "error/error-500";
   }
 }

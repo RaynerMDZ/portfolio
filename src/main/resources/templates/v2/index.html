@@ -81,6 +81,7 @@
 
         <div class="row">
             <div class="col-lg-4" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
+
                 <div th:if="${!post.isHidden()}">
                     <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle shadow"
                          alt="Generic placeholder image" width="170" height="170" src="#">
@@ -89,6 +90,7 @@
                     <p><a class="btn btn-outline-secondary shadow" th:href="@{${'post/' + post.getId()}}"
                           role="button">View details &raquo;</a></p>
                 </div>
+
             </div>
         </div>
 

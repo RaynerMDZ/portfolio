@@ -1,6 +1,7 @@
 package com.portfolio.controllers.cms;
 
 import com.portfolio.Util.CustomException;
+import com.portfolio.entities.Comment;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.services.PictureService;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -51,6 +55,11 @@ public class CMSController {
   @RequestMapping("/{id}/edit-post")
   public String editPostForm(@PathVariable Long id, Model model) {
 
+    Post post = this.postService.getPostById(id);
+    List<Comment> commentList = post.getComments();
+    Collections.reverse(commentList);
+
+    model.addAttribute("comments", commentList);
     model.addAttribute("post", postService.getPostById(id));
     return "cms/edit-post";
   }
@@ -165,12 +174,14 @@ public class CMSController {
   @RequestMapping("/{id}/delete-picture")
   public String deletePicture(@PathVariable Long id) {
 
+    Picture picture = pictureService.getPictureById(id);
+
     boolean success = pictureService.deletePictureById(id);
 
     if (!success) {
       return "error/error-500";
     }
-    return "redirects:/cms/edit-post";
+    return "redirect:/cms/" + picture.getPost().getId() + "/edit-post";
   }
 
   /**

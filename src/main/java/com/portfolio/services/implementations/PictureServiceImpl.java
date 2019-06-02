@@ -11,6 +11,7 @@ import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -103,7 +104,17 @@ public class PictureServiceImpl implements PictureService {
    */
   @Override
   public boolean deletePictureById(Long id) {
-    return false;
+
+    Picture picture = this.getPictureById(id);
+
+    try {
+      pictureRepository.delete(picture);
+      return true;
+
+    } catch (HibernateJdbcException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   /**

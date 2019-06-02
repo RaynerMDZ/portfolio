@@ -17,7 +17,7 @@ public class Post extends BaseEntity {
   @Column(name = "title", unique = false, nullable = true)
   private String Title;
 
-  @Column(name = "description", unique = false, nullable = true)
+  @Column(name = "description", unique = false, nullable = true, length = 1000)
   private String description;
 
   @Column(name = "github", unique = false, nullable = true)

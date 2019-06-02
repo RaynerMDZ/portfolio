@@ -57,7 +57,7 @@
 
                     <div th:if="${post.getComments() != null}" th:each="comment : ${comments}">
                         <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
-                        <p class="text-secondary text-center float-right" th:text="${comment.getCreationDate()}">15 Minutes Ago</p>
+                        <p class="text-secondary text-center float-right" th:text="${#dates.format(comment.getCreationDate(), 'MM-dd-yyyy HH:mm')}">15 Minutes Ago</p>
                         <div class="clearfix"></div>
 
                         <div class="container">
@@ -66,6 +66,8 @@
                                 </p>
                             </div>
                         </div>
+
+                        <br>
                     </div>
                 </div>
 
