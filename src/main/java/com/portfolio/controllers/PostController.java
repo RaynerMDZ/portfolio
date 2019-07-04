@@ -6,8 +6,10 @@ import com.portfolio.services.CommentService;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -31,9 +33,15 @@ public class PostController {
     this.commentService = commentService;
   }
 
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+  }
+
   @GetMapping
   @RequestMapping({"/post/{id}"})
   public String getDetails(@PathVariable Long id, Model model) {
+
 
     Post post = this.postService.getPostById(id);
     List<Comment> commentList = post.getComments();

@@ -34,21 +34,24 @@
                 <!--Comment Form-->
                 <div class="card-body">
                     <form class="form" role="form" th:object="${comment}" th:action="@{${postID} + '/create-comment'}" method="POST">
+
                         <div class="form-group">
                             <label class="form-control-label">Name:</label>
-                            <input type="text" class="form-control" th:field="*{name}" placeholder="Insert your name here.">
+                            <div>
+                                <input type="text" class="form-control" maxlength="15" th:field="*{name}" placeholder="Insert your name here.">
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label">Comment:</label>
-                            <textarea class="form-control" type="text" th:field="*{body}" placeholder="Type Something." rows="3"></textarea>
+                            <div>
+                                <textarea class="form-control" type="text" maxlength="500" th:field="*{body}" placeholder="Type Something." rows="3"></textarea>
+                            </div>
                         </div>
 
                             <a class="float-right ml-2">
-                                <!--                                <i class="far fa-comment-dots"></i> Comment-->
                                 <input type="submit" value="submit" class="btn btn-secondary">
                             </a>
-
                     </form>
                 </div>
 

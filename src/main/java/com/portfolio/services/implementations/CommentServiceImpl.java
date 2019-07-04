@@ -6,7 +6,10 @@ import com.portfolio.entities.Post;
 import com.portfolio.repositories.CommentRepository;
 import com.portfolio.services.CommentService;
 import com.portfolio.services.PostService;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +27,11 @@ public class CommentServiceImpl implements CommentService {
   public CommentServiceImpl(CommentRepository repository, PostService postService) {
     this.repository = repository;
     this.postService = postService;
+  }
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
   }
 
   /**
@@ -61,8 +69,9 @@ public class CommentServiceImpl implements CommentService {
     if (comment == null) return null;
 
     if (comment.getBody().equals("")) return null;
-
+    if (comment.getBody().isEmpty()) return null;
     if (comment.getName().equals("")) return null;
+    if (comment.getName().equals(" ")) return null;
 
     Post post = postService.getPostById(postID);
 

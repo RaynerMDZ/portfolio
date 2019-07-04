@@ -1,6 +1,7 @@
 package com.portfolio.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -10,9 +11,11 @@ import java.util.Date;
 @Table(name = "comments", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class Comment extends BaseEntity {
 
-  @Column(name = "name", unique = false, nullable = true, length = 25)
+  @Size(min=2, max=15, message="Name must be between 2 and 15 characters")
+  @Column(name = "name", unique = false, nullable = true)
   private String name;
 
+  @Size(min=5, max=500, message="body must be at least 5 characters")
   @Column(name = "body", unique = false, nullable = true, length = 500)
   private String body;
 

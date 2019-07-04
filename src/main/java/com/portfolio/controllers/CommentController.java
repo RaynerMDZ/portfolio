@@ -4,6 +4,7 @@ import com.portfolio.entities.Comment;
 import com.portfolio.services.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,13 @@ public class CommentController {
     this.commentService = commentService;
   }
 
-  @PostMapping("post/{id}/create-comment")
-  public String createComment(@ModelAttribute("comment") Comment comment, @PathVariable String id) {
+  @RequestMapping("post/{id}/create-comment")
+  @PostMapping
+  public String createComment(@ModelAttribute("comment") Comment comment, BindingResult bindingResult, @PathVariable String id) {
+
+    if (bindingResult.hasErrors()) {
+      return "post";
+    }
 
     if (comment != null) {
       commentService.createComment(comment, Long.valueOf(id));
