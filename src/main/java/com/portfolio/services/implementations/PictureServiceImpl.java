@@ -9,24 +9,17 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  *
  */
-@Slf4j
-@Service
 public class PictureServiceImpl implements PictureService {
 
   private final PictureRepository pictureRepository;
@@ -144,50 +137,6 @@ public class PictureServiceImpl implements PictureService {
     }
     return false;
   }
-
-//  @Override
-//  @Transactional
-//  public void saveImage(Long id, MultipartFile file) {
-//
-//    if (file.isEmpty()) {
-//      return;
-//    }
-//
-//    log.debug("Received a file");
-//
-//    try {
-//      Post post = postService.getPostById(id);
-//      Picture picture = new Picture();
-//
-//      byte[] bytes = new byte[file.getBytes().length];
-//
-//      int i = 0;
-//
-//      for (byte b : file.getBytes()) {
-//        bytes[i++] = b;
-//      }
-//      String encoded = Base64.encodeBase64String(bytes);
-//
-//      picture.setPictureBytes(bytes);
-//      picture.setPost(post);
-//      picture.setHidden(false);
-//      picture.setPictureString(encoded);
-//      post.getPictures().add(picture);
-//      Post savedPost = postService.updatePost(post);
-//
-//      if (savedPost != null) {
-//        log.debug("Saved to database.");
-//        return;
-//      }
-//      throw new IOException("Post is null. Not saved.");
-//
-//    } catch (IOException e) {
-//      log.error("Error occurred.", e);
-//      e.printStackTrace();
-//    }
-//  }
-//
-
 }
 
 
