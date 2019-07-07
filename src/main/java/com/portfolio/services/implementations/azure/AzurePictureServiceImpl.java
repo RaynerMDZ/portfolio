@@ -1,4 +1,4 @@
-package com.portfolio.services.implementations;
+package com.portfolio.services.implementations.azure;
 
 import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.OperationContext;
@@ -156,6 +156,9 @@ public class AzurePictureServiceImpl implements PictureService {
     picture.setPost(post);
 
     pictureRepository.save(picture);
+
+    // Deletes the image saved to the server.
+    newFile.delete();
 
     return true;
   }
