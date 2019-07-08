@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -35,23 +36,12 @@ public class CommentServiceImpl implements CommentService {
   }
 
   /**
-   * Returns a List of comments if the list created is not null.
+   * Returns a List of comments.
    * @return List<Comment>
    */
   @Override
   public List<Comment> getAllComments() {
-    try {
-      // Checks if the list returned is not empty.
-      List<Comment> comments = getAllComments();
-      if (comments != null) {
-        return comments;
-      }
-      throw new CustomException("List was returned empty.");
-
-    } catch (CustomException e) {
-      System.out.println(e.getMessage());
-      return null;
-    }
+    return repository.findAll();
   }
 
   /**

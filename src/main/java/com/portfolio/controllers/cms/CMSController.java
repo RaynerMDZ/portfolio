@@ -108,7 +108,9 @@ public class CMSController {
 
     Post savedPost = postService.updatePost(post);
 
-    pictureService.savePicture(post.getId(), file);
+    if (!file.isEmpty()) {
+      pictureService.savePicture(post.getId(), file);
+    }
 
     if (savedPost != null) {
       return "redirect:/cms/admin";

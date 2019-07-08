@@ -12,12 +12,12 @@ import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.DataException;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -62,7 +62,6 @@ public class AzurePictureServiceImpl implements PictureService {
    */
   @Override
   public List<Picture> getAllPictures(Long id) {
-
     return postService.getPostById(id).getPictures();
   }
 
@@ -99,34 +98,22 @@ public class AzurePictureServiceImpl implements PictureService {
   @Override
   public boolean savePicture(Long postId, MultipartFile file) {
 
-    CloudStorageAccount storageAccount;
-    CloudBlobClient blobClient;
     CloudBlobContainer container;
     String URI = "";
 
-    File newFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
-    FileOutputStream fos = null;
-    try {
-      fos = new FileOutputStream( newFile );
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    try {
-      fos.write( file.getBytes() );
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    try {
-      fos.close();
-    } catch (IOException e) {
-      e.printStackTrace();
+    File newFile = convertFile(file);
+
+    if (newFile == null) {
+      return false;
     }
 
     try {
       // Parse the connection string and create a blob client to interact with Blob storage
-      storageAccount = CloudStorageAccount.parse(storageConnectionString);
-      blobClient = storageAccount.createCloudBlobClient();
-      container = blobClient.getContainerReference(containerName);
+      container = azureContainerConnection();
+
+      if (container == null) {
+        return false;
+      }
 
       // Create the container if it does not exist with public access.
       System.out.println("Creating container: " + container.getName());
@@ -141,22 +128,18 @@ public class AzurePictureServiceImpl implements PictureService {
       URI = blob.getUri().toString();
 
 
-    } catch (URISyntaxException | InvalidKeyException | IOException e) {
+    } catch (URISyntaxException | IOException e) {
       e.printStackTrace();
 
     } catch (StorageException ex) {
       System.out.println(String.format("Service error. Http code: %d and error code: %s", ex.getHttpStatusCode(), ex.getErrorCode()));
     }
 
-    Post post = postService.getPostById(postId);
+    boolean success = saveImageWithUri(postId, URI);
 
-    Picture picture = new Picture();
-    picture.setHidden(false);
-    picture.setPictureString(URI);
-    picture.setPost(post);
-
-    pictureRepository.save(picture);
-
+    if (!success) {
+      return false;
+    }
     // Deletes the image saved to the server.
     newFile.delete();
 
@@ -172,15 +155,15 @@ public class AzurePictureServiceImpl implements PictureService {
   public boolean deletePictureById(Long id) {
 
     Picture picture = getPictureById(id);
-    CloudStorageAccount storageAccount;
-    CloudBlobContainer container = null;
-    CloudBlobClient blobClient = null;
+    CloudBlobContainer container;
 
     try {
 
-      storageAccount = CloudStorageAccount.parse(storageConnectionString);
-      blobClient = storageAccount.createCloudBlobClient();
-      container = blobClient.getContainerReference(containerName);
+      container = azureContainerConnection();
+
+      if (container == null) {
+        return false;
+      }
 
       // Separates the URI into an array.
       String[] name = picture.getPictureString().split("/");
@@ -189,10 +172,10 @@ public class AzurePictureServiceImpl implements PictureService {
       // Looks for that name inside the container.
       CloudBlockBlob blob = container.getBlockBlobReference(name[name.length-1]);
 
-      // If the blob exist then it erases it.
       if (blob.exists()) {
         blob.delete();
         System.out.println("Blob with name: " + name[name.length-1] + " Deleted!");
+
       } else {
         throw new CustomException("Blob does not exist");
       }
@@ -201,14 +184,13 @@ public class AzurePictureServiceImpl implements PictureService {
 
       return true;
 
-    } catch (URISyntaxException | InvalidKeyException | CustomException e) {
+    } catch (URISyntaxException | CustomException e) {
       e.printStackTrace();
-      return false;
 
     } catch (StorageException ex) {
       System.out.println(String.format("Service error. Http code: %d and error code: %s", ex.getHttpStatusCode(), ex.getErrorCode()));
-      return false;
     }
+    return false;
   }
 
   /**
@@ -238,5 +220,72 @@ public class AzurePictureServiceImpl implements PictureService {
       }
     }
     return false;
+  }
+
+  /**
+   *
+   * @param postId
+   * @param URI
+   */
+  private boolean saveImageWithUri(Long postId, String URI) {
+    Post post = postService.getPostById(postId);
+
+    Picture picture = new Picture();
+    picture.setHidden(false);
+    picture.setPictureString(URI);
+    picture.setPost(post);
+
+    try {
+      pictureRepository.save(picture);
+      return true;
+    } catch (DataException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  /**
+   *
+   * @return
+   */
+  private CloudBlobContainer azureContainerConnection()  {
+
+    CloudStorageAccount storageAccount;
+    CloudBlobClient blobClient;
+    CloudBlobContainer container;
+
+    try {
+
+      storageAccount = CloudStorageAccount.parse(storageConnectionString);
+      blobClient = storageAccount.createCloudBlobClient();
+      container = blobClient.getContainerReference(containerName);
+      return container;
+
+    } catch (URISyntaxException | InvalidKeyException e) {
+      e.printStackTrace();
+
+    } catch (StorageException ex) {
+      System.out.println(String.format("Service error. Http code: %d and error code: %s", ex.getHttpStatusCode(), ex.getErrorCode()));
+    }
+    return null;
+  }
+
+  /**
+   *
+   * @param file
+   * @return
+   */
+  private File convertFile(MultipartFile file) {
+
+    File newFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+
+    try (FileOutputStream fos = new FileOutputStream(newFile)) {
+      fos.write( file.getBytes());
+      return newFile;
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
