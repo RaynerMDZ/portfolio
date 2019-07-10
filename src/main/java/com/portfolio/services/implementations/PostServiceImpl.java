@@ -1,9 +1,13 @@
 package com.portfolio.services.implementations;
 
+import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PostRepository;
+import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
+import com.portfolio.services.implementations.azure.AzurePictureServiceImpl;
 import javassist.bytecode.annotation.NoSuchClassError;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +24,9 @@ import java.util.Optional;
 public class PostServiceImpl implements PostService {
 
   private final PostRepository postRepository;
+
+  @Autowired
+  private PictureService pictureService;
 
   public PostServiceImpl(PostRepository postRepository) {
     this.postRepository = postRepository;
@@ -129,8 +136,17 @@ public class PostServiceImpl implements PostService {
 
     if (exist(id)) {
       try {
+
+        Post post = getPostById(id);
+
+        for (Picture picture : post.getPictures()) {
+          pictureService.deletePictureById(picture.getId());
+        }
+
         postRepository.deleteById(id);
+
         return true;
+
       } catch (RuntimeException e) {
         e.printStackTrace();
         return false;
