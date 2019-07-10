@@ -9,8 +9,8 @@ import com.portfolio.Util.CustomException;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PictureRepository;
+import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
-import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Service;
@@ -33,11 +33,11 @@ import java.util.Optional;
 public class AzurePictureServiceImpl implements PictureService {
 
   private final PictureRepository pictureRepository;
-  private final PostService postService;
+  private final PostRepository postRepository;
 
-  public AzurePictureServiceImpl(PictureRepository pictureRepository, PostService postService) {
+  public AzurePictureServiceImpl(PictureRepository pictureRepository, PostRepository postRepository) {
     this.pictureRepository = pictureRepository;
-    this.postService = postService;
+    this.postRepository = postRepository;
   }
 
   /**
@@ -47,7 +47,10 @@ public class AzurePictureServiceImpl implements PictureService {
    */
   @Override
   public List<Picture> getAllPictures(Long id) {
-    return postService.getPostById(id).getPictures();
+    if (postRepository.findById(id).isPresent()) {
+      return postRepository.findById(id).get().getPictures();
+    }
+    return null;
   }
 
   /**
@@ -211,9 +214,15 @@ public class AzurePictureServiceImpl implements PictureService {
    *
    * @param postId
    * @param URI
+   * @return
    */
   private boolean saveImageWithUri(Long postId, String URI) {
-    Post post = postService.getPostById(postId);
+    Post post = null;
+    if (postRepository.findById(postId).isPresent()) {
+      post = postRepository.findById(postId).get();
+    }
+
+    if (post == null) return false;
 
     Picture picture = new Picture();
     picture.setHidden(false);
@@ -231,6 +240,8 @@ public class AzurePictureServiceImpl implements PictureService {
 
   /**
    *
+   * @param azureContainerName
+   * @param azureStorageConnectionString
    * @return
    */
   private CloudBlobContainer azureContainerConnection(String azureContainerName, String azureStorageConnectionString)  {

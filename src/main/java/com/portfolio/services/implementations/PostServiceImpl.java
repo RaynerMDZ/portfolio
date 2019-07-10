@@ -24,12 +24,11 @@ import java.util.Optional;
 public class PostServiceImpl implements PostService {
 
   private final PostRepository postRepository;
+  private final PictureService pictureService;
 
-  @Autowired
-  private PictureService pictureService;
-
-  public PostServiceImpl(PostRepository postRepository) {
+  public PostServiceImpl(PostRepository postRepository, PictureService pictureService) {
     this.postRepository = postRepository;
+    this.pictureService = pictureService;
   }
 
   /**
