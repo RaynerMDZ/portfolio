@@ -67,13 +67,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-            <version>8.0.15</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.uploadcare</groupId>
-            <artifactId>uploadcare</artifactId>
-            <version>3.2.0</version>
         </dependency>
 
         <dependency>
@@ -98,12 +91,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>4.3.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-storage</artifactId>
-            <version>1.74.0</version>
         </dependency>
 
         <dependency>

@@ -4,16 +4,16 @@ import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.OperationContext;
 import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.*;
+import com.portfolio.Util.AzureConnection;
 import com.portfolio.Util.CustomException;
 import com.portfolio.entities.Picture;
 import com.portfolio.entities.Post;
 import com.portfolio.repositories.PictureRepository;
-import com.portfolio.repositories.PostRepository;
 import com.portfolio.services.PictureService;
 import com.portfolio.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.DataException;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,26 +33,12 @@ import java.util.Optional;
 @Service
 public class AzurePictureServiceImpl implements PictureService {
 
-  private static final String storageConnectionString =
-          "DefaultEndpointsProtocol=https;AccountName=raynerdevblobstorage;" +
-                  "AccountKey=xzw4mmEStHdG8PIflLLawesgyvdmLJ2STMGJRELNgoDUelNCj/9v87eBv7bh75vk3UIOQH7OrqTUp05EIpPVNw==;" +
-                  "EndpointSuffix=core.windows.net";
-
-  private static final String containerName = "portfolioimages";
-
   private final PictureRepository pictureRepository;
-  private final PostRepository postRepository;
   private final PostService postService;
-  private final ResourceLoader resourceLoader;
 
-  public AzurePictureServiceImpl(PictureRepository pictureRepository,
-                            PostRepository postRepository,
-                            PostService postService,
-                            ResourceLoader resourceLoader) {
+  public AzurePictureServiceImpl(PictureRepository pictureRepository, PostService postService) {
     this.pictureRepository = pictureRepository;
-    this.postRepository = postRepository;
     this.postService = postService;
-    this.resourceLoader = resourceLoader;
   }
 
   /**
@@ -109,7 +95,7 @@ public class AzurePictureServiceImpl implements PictureService {
 
     try {
       // Parse the connection string and create a blob client to interact with Blob storage
-      container = azureContainerConnection();
+      container = azureContainerConnection(AzureConnection.containerName, AzureConnection.storageConnectionString);
 
       if (container == null) {
         return false;
@@ -159,7 +145,7 @@ public class AzurePictureServiceImpl implements PictureService {
 
     try {
 
-      container = azureContainerConnection();
+      container = azureContainerConnection(AzureConnection.containerName, AzureConnection.storageConnectionString);
 
       if (container == null) {
         return false;
@@ -248,7 +234,7 @@ public class AzurePictureServiceImpl implements PictureService {
    *
    * @return
    */
-  private CloudBlobContainer azureContainerConnection()  {
+  private CloudBlobContainer azureContainerConnection(String azureContainerName, String azureStorageConnectionString)  {
 
     CloudStorageAccount storageAccount;
     CloudBlobClient blobClient;
@@ -256,9 +242,9 @@ public class AzurePictureServiceImpl implements PictureService {
 
     try {
 
-      storageAccount = CloudStorageAccount.parse(storageConnectionString);
+      storageAccount = CloudStorageAccount.parse(azureStorageConnectionString);
       blobClient = storageAccount.createCloudBlobClient();
-      container = blobClient.getContainerReference(containerName);
+      container = blobClient.getContainerReference(azureContainerName);
       return container;
 
     } catch (URISyntaxException | InvalidKeyException e) {

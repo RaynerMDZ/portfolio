@@ -19,5 +19,5 @@
 -- INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 3);
 -- INSERT INTO pictures (picture_string, hidden, post_id) VALUES ('/images/ce3b832a5ae8430b8c855effa70e4453.jpg', FALSE, 4);
 
--- INSERT into users (username, password, active) values ('rayner', '123456', 1);
+-- INSERT into users (username, password, active) values ('rayner', '1234', 1);
 -- INSERT into role (role, user_id) values ('ADMIN', 1);
