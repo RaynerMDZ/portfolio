@@ -45,16 +45,4 @@ public class AdminController {
   public String securedHello() {
     return "Secured Hello";
   }
-
-  @GetMapping("/logout")
-  public String logout(HttpServletRequest request, HttpServletResponse response) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-    if (auth != null){
-      new SecurityContextLogoutHandler().logout(request, response, auth);
-    }
-
-    return "redirect:v2/index";
-
-  }
 }
