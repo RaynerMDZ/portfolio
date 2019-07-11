@@ -134,7 +134,7 @@
           <runtime>
             <os>linux</os>
             <javaVersion>jre8</javaVersion>
-            <webContainer>TOMCAT 8.5</webContainer>
+            <webContainer>jre8</webContainer>
           </runtime>
           <deployment>
             <resources>
