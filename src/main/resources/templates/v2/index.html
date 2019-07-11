@@ -89,7 +89,7 @@
                     <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle shadow"
                          alt="Generic placeholder image" width="170" height="170" src="#">
                     <h2 th:text="${post.getTitle()}" >Heading</h2>
-                    <p th:text="${post.getDescription()}" class="text-muted">Description.</p>
+                    <p th:text="${post.getDescription().substring(0, 150) + '...'}" class="text-muted">Description.</p>
                     <p><a class="btn btn-outline-secondary shadow" th:href="@{${'post/' + post.getId()}}"
                           role="button">View details &raquo;</a></p>
                 </div>
