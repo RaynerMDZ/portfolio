@@ -85,13 +85,35 @@
         <div class="row">
             <div class="col-lg-4" th:if="${!posts.isEmpty()}" th:each="post : ${posts}">
 
-                <div th:if="${!post.isHidden()}">
-                    <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle shadow"
-                         alt="Generic placeholder image" width="170" height="170" src="#">
-                    <h2 th:text="${post.getTitle()}" >Heading</h2>
-                    <p th:text="${#strings.abbreviate(post.getDescription(), 150)}" class="text-muted">Description.</p>
-                    <p><a class="btn btn-outline-secondary shadow" th:href="@{${'post/' + post.getId()}}"
-                          role="button">View details &raquo;</a></p>
+<!--                <div th:if="${!post.isHidden()}">-->
+<!--                    <img th:src="@{${post.getFirstPicture()}}" class="rounded-circle shadow"-->
+<!--                         alt="Generic placeholder image" width="170" height="170" src="#">-->
+<!--                    <h2 th:text="${post.getTitle()}" >Heading</h2>-->
+<!--                    <p th:text="${#strings.abbreviate(post.getDescription(), 150)}" class="text-muted">Description.</p>-->
+<!--                    <p><a class="btn btn-outline-secondary shadow" th:href="@{${'post/' + post.getId()}}"-->
+<!--                          role="button">View details &raquo;</a></p>-->
+<!--                </div>-->
+
+<!--                <div class="card" style="width: 18rem;" th:if="${!post.isHidden()}">-->
+<!--                    <img class="card-img-top" th:src="@{${post.getFirstPicture()}}" src="" alt="Card image cap">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title" th:text="${post.getTitle()}">Card title</h5>-->
+<!--                        <p class="card-text" th:text="${#strings.abbreviate(post.getDescription(), 150)}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-primary" th:href="@{${'post/' + post.getId()}}">View details &raquo;</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="card" th:if="${!post.isHidden()}" style="width: 18rem; margin-left: .5rem;">
+                    <img class="card-img-top" src="" th:src="@{${post.getFirstPicture()}}" alt="picture">
+
+                    <div class="card-block">
+                        <h4 class="card-title mt-3" th:text="${post.getTitle()}">Tawshif Ahsan Khan</h4>
+                        <div class="card-text" th:text="${#strings.abbreviate(post.getDescription(), 150)}"></div>
+                    </div>
+                    <div class="card-footer">
+<!--                        <small >Last updated 3 mins ago</small>-->
+                        <button class="btn btn-secondary -align-center btn-sm" th:href="@{${'post/' + post.getId()}}">View details &raquo;</button>
+                    </div>
                 </div>
 
             </div>

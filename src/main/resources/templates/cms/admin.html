@@ -68,8 +68,8 @@
                 <tr>
                     <td><a href="#" th:href="@{'/cms/' + ${post.getId()} + '/edit-post'}" th:text="${post.getTitle()}"></a></td>
                     <td th:text="${post.getPictures().size()}"></td>
-                    <td th:text="${post.getCreatedDate()}"></td>
-                    <td th:text="${post.getModifiedDate()}"></td>
+                    <td th:text="${#dates.format(post.getCreatedDate(), 'MM-dd-yyyy')}"></td>
+                    <td th:text="${#dates.format(post.getModifiedDate(), 'MM-dd-yyyy')}"></td>
                     <td><a href="#" th:href="@{'/cms/' + ${post.getId()} + '/delete-post'}">Delete</a></td>
                     <td><a href="#" th:href="@{'/cms/' + ${post.getId()} + '/hide-post'}" th:text="${post.isHidden()}"></a></td>
                 </tr>
