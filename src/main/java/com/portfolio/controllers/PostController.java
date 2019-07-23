@@ -42,7 +42,6 @@ public class PostController {
   @RequestMapping({"/post/{id}"})
   public String getDetails(@PathVariable Long id, Model model) {
 
-
     Post post = this.postService.getPostById(id);
     List<Comment> commentList = post.getComments();
     Collections.reverse(commentList);
