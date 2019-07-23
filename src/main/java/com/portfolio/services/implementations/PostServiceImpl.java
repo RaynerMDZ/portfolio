@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
     if (id != null) {
       Optional<Post> postOptional = postRepository.findById(id);
       if (postOptional.isPresent()) {
-        return postOptional.orElse(null);
+        return postOptional.get();
       }
     }
     return null;
@@ -133,7 +133,6 @@ public class PostServiceImpl implements PostService {
   @Override
   public boolean deletePostById(Long id) {
 
-    if (exist(id)) {
       try {
 
         Post post = getPostById(id);
@@ -143,15 +142,12 @@ public class PostServiceImpl implements PostService {
         }
 
         postRepository.deleteById(id);
-
         return true;
 
       } catch (RuntimeException e) {
         e.printStackTrace();
         return false;
       }
-    }
-    return false;
   }
 
   /**
