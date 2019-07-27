@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Tangerine&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web|Ubuntu&display=swap');
+
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+header {
+}
+
+header {
+}
+
+header h1 a:hover {
+    color: red;
+}
+
+header h1 {
+    /* font-family: 'Ubuntu' sans-serif; */
+    /* font-family: 'Poiret One', cursive; */
+    /*color: #34282C;*/
+    font-family: 'Tangerine', cursive;
+}
+
+nav a:hover {
+    color: red;
+}
+
+.link-color {
+    font-family: 'Ubuntu', sans-serif;
+    color: #34282C;
+}
+
+.about-me {
+}
+
+.projects {
+}
+
+.about-me h1 {
+    font-family: 'Poiret One', cursive;
+}
+.projects h1 {
+    font-family: 'Poiret One', cursive;
+}
+
+.services {
+    font-family: 'Poiret One', cursive;
+}
+
+.h1-ubuntu {
+    font-family: 'Poiret One', cursive;
+}
+
+.contact {
+
+
+}
+
+.contact h1 {
+    font-family: 'Poiret One', cursive;
+}
+
+.boxed {
+
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #34282C;
+    display: inline-block;
+    color: #333333;
+    font-size: 12px;
+    font-weight: 700;
+    height: 45px;
+    letter-spacing: 1px;
+    line-height: 45px;
+    padding: 0 20px;
+    text-transform: uppercase;
+    transition: .3s;
+    border-radius: 10px;
+}
+
+.boxed:hover {
+    background: red;
+    color: #fff;
+    text-shadow: none;
+}
+
+.service-line {
+    line-height: 1;
+}
+
+.fa-hover:hover {
+    color: red;
+    text-shadow: none;
+}
+
+footer {
+}
+
+footer i {
+    color: #16181b;
+}
+
+footer i:hover {
+    color: red;
+    text-shadow: none;
+}
+
+.post-description {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+}
+

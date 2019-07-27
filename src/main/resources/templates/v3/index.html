@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Rayner Méndez</title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}">
+    <link rel="stylesheet" th:href="@{/v3/css/index.css}">
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<div th:replace="v3/fragments/header.html :: header"></div>
+
+<div th:replace="v3/fragments/navbar.html :: navbar"></div>
+
+<!--    <hr id="banner-separator">-->
+
+<section class="about-me">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 pt-5 pb-5">
+                <div class="text-center">
+                    <h1 class="display-4 text-uppercase font-weight-bold text-dark">About Me</h1>
+                    <hr class="shadow-sm bg-secondary">
+                    <p class="text-secondary">
+                        Full Stack Web Developer. Self-taught. Quickly learn and master new technologies;
+                        successful working as part of a team and independently. Passionate about Web development
+                        and Mobile development.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 pt-5 pb-5">
+                <div class="text-center">
+
+                    <h1 class="display-4 text-uppercase font-weight-bold text-dark">skills</h1>
+
+                    <hr class="shadow-sm bg-secondary">
+
+                    <strong class="text-dark">(Back-end):</strong>
+                    <p class="text-secondary">Java 8, Spring Framework 5, Spring Boot, SQL, Python 3, Azure.</p>
+
+                    <strong class="text-dark">(Front-end):</strong>
+                    <p class="text-secondary">HTML5, CSS3, Angular 7, Thymeleaf, JavaScript, TypeScript, Bootstrap
+                        4.</p>
+
+                    <strong class="text-dark">(Tools):</strong>
+                    <p class="text-secondary">Intellij IDEA, WebStorm, Visual Studio Code, Eclipse, MySQL, Git, CLI,
+                        Agile-Scrum, CircleCI.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="projects bg-light">
+
+    <div class="container pt-5 pb-5">
+
+        <h1 class="text-center display-4 text-uppercase font-weight-bold text-dark">Projects</h1>
+
+        <hr class="shadow-sm bg-secondary">
+
+        <p class="text-center text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam mollitia ex
+            expedita, blanditiis,
+            eius quia praesentium accusantium cumque recusandae eaque laudantium sunt voluptatibus veniam!
+            Reiciendis accusantium aspernatur sint quidem. Ipsam
+        </p>
+
+
+        <div class="row pt-1">
+
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-around text-center" th:if="${!post.isHidden()}" th:each="post : ${posts}">
+
+                <div class="card border-0 shadow-sm" style="width: 18rem;">
+                    <img  th:src="@{${post.getFirstPicture()}}" src="" class="card-img-top" alt="image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${post.getTitle()}">Name</h5>
+                        <hr class="bg-secondary">
+                        <p class="card-text" th:text="${#strings.abbreviate(post.getDescription(), 150)}">Description</p>
+                        <a href="#" class="btn btn-outline-danger custom-radio" th:href="@{${'post/' + post.getId()}}">Read</a>
+                    </div>
+                </div>
+
+            </div>
+
+<!--            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-around text-center">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW1734A_5bce88df98230.jpg"-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Card title</h5>-->
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                            the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-outline-dark">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-around text-center">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW1734A_5bce88df98230.jpg"-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Card title</h5>-->
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                            the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-md-6 col-sm-12 col mb-3 d-flex justify-content-around text-center">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW1734A_5bce88df98230.jpg"-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Card title</h5>-->
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                            the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-md-6 col-sm-12 col mb-3 d-flex justify-content-around text-center">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW1734A_5bce88df98230.jpg"-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Card title</h5>-->
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                            the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-md-6 col-sm-12 col mb-3 d-flex justify-content-around text-center">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW1734A_5bce88df98230.jpg"-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Card title</h5>-->
+<!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                            the card's content.</p>-->
+<!--                        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+        </div>
+    </div>
+</section>
+
+<div class="row pt-5 m-0 m-sm-0 m-md-0">
+
+    <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="container">
+            <h1 class="text-center display-4 text-uppercase services font-weight-bold text-dark">Services</h1>
+
+            <div class="container">
+                <div class="container">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-sm-12 col-md-6 d-flex justify-content-center text-center mb-2 mt-2 mt-md-2 mt-sm-2">
+                                <div class="text-center">
+                                    <i class="fas fa-terminal fa-hover fa-4x"></i>
+                                    <h1 class="service-line">Back-end Development</h1>
+                                    <h4 class="text-muted">The brain of a website</h4>
+                                    <p class="text-muted">I use Java/Spring and JavaScript/Express for backend development.
+                                        I work with Restful APIs and Server Side applications.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12 col-md-6 d-flex justify-content-center text-center mb-2 mt-2 mt-md-2 mt-sm-2">
+                                <div class="text-center">
+                                    <i class="far fa-file-code fa-hover fa-4x"></i>
+                                    <h1 class="service-line">Front-end Development</h1>
+                                    <h4 class="text-muted">The body of a website</h4>
+                                    <p class="text-muted">I work with Angular 2+ to create Single Page Applications.
+                                        Also, I work with thymeleaf.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12 col-md-6 d-flex justify-content-center text-center mb-2 mt-2 mt-md-2 mt-sm-2">
+                                <div class="text-center">
+                                    <i class="fas fa-ruler-combined fa-hover fa-4x"></i>
+                                    <h1 class="service-line">UI/UX Design</h1>
+                                    <h4 class="text-muted">The beauty of a website</h4>
+                                    <p class="text-muted">I design beautiful and responsive websites using "mobile first approach".
+                                        I work with Bootstrap and Material Design.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12 col-md-6 d-flex justify-content-center text-center mb-2 mt-2 mt-md-2 mt-sm-2">
+                                <div class="text-center">
+                                    <i class="fas fa-mobile fa-hover fa-4x"></i>
+                                    <h1 class="service-line">Mobile Development</h1>
+                                    <h4 class="text-muted">Android | IOS</h4>
+                                    <p class="text-muted">I can create your mobile application using the latest technologies
+                                        available in the market.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12">
+
+        <div class="container">
+            <hr class="shadow-sm bg-secondary d-block d-md-none d-lg-none">
+            <h1 class="display-4 text-uppercase services font-weight-bold text-center text-dark">Email Me</h1>
+
+            <div class="container">
+                <div class="container">
+                    <div class="container">
+                        <section class="contact">
+                            <div class="text-center pb-5 pt-5 m-lg-5">
+                                <form>
+                                    <div class="form-group shadow-sm">
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                               placeholder="Enter email:">
+                                    </div>
+                                    <div class="form-group shadow-sm">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password:">
+                                    </div>
+                                    <div class="form-group shadow-sm">
+                                    <textarea name="" id="" cols="10" rows="6" class="form-control"
+                                              placeholder="Message:"></textarea>
+                                    </div>
+                                    <button type="submit" class="boxed shadow-sm">Send Message <i class="ti-arrow-right"></i></button>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="v3/fragments/footer.html :: footer"></div>
+
+
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

@@ -26,6 +26,6 @@ public class indexController {
   @RequestMapping({"", "/", "/index", "/index.html"})
   public String getIndex(Model model) {
     model.addAttribute("posts", portfolioPostService.getAllPosts());
-    return "v2/index";
+    return "v3/index";
   }
 }

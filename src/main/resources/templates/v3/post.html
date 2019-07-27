@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title th:text="${post.getTitle()}">Title</title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}">
+    <link rel="stylesheet" th:href="@{/v3/css/index.css}">
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/webjars/ekko-lightbox/5.2.0/dist/ekko-lightbox.css}" rel="stylesheet" href="">
+
+    <script src="https://kit.fontawesome.com/233ff7c311.js"></script>
+</head>
+<body>
+
+
+<div th:replace="v3/fragments/header.html :: header"></div>
+
+<div th:replace="v3/fragments/navbar.html :: navbar"></div>
+
+<section>
+    <div class="row m-0">
+
+        <div class="col-lg-6 col-md-12 col-sm-12 pt-lg-5 pb-lg-5 pt-md-5 pt-sm-5 pt-5">
+            <div class="container">
+                <div class="container">
+                    <h1 class="text-center display-4 text-uppercase font-weight-bold text-dark h1-ubuntu" th:text="${post.getTitle()}">Name</h1>
+
+                    <div class="row d-flex justify-content-center mt-2">
+
+                        <a href="" class="mr-2" th:href="@{${post.getGitHub().toString()}}" th:if="${!post.getGitHub().isEmpty()}" target="_blank">
+                            <h5 class="text-secondary text-center text-uppercase">
+                                <i class="fab fa-github-square fa-2x"></i>
+                            </h5>
+                        </a>
+
+                        <a href="" class="ml-2" th:href="@{${post.getLink().toString()}}" th:if="${!post.getLink().isEmpty()}" target="_blank">
+                            <h5 class="text-secondary text-center text-uppercase">
+                                <i class="fas fa-link fa-2x"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <p class="text-secondary text-center font-weight-light post-description mt-4 mb-4" style="font-size: 1.2rem;" th:text="${post.getDescription()}"></p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 pt-lg-5 pb-lg-5 pt-md-5 pt-sm-5 pt-5">
+            <div class="container">
+                <div class="container">
+
+<!--                    <h1 class="text-center display-4 text-uppercase font-weight-bold text-dark h1-ubuntu ">Photos</h1>-->
+
+<!--                    <hr class="shadow-sm bg-secondary">-->
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-3 col-md-4 mb-3" th:each="image : ${post.getPictures()}">
+                            <a href="" th:href="@{${image.getPictureString()}}" data-toggle="lightbox" data-gallery="gallery">
+                                <img src="" th:src="@{${image.getPictureString()}}" alt="image" class="img-thumbnail shadow-sm rounded">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 pt-lg-5 pb-lg-5 pt-md-5 pb-md-5 pt-sm-5 pb-sm-5 pt-5 pb-5">
+            <div class="container">
+                <div class="container">
+                    <h3 class="text-center text-uppercase font-weight-bold text-dark h1-ubuntu ">Recent Posts</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="container">
+            <div class="card border-0">
+                <div class="card-body">
+                    <form class="form" role="form" th:object="${comment}" th:action="@{${postID} + '/create-comment'}" method="POST">
+
+                        <div class="form-group">
+                            <label class="form-control-label">Name:</label>
+                            <div>
+                                <input type="text" class="form-control" maxlength="15" th:field="*{name}" placeholder="Insert your name here.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Comment:</label>
+                            <div>
+                                <textarea class="form-control" type="text" maxlength="500" th:field="*{body}" placeholder="Type Something." rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <a class="float-right ml-2">
+                            <input type="submit" value="submit" class="btn btn-secondary">
+                        </a>
+                    </form>
+                </div>
+
+                <!--Comment Section-->
+                <div class="card-body">
+
+                    <div th:if="${post.getComments() != null}" th:each="comment : ${comments}">
+                        <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
+                        <p class="text-secondary text-center float-right" th:text="${#dates.format(comment.getCreationDate(), 'MM-dd-yyyy HH:mm')}">15 Minutes Ago</p>
+                        <div class="clearfix"></div>
+
+                        <div class="container">
+                            <div class="container">
+                                <p th:text="${comment.getBody()}">
+                                </p>
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="v3/fragments/footer.html :: footer"></div>
+
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/webjars/ekko-lightbox/5.2.0/dist/ekko-lightbox.js}"></script>
+<script th:src="@{/v3/javascript/post.js}"></script>
+</body>
+</html>
