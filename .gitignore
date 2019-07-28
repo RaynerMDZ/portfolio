@@ -16,8 +16,12 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-src/main/resources/azure.properties
-src/main/resources/database.properties
+/resources/database.properties
+database.properties
+/resources/azure.properties
+azure.properties
+/src/main/resources/azure.properties
+/src/main/resources/database.properties
 
 ### NetBeans ###
 /nbproject/private/
