@@ -90,9 +90,6 @@ public class AzurePictureServiceImpl implements PictureService {
   @Override
   public boolean savePicture(Long postId, MultipartFile file) {
 
-    System.out.println(azureConnection.containerName);
-    System.out.println(azureConnection.storageConnectionString);
-
     CloudBlobContainer container;
     String URI = "";
 
