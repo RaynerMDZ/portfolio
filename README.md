@@ -1,6 +1,6 @@
 # raynermdz-portfolio.herokuapp.com
 
-[![CircleCI](https://circleci.com/gh/RaynerMDZ/Portfolio.svg?style=svg)](https://circleci.com/gh/RaynerMDZ/Portfolio)
+[![CircleCI](https://circleci.com/gh/RaynerMDZ/Portfolio.svg?style=svg&circle-token=5bf425629230c896eadd85be32901cd2fe487304)](https://circleci.com/gh/RaynerMDZ/Portfolio)
 
 #### Under development.
 
