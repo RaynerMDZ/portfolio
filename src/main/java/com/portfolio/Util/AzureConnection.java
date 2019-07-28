@@ -1,14 +1,20 @@
 package com.portfolio.Util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
 /**
  * @author Rayner MDZ
  */
+@Configuration
+@PropertySource("classpath:azure.properties")
 public class AzureConnection {
 
-  public static final String storageConnectionString =
-          "DefaultEndpointsProtocol=https;AccountName=raynerdevblobstorage;" +
-                  "AccountKey=xzw4mmEStHdG8PIflLLawesgyvdmLJ2STMGJRELNgoDUelNCj/9v87eBv7bh75vk3UIOQH7OrqTUp05EIpPVNw==;" +
-                  "EndpointSuffix=core.windows.net";
+  @Value("${azure.storageConnectionString}")
+  public String storageConnectionString;
 
-  public static final String containerName = "portfolioimages";
+  @Value("${azure.containerName}")
+  public String containerName;
+
 }

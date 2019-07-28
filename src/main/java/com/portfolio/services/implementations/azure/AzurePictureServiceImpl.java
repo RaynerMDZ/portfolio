@@ -34,10 +34,14 @@ public class AzurePictureServiceImpl implements PictureService {
 
   private final PictureRepository pictureRepository;
   private final PostRepository postRepository;
+  private final AzureConnection azureConnection;
 
-  public AzurePictureServiceImpl(PictureRepository pictureRepository, PostRepository postRepository) {
+  public AzurePictureServiceImpl(PictureRepository pictureRepository,
+                                 PostRepository postRepository,
+                                 AzureConnection azureConnection) {
     this.pictureRepository = pictureRepository;
     this.postRepository = postRepository;
+    this.azureConnection = azureConnection;
   }
 
   /**
@@ -86,6 +90,9 @@ public class AzurePictureServiceImpl implements PictureService {
   @Override
   public boolean savePicture(Long postId, MultipartFile file) {
 
+    System.out.println(azureConnection.containerName);
+    System.out.println(azureConnection.storageConnectionString);
+
     CloudBlobContainer container;
     String URI = "";
 
@@ -97,7 +104,7 @@ public class AzurePictureServiceImpl implements PictureService {
 
     try {
       // Parse the connection string and create a blob client to interact with Blob storage
-      container = azureContainerConnection(AzureConnection.containerName, AzureConnection.storageConnectionString);
+      container = azureContainerConnection(azureConnection.containerName, azureConnection.storageConnectionString);
 
       if (container == null) {
         return false;
@@ -147,7 +154,7 @@ public class AzurePictureServiceImpl implements PictureService {
 
     try {
 
-      container = azureContainerConnection(AzureConnection.containerName, AzureConnection.storageConnectionString);
+      container = azureContainerConnection(azureConnection.containerName, azureConnection.storageConnectionString);
 
       if (container == null) {
         return false;
