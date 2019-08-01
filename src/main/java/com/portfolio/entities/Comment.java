@@ -8,7 +8,10 @@ import java.util.Date;
  * Comment Entity that holds all database information.
  */
 @Entity
-@Table(name = "comments", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@Table(name = "comments",
+        uniqueConstraints = {@UniqueConstraint(columnNames = "id")},
+        indexes = @Index(name = "id", columnList = "id")
+)
 public class Comment extends BaseEntity {
 
   @Size(min=2, max=15, message="Name must be between 2 and 15 characters")

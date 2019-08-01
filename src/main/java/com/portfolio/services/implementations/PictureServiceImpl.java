@@ -89,6 +89,11 @@ public class PictureServiceImpl implements PictureService {
     return false;
   }
 
+  @Override
+  public boolean savePictures(Long postId, MultipartFile[] file) {
+    return false;
+  }
+
   /**
    * @param id
    * @return boolean

@@ -1,12 +1,15 @@
 package com.portfolio.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
+/**
+ *
+ */
 @Entity
-@Table(name = "person", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@Table(name = "person",
+        uniqueConstraints = {@UniqueConstraint(columnNames = "id")},
+        indexes = @Index(name = "id", columnList = "id")
+)
 public class Person extends BaseEntity {
 
   @Column(name = "about_me", unique = false, nullable = true)

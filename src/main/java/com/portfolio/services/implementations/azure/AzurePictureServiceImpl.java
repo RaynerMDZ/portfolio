@@ -100,7 +100,7 @@ public class AzurePictureServiceImpl implements PictureService {
     }
 
     try {
-      // Parse the connection string and create a blob client to interact with Blob storage
+      // Parse the connection string and create a blobReference client to interact with Blob storage
       container = azureContainerConnection(azureConnection.containerName, azureConnection.storageConnectionString);
 
       if (container == null) {
@@ -109,15 +109,14 @@ public class AzurePictureServiceImpl implements PictureService {
 
       // Create the container if it does not exist with public access.
       System.out.println("Creating container: " + container.getName());
-      container.createIfNotExists(BlobContainerPublicAccessType.CONTAINER, new BlobRequestOptions(), new OperationContext());
+      createContainer(container);
 
-      //Getting a blob reference
-      CloudBlockBlob blob = container.getBlockBlobReference(newFile.getName());
+      //Getting a blobReference reference
+      CloudBlockBlob blobReference = container.getBlockBlobReference(newFile.getName());
 
-      //Creating blob and uploading file to it
+      //Creating blobReference and uploading file to it
       System.out.println("Uploading the file");
-      blob.uploadFromFile(newFile.getAbsolutePath());
-      URI = blob.getUri().toString();
+      URI = uploadFile(URI, newFile, blobReference);
 
 
     } catch (URISyntaxException | IOException e) {
@@ -136,6 +135,89 @@ public class AzurePictureServiceImpl implements PictureService {
     newFile.delete();
 
     return true;
+  }
+
+  /**
+   *
+   * @param postId
+   * @param files
+   * @return
+   */
+  @Override
+  public boolean savePictures(Long postId, MultipartFile[] files) {
+
+    CloudBlobContainer container;
+    String URI = "";
+
+    try {
+      // Parse the connection string and create a blobReference client to interact with Blob storage
+      container = azureContainerConnection(azureConnection.containerName, azureConnection.storageConnectionString);
+
+      if (container == null) {
+        return false;
+      }
+
+      // Create the container if it does not exist with public access.
+      System.out.println("Creating container: " + container.getName());
+      createContainer(container);
+
+      // Upload files to the Azure storage.
+      for (MultipartFile file : files) {
+
+        File newFile = convertFile(file);
+
+        if (newFile == null) {
+          return false;
+        }
+
+        //Getting a blobReference reference
+        CloudBlockBlob blobReference = container.getBlockBlobReference(newFile.getName());
+
+        //Creating blobReference and uploading file to it
+        System.out.println("Uploading the file");
+        URI = uploadFile(URI, newFile, blobReference);
+
+        boolean success = saveImageWithUri(postId, URI);
+
+        if (!success) return false;
+
+        newFile.delete();
+      }
+
+      return true;
+
+    } catch (URISyntaxException | IOException e) {
+      e.printStackTrace();
+      return false;
+
+    } catch (StorageException ex) {
+      System.out.println(String.format("Service error. Http code: %d and error code: %s", ex.getHttpStatusCode(), ex.getErrorCode()));
+      return false;
+    }
+  }
+
+  /**
+   *
+   * @param URI
+   * @param newFile
+   * @param blob
+   * @return
+   * @throws StorageException
+   * @throws IOException
+   */
+  private String uploadFile(String URI, File newFile, CloudBlockBlob blob) throws StorageException, IOException {
+    blob.uploadFromFile(newFile.getAbsolutePath());
+    URI = blob.getUri().toString();
+    return URI;
+  }
+
+  /**
+   *
+   * @param container
+   * @throws StorageException
+   */
+  private void createContainer(CloudBlobContainer container) throws StorageException {
+    container.createIfNotExists(BlobContainerPublicAccessType.CONTAINER, new BlobRequestOptions(), new OperationContext());
   }
 
   /**
@@ -285,7 +367,7 @@ public class AzurePictureServiceImpl implements PictureService {
 
     } catch (IOException e) {
       e.printStackTrace();
+      return null;
     }
-    return null;
   }
 }

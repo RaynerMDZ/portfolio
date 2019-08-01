@@ -6,7 +6,10 @@ import javax.persistence.*;
  * Picture Entity that holds all database information.
  */
 @Entity
-@Table(name = "pictures", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@Table(name = "pictures",
+        uniqueConstraints = {@UniqueConstraint(columnNames = "id")},
+        indexes = @Index(name = "id", columnList = "id")
+)
 public class Picture extends BaseEntity {
 
 //  @Lob

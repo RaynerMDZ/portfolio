@@ -45,24 +45,6 @@ public class CMSController {
     return "cms/admin";
   }
 
-  /**
-   * When a post is clicked, the server shows a page to edit it.
-   * @param id
-   * @param model
-   * @return String
-   */
-  @GetMapping
-  @RequestMapping("/{id}/edit-post")
-  public String editPostForm(@PathVariable Long id, Model model) {
-
-    Post post = this.postService.getPostById(id);
-    List<Comment> commentList = post.getComments();
-    Collections.reverse(commentList);
-
-    model.addAttribute("comments", commentList);
-    model.addAttribute("post", postService.getPostById(id));
-    return "cms/edit-post";
-  }
 
   /**
    * Opens a new page with empty inputs to create a new post.
@@ -96,26 +78,78 @@ public class CMSController {
   }
 
   /**
+   * When a post is clicked, the server shows a page to edit it.
+   * @param id
+   * @param model
+   * @return String
+   */
+  @GetMapping
+  @RequestMapping("/{id}/edit-post")
+  public String editPostForm(@PathVariable Long id, Model model) {
+
+    Post post = this.postService.getPostById(id);
+    List<Comment> commentList = post.getComments();
+    Collections.reverse(commentList);
+
+    model.addAttribute("comments", commentList);
+    model.addAttribute("post", postService.getPostById(id));
+    return "cms/edit-post";
+  }
+
+//  /**
+//   *
+//   * @param post
+//   * @return String
+//   */
+//  @PostMapping
+//  @RequestMapping("/update-post")
+//  public String updatePost(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile file) {
+//
+//    System.out.println(post.getTitle());
+//
+//    Post savedPost = postService.updatePost(post);
+//
+//    uploadPicture(post, file);
+//
+//    if (savedPost != null) {
+////      return "redirect:/cms/admin";
+//      return "redirect:/cms/" + savedPost.getId() + "/edit-post";
+//    }
+//    return "error/error-500";
+//  }
+
+  //  private void uploadPicture(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile file) {
+//    if (!file.isEmpty()) {
+//      pictureService.savePicture(post.getId(), file);
+//    }
+//  }
+
+  /**
    *
    * @param post
    * @return String
    */
   @PostMapping
   @RequestMapping("/update-post")
-  public String updatePost(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile file) {
+  public String updatePost(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile[] files) {
 
     System.out.println(post.getTitle());
 
     Post savedPost = postService.updatePost(post);
 
-    if (!file.isEmpty()) {
-      pictureService.savePicture(post.getId(), file);
-    }
+    boolean savedPictures = uploadPictures(post, files);
+
+    if (!savedPictures) return "error/error-500";
 
     if (savedPost != null) {
-      return "redirect:/cms/admin";
+//      return "redirect:/cms/admin";
+      return "redirect:/cms/" + savedPost.getId() + "/edit-post";
     }
     return "error/error-500";
+  }
+
+  private boolean uploadPictures(@ModelAttribute("post") Post post, @RequestParam("file") MultipartFile[] files) {
+    return pictureService.savePictures(post.getId(), files);
   }
 
   /**
@@ -151,20 +185,6 @@ public class CMSController {
 
     postService.hidePost(id);
     return "redirect:/cms/admin";
-  }
-
-  /**
-   *
-   * @param id
-   * @param picture
-   * @param model
-   * @return String
-   */
-  @PutMapping
-  @RequestMapping("/{id}/update-picture")
-  public String updatePicture(@PathVariable Long id, @RequestBody Picture picture, Model model) {
-
-    return "fragments/portfolio/{id}/post";
   }
 
   /**
