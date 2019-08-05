@@ -183,6 +183,7 @@ public class AzurePictureServiceImpl implements PictureService {
         // if the image was not saved into the database, the blob is deleted.
         if (!success) {
           blobReference.delete();
+          newFile.delete();
           return false;
         }
 
