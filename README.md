@@ -2,11 +2,11 @@
 
 [![CircleCI](https://circleci.com/gh/RaynerMDZ/Portfolio.svg?style=svg&circle-token=5bf425629230c896eadd85be32901cd2fe487304)](https://circleci.com/gh/RaynerMDZ/Portfolio)
 
-#### Under development.
+#### Completed.
 
 This is my personal site. It contains my information, skills, and projects.
 
-This project will be deployed on a CentOS image using a Docker container.
+This project was deployed to Azure using an App Service, MySQL Database and a Blob Storage.
 
 #### Tech Stack:
 ###### Back-end:
