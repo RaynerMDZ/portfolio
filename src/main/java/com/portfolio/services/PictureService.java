@@ -17,4 +17,6 @@ public interface PictureService {
   boolean savePictures(Long postId, MultipartFile[] file);
   boolean deletePictureById(Long id);
   boolean hidePicture(Long id);
+  String generateString();
+  String getFileExtension(String name);
 }

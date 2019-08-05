@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Rayner MDZ
@@ -93,7 +93,7 @@ public class AzurePictureServiceImpl implements PictureService {
     CloudBlobContainer container;
     String URI = "";
 
-    File newFile = convertFile(file);
+    File newFile = convertFile(file, postId);
 
     if (newFile == null) {
       return false;
@@ -158,13 +158,12 @@ public class AzurePictureServiceImpl implements PictureService {
       }
 
       // Create the container if it does not exist with public access.
-      System.out.println("Creating container: " + container.getName());
       createContainer(container);
 
       // Upload files to the Azure storage.
       for (MultipartFile file : files) {
 
-        File newFile = convertFile(file);
+        File newFile = convertFile(file, postId);
 
         if (newFile == null) {
           return false;
@@ -174,12 +173,18 @@ public class AzurePictureServiceImpl implements PictureService {
         CloudBlockBlob blobReference = container.getBlockBlobReference(newFile.getName());
 
         //Creating blobReference and uploading file to it
+        System.out.println();
         System.out.println("Uploading the file");
         URI = uploadFile(URI, newFile, blobReference);
+        System.out.println(URI);
 
         boolean success = saveImageWithUri(postId, URI);
 
-        if (!success) return false;
+        // if the image was not saved into the database, the blob is deleted.
+        if (!success) {
+          blobReference.delete();
+          return false;
+        }
 
         newFile.delete();
       }
@@ -241,17 +246,24 @@ public class AzurePictureServiceImpl implements PictureService {
 
       // Separates the URI into an array.
       String[] name = picture.getPictureString().split("/");
+//      String nameNoArray = picture.getPictureString().substring(picture.getPictureString().lastIndexOf("/"));
+//
+//
+//      System.out.println();
+//      System.out.println("nameNoArray " + nameNoArray.substring(1));
+//      System.out.println();
 
       // Gets the last element in the array. This will be the name of the blob.
       // Looks for that name inside the container.
       CloudBlockBlob blob = container.getBlockBlobReference(name[name.length-1]);
 
       if (blob.exists()) {
+
         blob.delete();
         System.out.println("Blob with name: " + name[name.length-1] + " Deleted!");
 
       } else {
-        throw new CustomException("Blob does not exist");
+        throw new CustomException("Blob with name " + name[name.length -1] + " does not exist");
       }
 
       pictureRepository.delete(picture);
@@ -303,7 +315,9 @@ public class AzurePictureServiceImpl implements PictureService {
    * @return
    */
   private boolean saveImageWithUri(Long postId, String URI) {
+
     Post post = null;
+
     if (postRepository.findById(postId).isPresent()) {
       post = postRepository.findById(postId).get();
     }
@@ -318,6 +332,7 @@ public class AzurePictureServiceImpl implements PictureService {
     try {
       pictureRepository.save(picture);
       return true;
+
     } catch (DataException e) {
       e.printStackTrace();
       return false;
@@ -357,17 +372,44 @@ public class AzurePictureServiceImpl implements PictureService {
    * @param file
    * @return
    */
-  private File convertFile(MultipartFile file) {
+  private File convertFile(MultipartFile file, Long postId) {
 
-    File newFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+    File newFile = new File("postId_" + postId + "_fileName_" + generateString() + getFileExtension(file.getOriginalFilename()));
 
     try (FileOutputStream fos = new FileOutputStream(newFile)) {
-      fos.write( file.getBytes());
+      fos.write(file.getBytes());
       return newFile;
 
     } catch (IOException e) {
       e.printStackTrace();
       return null;
     }
+  }
+
+  /**
+   * Creates a random name.
+   * @return a random generated string.
+   */
+  @Override
+  public String generateString() {
+    return UUID.randomUUID().toString().replace("-", "");
+  }
+
+  /**
+   * Removes all characters before the last 'DOT' from the name.
+   * @param name as the file name
+   * @return the extension of the file.
+   */
+  @Override
+  public String getFileExtension(String name) {
+
+    String extension;
+    try {
+      extension = name.substring(name.lastIndexOf("."));
+
+    } catch (Exception e) {
+      extension = "";
+    }
+    return extension;
   }
 }

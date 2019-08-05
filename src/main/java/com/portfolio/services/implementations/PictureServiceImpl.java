@@ -140,6 +140,16 @@ public class PictureServiceImpl implements PictureService {
     }
     return false;
   }
+
+  @Override
+  public String generateString() {
+    return null;
+  }
+
+  @Override
+  public String getFileExtension(String name) {
+    return null;
+  }
 }
 
 
