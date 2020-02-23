@@ -19,19 +19,144 @@
     <!-- github calendar css -->
     <link rel="stylesheet" th:href="@{/v4/plugins/github-calendar/dist/github-calendar-responsive.css}" media="screen">
     <!-- github activity css -->
-    <link rel="stylesheet" th:href="@{//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/v4/plugins/github-activity/github-activity-0.1.5.min.css}" media="screen">
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" th:href="@{/v4/css/styles.css}">
 
     <link rel="stylesheet" th:href="@{https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css}"/>
+
+    <link th:href="@{../webjars/ekko-lightbox/5.2.0/dist/ekko-lightbox.css}" rel="stylesheet" href="">
 </head>
 <body>
 
+<header class="header">
+    <div class="container clearfix">
+<!--        <img class="profile-image img-fluid float-left" src="" th:src="@{https://raynerdevblobstorage.blob.core.windows.net/portfolioimages/new.png}" alt="James Lee" height="250" width="250" />-->
+        <div class="profile-content align-content-center align-items-center">
+            <h1 class="name text-dark text-center">Rayner E Mendez Garcia</h1>
+            <h2 class="desc text-dark text-center">Software Engineer | IT Specialist | Cloud Developer</h2>
+            <ul class="social list-inline text-center">
+                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow"></i></a></li>
+            </ul>
+        </div><!--//profile-->
+    </div><!--//container-->
+</header><!--//header-->
+
+<div class="container sections-wrapper">
+    <div class="row">
+
+        <div class="primary col-lg-8 col-12">
+
+            <section class="latest section">
+                <div class="section-inner">
+                    <div class="content">
+
+                        <div class="item featured text-center">
+                            <h3 class="title"><a th:href="@{${'post/' + post.getId()}}" target="_blank" th:text="${post.getTitle()}" >placeholder</a></h3>
+                        </div><!--//item-->
+
+                        <p class="text-secondary text-center font-weight-light post-description mt-4 mb-4" style="font-size: 1.2rem;" th:text="${post.getDescription()}"></p>
+
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </section><!--//section-->
+
+            <section class="latest section">
+                <div class="section-inner">
+                    <div class="content">
+
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <form class="form" role="form" th:object="${comment}" th:action="@{${postID} + '/create-comment'}" method="POST">
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Name:</label>
+                                        <div>
+                                            <input type="text" class="form-control" maxlength="15" th:field="*{name}" placeholder="Insert your name here.">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Comment:</label>
+                                        <div>
+                                            <textarea class="form-control" type="text" maxlength="500" th:field="*{body}" placeholder="Type Something." rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <a class="float-right ml-2">
+                                        <input type="submit" value="submit" class="btn btn-secondary">
+                                    </a>
+                                </form>
+                            </div>
+
+                            <!--Comment Section-->
+                            <div class="card-body">
+
+                                <div th:if="${post.getComments() != null}" th:each="comment : ${comments}">
+                                    <h5 class="float-left"><strong th:text="${comment.getName()}"></strong></h5>
+                                    <p class="text-secondary text-center float-right" th:text="${#dates.format(comment.getCreationDate(), 'MM-dd-yyyy HH:mm')}">15 Minutes Ago</p>
+                                    <div class="clearfix"></div>
+
+                                    <div class="container">
+                                        <div class="container">
+                                            <p th:text="${comment.getBody()}">
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </section><!--//section-->
+
+        </div><!--//primary-->
+
+        <div class="secondary col-lg-4 col-12">
+
+            <section class="latest section">
+                <div class="section-inner">
+                    <div class="content">
+                        <h2 class="heading text-center">Pictures</h2>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-3 col-md-4 mb-3" th:each="image : ${post.getPictures()}">
+                                <a href="" th:href="@{${image.getPictureString()}}" data-toggle="lightbox" data-gallery="gallery">
+                                    <img src="" th:src="@{${image.getPictureString()}}" alt="image" class="img-thumbnail shadow-sm rounded">
+                                </a>
+                            </div>
+                        </div>
+
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </section><!--//section-->
+
+            <section class="section">
+                <div class="section-inner">
+                    <div class="content">
+                        <div class="item featured text-center">
+                            <h3 class="title">Recent Posts</h3>
+                        </div><!--//item-->
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </section><!--//section-->
 
 
+        </div>
+    </div>
+</div>
 
+<!-- ******FOOTER****** -->
+<div th:replace="v4/fragments/footer.html :: footer"></div>
 
 
 
@@ -48,5 +173,8 @@
 <!-- custom js -->
 <script type="text/javascript" th:src="@{/v4/js/main.js}"></script>
 <script th:src="@{https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js}"></script>
+
+<script th:src="@{/webjars/ekko-lightbox/5.2.0/dist/ekko-lightbox.js}"></script>
+<script th:src="@{/v3/javascript/post.js}"></script>
 </body>
 </html>
