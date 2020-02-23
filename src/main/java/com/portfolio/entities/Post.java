@@ -11,7 +11,8 @@ import static javax.persistence.TemporalType.DATE;
  * Post Entity that holds all database information.
  */
 @Entity
-@Table(name = "post",
+@Table(
+        name = "post",
         uniqueConstraints = {@UniqueConstraint(columnNames = "id")},
         indexes = @Index(name = "id", columnList = "id")
 )

@@ -50,7 +50,7 @@ public class PostController {
     model.addAttribute("comment", new Comment());
     model.addAttribute("comments", commentList);
     model.addAttribute("post", this.postService.getPostById(id));
-    return "v3/post";
+    return "v4/post";
   }
 
 

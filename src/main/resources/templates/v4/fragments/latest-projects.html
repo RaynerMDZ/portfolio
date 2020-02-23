@@ -1,0 +1,39 @@
+<section class="latest section" th:fragment="latest-projects">
+    <div class="section-inner">
+        <h2 class="heading text-center">Latest Projects</h2>
+        <div class="content">
+
+            <div class="item featured text-center">
+                <h3 class="title"><a th:href="@{${'post/' + firstPost.getId()}}" target="_blank" th:text="${firstPost.getTitle()}" >Appify</a></h3>
+                <p class="summary" th:text="${#strings.abbreviate(firstPost.getDescription(), 180)}">The perfect Bootstrap 4 admin template for app developers</p>
+                <div class="featured-image has-ribbon">
+                    <a th:href="@{${'post/' + firstPost.getId()}}" target="_blank">
+                        <img class="img-fluid project-image" th:src="@{${firstPost.getFirstPicture()}}" alt="project name" />
+                    </a>
+                    <p><a class="more-link" th:href="@{${'post/' + firstPost.getId()}}" target="_blank"><i class="fas fa-external-link-alt"></i>Find out more</a></p>
+                    <!--                                <div class="ribbon">-->
+                    <!--                                    <div class="text">New</div>-->
+                    <!--                                </div>-->
+                </div>
+            </div><!--//item-->
+
+            <hr class="divider">
+
+            <!--/*@thymesVar id="post" type="com.portfolio.entities.Post"*/-->
+            <div th:each="post : ${posts}">
+                <div class="item row" >
+                    <a class="col-md-4 col-12" th:href="@{${'post/' + post.getId()}}" target="_blank">
+                        <img class="img-fluid project-image" th:src="@{${post.getFirstPicture()}}" alt="project name" />
+                    </a>
+                    <div class="desc col-md-8 col-12">
+
+                        <h3 class="title"><a th:href="@{${'post/' + post.getId()}}" target="_blank" th:text="${post.getTitle()}">placeholder</a></h3>
+                        <p class="mb-2" th:text="${#strings.abbreviate(post.getDescription(), 150)}"></p>
+                        <p><a class="more-link" th:href="@{${'post/' + post.getId()}}" target="_blank"><i class="fas fa-external-link-alt"></i>Find out more</a></p>
+                    </div><!--//desc-->
+                </div><!--//item-->
+            </div>
+
+        </div><!--//content-->
+    </div><!--//section-inner-->
+</section><!--//section-->

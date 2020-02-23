@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rayner Mendez</title>
+
+    <meta name="description" content="Software Engineer Portfolio">
+    <meta name="author" content="Rayner Mendez">
+
+    <link th:href='@{https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic}' rel='stylesheet' type='text/css'>
+    <link th:href='@{https://fonts.googleapis.com/css?family=Montserrat:400,700}' rel='stylesheet' type='text/css'>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}">
+    <script defer th:src="@{/v4/fontawesome/js/all.js}" src=""></script>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" th:href="@{/v4/plugins/bootstrap/css/bootstrap.min.css}" media="screen">
+
+    <!-- github calendar css -->
+    <link rel="stylesheet" th:href="@{/v4/plugins/github-calendar/dist/github-calendar-responsive.css}" media="screen">
+    <!-- github activity css -->
+    <link rel="stylesheet" th:href="@{//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/v4/plugins/github-activity/github-activity-0.1.5.min.css}" media="screen">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/v4/css/styles.css}">
+
+    <link rel="stylesheet" th:href="@{https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css}"/>
+</head>
+<body>
+
+<body>
+<!-- ******HEADER****** -->
+<div th:replace="v4/fragments/header.html :: header"></div>
+
+<div class="container sections-wrapper">
+    <div class="row">
+        <div class="primary col-lg-8 col-12">
+
+            <!-- ******ABOUT****** -->
+            <div th:replace="v4/fragments/about.html :: about"></div>
+
+            <!-- ******LATEST PROJECTS****** -->
+            <div th:replace="v4/fragments/latest-projects.html :: latest-projects"></div>
+
+            <!-- ******CERTIFICATIONS****** -->
+            <div th:replace="v4/fragments/certifications.html :: certifications"></div>
+
+            <!-- ******EXPERIENCE****** -->
+            <div th:replace="v4/fragments/experience.html :: experience"></div>
+
+            <!-- ******GITHUB****** -->
+            <div th:replace="v4/fragments/github.html :: github"></div>
+
+        </div><!--//primary-->
+
+        <div class="secondary col-lg-4 col-12">
+
+            <!-- ******BASIC-INFO****** -->
+            <div th:replace="v4/fragments/basic-info.html :: basic-info"></div>
+
+            <!-- ******SKILLS****** -->
+            <div th:replace="v4/fragments/skills.html :: skills"></div>
+
+<!--            <aside class="testimonials aside section">-->
+<!--                <div class="section-inner">-->
+<!--                    <h2 class="heading">Testimonials</h2>-->
+<!--                    <div class="content">-->
+<!--                        <div class="item">-->
+<!--                            <blockquote class="quote">-->
+<!--                                <p><i class="fas fa-quote-left"></i>James is an excellent software engineer and he is passionate about what he does. You can totally count on him to deliver your projects!</p>-->
+<!--                            </blockquote>-->
+<!--                            <p class="source"><span class="name">Tim Adams</span><br /><span class="title">Curabitur commodo</span></p>-->
+<!--                        </div>&lt;!&ndash;//item&ndash;&gt;-->
+
+<!--                        <p><a class="more-link" href="#"><i class="fas fa-external-link-alt"></i>More on Linkedin</a></p>-->
+
+<!--                    </div>&lt;!&ndash;//content&ndash;&gt;-->
+<!--                </div>&lt;!&ndash;//section-inner&ndash;&gt;-->
+<!--            </aside>&lt;!&ndash;//section&ndash;&gt;-->
+
+            <aside class="education aside section">
+                <div class="section-inner">
+                    <h2 class="heading text-center">Education</h2>
+                    <div class="content">
+
+                        <div class="item">
+                            <h3 class="title"><i class="fas fa-graduation-cap"></i> BTech Computer Systems Technology</h3>
+                            <h4 class="university">CUNY New York City College of Technology <span class="year">(2019-2021)</span></h4>
+                        </div><!--//item-->
+
+                        <div class="item">
+                            <h3 class="title"><i class="fas fa-graduation-cap"></i> A.S. Electrical Engineer</h3>
+                            <h4 class="university">CUNY Bronx Community College <span class="year">(2015-2018)</span></h4>
+                        </div><!--//item-->
+
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </aside><!--//section-->
+
+            <aside class="languages aside section">
+                <div class="section-inner">
+                    <h2 class="heading text-center">Languages</h2>
+                    <div class="content">
+                        <ul class="list-unstyled">
+                            <li class="item">
+                                <span class="title"><strong>English:</strong></span>
+                                <span class="level">Native Speaker <br class="visible-xs"/><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </span>
+                            </li><!--//item-->
+                            <li class="item">
+                                <span class="title"><strong>Spanish:</strong></span>
+                                <span class="level">Native Speaker <br class="visible-sm visible-xs"/><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                            </li><!--//item-->
+                        </ul>
+                    </div><!--//content-->
+                </div><!--//section-inner-->
+            </aside><!--//section-->
+        </div>
+    </div>
+</div>
+
+<!-- ******FOOTER****** -->
+<div th:replace="v4/fragments/footer.html :: footer"></div>
+
+<script>
+    // or enable responsive functionality:
+    GitHubCalendar(".calendar", "RaynerMDZ", { responsive: true });
+    GitHubActivity.feed({ username: "RaynerMDZ", selector: "#feed" });
+</script>
+
+<!-- Javascript -->
+<script type="text/javascript" th:src="@{/v4/plugins/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/v4/plugins/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/v4/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/v4/plugins/jquery-rss/dist/jquery.rss.min.js}"></script>
+<!-- github calendar plugin -->
+<script type="text/javascript" th:src="@{/v4/plugins/github-calendar/dist/github-calendar.min.js}"></script>
+<!-- github activity plugin -->
+<script type="text/javascript" th:src="@{//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js}"></script>
+<script type="text/javascript" th:src="@{/v4/plugins/github-activity/github-activity-0.1.5.min.js}"></script>
+<!-- custom js -->
+<script type="text/javascript" th:src="@{/v4/js/main.js}"></script>
+<script th:src="@{https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js}"></script>
+</body>
+</html>
